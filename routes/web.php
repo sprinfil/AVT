@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PersonaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//HOME
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/','index')->name('home');
+});
+
+//PERSONAS
+Route::controller(PersonaController::class)->group(function () {
+    Route::get('/personas','index')->name('personas');
+    Route::get('/personas/create','create')->name('personas_create');
 });
