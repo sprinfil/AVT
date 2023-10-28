@@ -22,7 +22,7 @@ module.exports = {
          'fuente':'#D1D5DB',
          'rojo':'#EF4444',
          'menu':'#141414',
-         'terciario':"#0C4069",
+         'terciario':"#0B3B61",
          "color-borde":"#113147",
       }
     },
