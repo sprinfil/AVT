@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('referencia2_nombre')->nullable();
             $table->string('referencia2_cel')->nullable();
             $table->string('referencia2_parentesco')->nullable();
+            $table->string('_token')->nullable();
         });
     }
 

@@ -24,4 +24,5 @@ Route::controller(HomeController::class)->group(function () {
 Route::controller(PersonaController::class)->group(function () {
     Route::get('/personas','index')->name('personas');
     Route::get('/personas/create','create')->name('personas_create');
+    Route::post('/personas/store','store')->name('personas_store');
 });

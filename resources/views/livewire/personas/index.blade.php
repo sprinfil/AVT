@@ -42,20 +42,20 @@
           </thead>
           <tbody>
             @foreach($personas as $persona)
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
                     {{$persona->nombreCompleto()}}
                 </th>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 dark:text-fuente">
                     {{$persona->celular}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 dark:text-fuente">
                     {{$persona->rfc}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 dark:text-fuente">
                     {{$persona->curp}}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 dark:text-fuente">
                     {{$persona->direccion}}
                 </td>
             </tr>
