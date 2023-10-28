@@ -33,7 +33,8 @@ class PersonaController extends Controller
     {
         //
         Persona::create($request->all());
-        return redirect('personas');
+        $persona = Persona::orderBy('id', 'desc')->first();
+        return redirect(route('personas_archivos',['persona_id'=>$persona->id]));
     }
 
     /**
