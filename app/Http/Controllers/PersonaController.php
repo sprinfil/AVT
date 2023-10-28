@@ -40,9 +40,10 @@ class PersonaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Persona $persona)
+    public function show(Request $request)
     {
         //
+        return view('vistas.personas.edit',['persona_id'=>$request->persona_id]);
     }
 
     /**

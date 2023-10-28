@@ -21,21 +21,21 @@
   <!--Tabla de datos-->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px]">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       Nombre Completo
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       Celular
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       RFC
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       CURP
                   </th>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       direccion
                   </th>
               </tr>
@@ -43,19 +43,19 @@
           <tbody>
             @foreach($personas as $persona)
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
+                <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$persona->id}})">
                     {{$persona->nombreCompleto()}}
                 </th>
-                <td class="px-6 py-4 dark:text-fuente">
+                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
                     {{$persona->celular}}
                 </td>
-                <td class="px-6 py-4 dark:text-fuente">
+                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
                     {{$persona->rfc}}
                 </td>
-                <td class="px-6 py-4 dark:text-fuente">
+                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
                     {{$persona->curp}}
                 </td>
-                <td class="px-6 py-4 dark:text-fuente">
+                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
                     {{$persona->direccion}}
                 </td>
             </tr>

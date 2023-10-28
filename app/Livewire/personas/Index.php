@@ -28,4 +28,8 @@ class Index extends Component
     {
         $this->render();
     }
+
+    public function edit($persona_id){
+        return redirect(route('personas_edit',['persona_id' => $persona_id]));
+    }
 }

@@ -1,30 +1,20 @@
-@extends('layouts.principal')
+<div class="mx-2 md:mx-[60px] mt-[20px]">
+      <!--Cabecera-->
+      <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden">
+             <!--navegacion superior-->
+        <div class="mx-[10px] md:mx-[50px] mt-[2px] text-fuente text-[20px]">
+            <a href="{{route('personas')}}" class="underline text-blue-500">Personas</a> 
+            / 
+            <a href="" class="underline text-blue-500">{{$persona->nombre}}</a>
+          </div>
 
-@section('titulo')
-    Personas
-@endsection
-
-@section('contenido')
-
-    <div class="mx-2 md:mx-[60px] mt-[20px]">
-            <!--Cabecera-->
-            <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden">
-                    <!--navegacion superior-->
-                <div class="mx-[10px] md:mx-[50px] mt-[2px] text-fuente text-[20px]">
-                    <a href="{{route('personas')}}" class="underline text-blue-500">Personas</a> 
-                    / 
-                    <a href="" class="underline text-blue-500">Nueva persona</a>
-                  </div>
-
-                     <!--Titulo y opciones-->
-                <div class="mx-[10px] md:mx-[50px]  justify-between">
-                <p class="text-fuente text-[40px] mb-[20px]">NUEVA PERSONA</p>
-                <p class="text-fuente ml-[4px] mb-[10px]">Opciones</p>
-                <form action="{{route('personas_store')}}" method="POST" enctype="multipart/form-data">
-                <button class="btn-primary" type="submit">Aceptar</button>
-                <a href="{{route('personas')}}" class="btn-primary bg-rojo py-4">Cancelar</a>
-                </div>
-            </div>
+             <!--Titulo y opciones-->
+        <div class="mx-[10px] md:mx-[50px]  justify-between">
+          <p class="text-fuente text-[40px] mb-[20px]">{{$persona->nombreCompleto()}}</p>
+          <p class="text-fuente ml-[4px] mb-[10px]">Opciones</p>
+          <a href=""><button class="btn-primary">Editar</button></a>
+        </div>
+      </div>
 
             <!--Formulario-->
             <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
@@ -177,6 +167,4 @@
                         
                     </div>
                 </div>
-            </form>
-@endsection
-
+</div>
