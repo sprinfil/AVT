@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/personas','index')->name('personas');
         Route::get('/personas/create','create')->name('personas_create');
         Route::post('/personas/store','store')->name('personas_store');
+        Route::get('/personas/edit/{persona_id}','show')->name('personas_edit');
     });
     
     //ARCHIVOS
