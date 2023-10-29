@@ -11,11 +11,13 @@
     @show
 
     @livewireStyles
-    <title>@yield('titulo')</title>
+    <title>AVT - @yield('titulo')</title>
     @yield('css')
 </head>
 <body class="font-Poppins flex bg-negro-fondo overflow-auto">
-      <!--Animacion de carga-->
+
+    @auth
+        <!--Animacion de carga-->
         @section('loader')
             @include('layouts.loader')
         @show
@@ -24,14 +26,18 @@
         @section('menu')
             @include('layouts.menu')
         @show
+    @endauth
+
     
     <!--Main-->
     <main class="fondo bg-negro-fondo ease-out duration-100 h-screen main-cerrado overflow-auto overflow-x-hidden" id="main" >                
 
+        @auth
             <!--Iconos de acceso rapido-->
             @section('acceso-rapido')
                 @include('layouts.acceso-rapido')
             @show
+        @endauth
 
           
             <!--Seccion del contenido-->

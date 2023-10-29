@@ -13,6 +13,7 @@ module.exports = {
       colors:{
         //'negro-menu': '#5C5470',
         //'negro-menu': '#0882C4',
+        'login-fondo': '#3882F2',
         'negro-menu': '#0C4069',
          'negro-fondo': '#0D4572',
          'secundario': '#29bcb2',
