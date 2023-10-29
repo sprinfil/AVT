@@ -25,8 +25,9 @@
             @endif
 
             <!-- INPUT USERNAME-->
-            <div class="mb-5 flex justify-center">
-                <input 
+            <div class="justify-center mb-5">
+                <div class="w-full flex justify-center">
+                    <input 
                     id="username"
                     name="username"
                     type="username"
@@ -36,14 +37,19 @@
                     @enderror"
                     value="{{old('username')}}" 
                 />
-                @error('username')
-                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-1">{{$message}}</p>
-                @enderror
+                </div>
+                <div class="w-full flex justify-center">
+                    @error('username')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-1 w-[70%]" >{{$message}}</p>
+                    @enderror
+                </div>
+
             </div>
             
             <!-- INPUT PASSWORD-->
-            <div class="mb-5 flex justify-center">
-                <input 
+            <div class="justify-center">
+                <div class="w-full flex justify-center">
+                    <input 
                     id="password"
                     name="password"
                     type="password"
@@ -52,9 +58,12 @@
                     border-red-500
                     @enderror"
                 />
-                @error('password')
-                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-1">{{$message}}</p>
-                @enderror
+                </div>
+                <div class="w-full flex justify-center">
+                    @error('password')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-1 w-[70%]">{{$message}}</p>
+                    @enderror
+                </div>
             </div>
 
             <div class="flex justify-center">
