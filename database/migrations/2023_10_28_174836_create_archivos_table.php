@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('archivos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre')->nullable();
             $table->string('url');
             $table->unsignedBigInteger('persona');
             $table->foreign('persona')->references('id')->on('personas');

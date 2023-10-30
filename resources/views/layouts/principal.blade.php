@@ -14,7 +14,7 @@
     <title>AVT - @yield('titulo')</title>
     @yield('css')
 </head>
-<body class="font-Poppins flex bg-negro-fondo overflow-auto">
+<body class="font-Poppins flex overflow-auto">
 
     @auth
         <!--Animacion de carga-->

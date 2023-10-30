@@ -18,7 +18,7 @@ class Index extends Component
             $query->where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%');
         }
         
-        $personas = $query->orderBy('id')->paginate(8);
+        $personas = $query->orderBy('id')->paginate(7);
         
         return view('livewire.personas.index', compact('personas'));
     }

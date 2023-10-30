@@ -4,7 +4,7 @@
 @vite('resources/css/lightbox.min.css')
 @vite('resources/css/dropzone.css')
 @vite('resources/css/loader.css')
-
+@vite('resources/css/fondo.css')
 
 
 

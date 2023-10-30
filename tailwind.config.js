@@ -19,7 +19,7 @@ module.exports = {
          'secundario': '#29bcb2',
          'fuente-botones': '#D1D5DB',
          'active':'#2CC9BF',
-         'principal':'#12344C',
+         'principal':'#0F2C40',
          'fuente':'#D1D5DB',
          'rojo':'#EF4444',
          'menu':'#141414',

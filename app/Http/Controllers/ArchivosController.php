@@ -17,7 +17,7 @@ class ArchivosController extends Controller
     }
 
     public function store(Request $request){
-
+        
         //guardar archivo y obtener ruta
         $archivo = $request->file('file')->store('public/personas/archivos/'.$request->persona_id);
 
