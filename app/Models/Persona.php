@@ -24,6 +24,7 @@ class Persona extends Model
         'colonia',
         'direccion',
         'rfc',
+        'otros',
         'estado_civil',
         'curp',
         'ine',

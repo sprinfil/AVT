@@ -156,7 +156,7 @@
                         <div>
                             <p class="text-fuente text-[20px] mb-[10px]">Referencia 2</p>
                             <p class="text-fuente">Nombre(s):</p>
-                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_nombre" placeholder="nombre(s)">
+                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_nombre" placeholder="nombre(s)" value="{{old('referencia2_nombre')}}">
                             @error('referencia2_nombre')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                             <p class="text-fuente">Celular:</p>

@@ -26,39 +26,39 @@
                     <!--Primera Columna-->
                       <div>
                           <p class="text-fuente">Nombre(s):</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre" placeholder="nombre(s)" value="{{old('nombre')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre" placeholder="nombre(s)" value="{{old('nombre')}}" wire:model="nombre">
                           @error('nombre')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Apellido Paterno:</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_1" placeholder="Apellido Paterno" value="{{old('apellido_1')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_1" placeholder="Apellido Paterno" value="{{old('apellido_1')}}" wire:model="apellido_1">
                           @error('apellido_1')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Apellido Materno:</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_2" placeholder="Apellido Materno" value="{{old('apellido_2')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_2" placeholder="Apellido Materno" value="{{old('apellido_2')}}" wire:model="apellido_2">
                           @error('apellido_2')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Estado:</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="estado" placeholder="Estado" value="{{old('estado')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="estado" placeholder="Estado" value="{{old('estado')}}" wire:model="estado">
                           @error('estado')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Ciudad:</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad" placeholder="Ciudad" value="{{old('ciudad')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad" placeholder="Ciudad" value="{{old('ciudad')}}" wire:model="ciudad">
                           @error('ciudad')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Celular:</p>
-                          <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="celular" placeholder="celular"  value="{{old('celular')}}" >
+                          <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="celular" placeholder="celular"  value="{{old('celular')}}" wire:model="celular">
                           @error('celular')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Teléfono:</p>
-                          <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="telefono" placeholder="telefono" value="{{old('telefono')}}" >
+                          <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="telefono" placeholder="telefono" value="{{old('telefono')}}" wire:model="telefono">
                           @error('telefono')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Lugar de nacimiento:</p>
-                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="lugar_nac" placeholder="Lugar de nacimiento" value="{{old('lugar_nac')}}" >
+                          <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="lugar_nac" placeholder="Lugar de nacimiento" value="{{old('lugar_nac')}}" wire:model="lugar_nac">
                           @error('lugar_nac')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                           <p class="text-fuente">Fecha de nacimineto:</p>
-                          <input type="date" class="input-pdv w-full mb-3 text-[15px]" name="fecha_nac" placeholder="Fecha de nacimiento" value="{{old('fecha_nac')}}">
+                          <input type="date" class="input-pdv w-full mb-3 text-[15px]" name="fecha_nac" placeholder="Fecha de nacimiento" value="{{old('fecha_nac')}}" wire:model="fecha_nac">
                           @error('fecha_nac')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
             
                       </div>
@@ -66,23 +66,23 @@
                       <div>
             
                         <p class="text-fuente">Nacionalidad:</p>
-                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="nacionalidad" placeholder="Nacionalidad" value="{{old('nacionalidad')}}">
+                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="nacionalidad" placeholder="Nacionalidad" value="{{old('nacionalidad')}}" wire:model="nacionalidad">
                         @error('nacionalidad')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                         <p class="text-fuente">Colonia:</p>
-                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="colonia" placeholder="Colonia" value="{{old('colonia')}}">
+                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="colonia" placeholder="Colonia" value="{{old('colonia')}}" wire:model="colonia">
                         @error('colonia')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                         <p class="text-fuente">Dirección:</p>
-                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="direccion" placeholder="Dirección" value="{{old('direccion')}}">
+                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="direccion" placeholder="Dirección" value="{{old('direccion')}}" wire:model="direccion">
                         @error('direccion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                         <p class="text-fuente">RFC:</p>
-                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc" placeholder="RFC" value="{{old('rfc')}}">
+                        <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc" placeholder="RFC" value="{{old('rfc')}}" wire:model="rfc">
                         @error('rfc')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                         <p class="text-fuente">Estado Civil:</p>
-                         <select class="input-pdv w-full mb-3" name="estado_civil" id="" value="{{old('estado_civil')}}">
+                         <select class="input-pdv w-full mb-3" name="estado_civil" id="" value="{{old('estado_civil')}}" wire:model="estado_civil">
                           <option value="" disabled selected>-- SELECCIONAR --</option>  
                           <option value="SOLTER@" @if(old('estado_civil') === 'SOLTER@') selected @endif>SOLTER@</option>
                           <option value="CASAD@" @if(old('estado_civil') === 'CASAD@') selected @endif>CASAD@</option>
@@ -93,19 +93,19 @@
                          @error('estado_civil')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                          <p class="text-fuente">CURP:</p>
-                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp" placeholder="CURP" value="{{old('curp')}}">
+                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp" placeholder="CURP" value="{{old('curp')}}" wire:model="curp">
                          @error('curp')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                          <p class="text-fuente">INE:</p>
-                         <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine" placeholder="INE" value="{{old('ine')}}">
+                         <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine" placeholder="INE" value="{{old('ine')}}" wire:model="ine">
                          @error('ine')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                          <p class="text-fuente">Ocupación:</p>
-                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="ocupacion" placeholder="Ocupación" value="{{old('ocupacion')}}">
+                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="ocupacion" placeholder="Ocupación" value="{{old('ocupacion')}}" wire:model="ocupacion">
                          @error('ocupacion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                          <p class="text-fuente">Otros:</p>
-                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="otros" placeholder="Otros" value="{{old('otros')}}">
+                         <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="otros" placeholder="Otros" value="{{old('otros')}}" wire:model="otros">
                          @error('otros')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
                       </div>
                       
@@ -124,15 +124,15 @@
                         <div>
                             <p class="text-fuente text-[20px] mb-[10px]">Referencia 1</p>
                             <p class="text-fuente">Nombre(s):</p>
-                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_nombre" placeholder="nombre(s)" value="{{old('referencia1_nombre')}}">
+                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_nombre" placeholder="nombre(s)" value="{{old('referencia1_nombre')}}" wire:model="referencia1_nombre">
                             @error('referencia1_nombre')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                             <p class="text-fuente">Celular:</p>
-                            <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_cel" placeholder="Celular" value="{{old('referencia1_cel')}}">
+                            <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_cel" placeholder="Celular" value="{{old('referencia1_cel')}}" wire:model="referencia1_cel">
                             @error('referencia1_cel')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                             <p class="text-fuente">Prentesco:</p>
-                            <select class="input-pdv w-full mb-3 text-[15px]" name="referencia1_parentesco" value="{{old('referencia1_parentesco')}}" >
+                            <select class="input-pdv w-full mb-3 text-[15px]" name="referencia1_parentesco" wire:model="referencia1_parentesco">
                                 <option value="" disabled selected>-- SELECCIONAR --</option>    
                                 <option value="PADRE" @if(old('referencia1_parentesco') === 'PADRE') selected @endif>PADRE</option>    
                                 <option value="MADRE" @if(old('referencia1_parentesco') === 'MADRE') selected @endif>MADRE</option>    
@@ -146,15 +146,15 @@
                         <div>
                             <p class="text-fuente text-[20px] mb-[10px]">Referencia 2</p>
                             <p class="text-fuente">Nombre(s):</p>
-                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_nombre" placeholder="nombre(s)">
+                            <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_nombre" placeholder="nombre(s)" value="{{old('referencia2_nombre')}}" wire:model="referencia2_nombre">
                             @error('referencia2_nombre')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                             <p class="text-fuente">Celular:</p>
-                            <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_cel" placeholder="Celular" value="{{old('referencia2_cel')}}">
+                            <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_cel" placeholder="Celular" value="{{old('referencia2_cel')}}" wire:model="referencia2_cel">
                             @error('referencia2_cel')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                             <p class="text-fuente">Prentesco:</p>
-                            <select class="input-pdv w-full mb-3 text-[15px]" name="referencia2_parentesco">
+                            <select class="input-pdv w-full mb-3 text-[15px]" name="referencia2_parentesco" wire:model="referencia2_parentesco">
                                 <option value="" disabled selected>-- SELECCIONAR --</option>    
                                 <option value="PADRE" @if(old('referencia2_parentesco') === 'PADRE') selected @endif>PADRE</option>    
                                 <option value="MADRE" @if(old('referencia2_parentesco') === 'MADRE') selected @endif>MADRE</option>    
