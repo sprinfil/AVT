@@ -28,7 +28,7 @@ class PersonaRequest extends FormRequest
             'estado' => 'required|min:1|max:255',
             'ciudad' => 'required|min:1|max:255',
             'estado' => 'required|min:1|max:255',
-            'celular' => 'required||numeric',
+            'celular' => 'required|min:1000000000|max:9999999999|numeric',
             'telefono' => 'required|min:1000000000|max:9999999999|numeric',
             'lugar_nac' => 'required|min:1|max:255',
             'fecha_nac' => 'required',

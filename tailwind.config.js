@@ -24,7 +24,8 @@ module.exports = {
          'rojo':'#EF4444',
          'menu':'#141414',
          'terciario':"#0B3B61",
-         "color-borde":"#113147",
+         "color-borde":"#0B3B61",
+         //"color-borde":"#113147",
       }
     },
   },

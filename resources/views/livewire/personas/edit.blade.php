@@ -1,25 +1,33 @@
+@section('css')
+    @vite('resources/css/dropzone.css')
+@endsection
+
 <div class="mx-2 md:mx-[60px] mt-[20px]">
       <!--Cabecera-->
-      <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden">
+      <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden ">
              <!--navegacion superior-->
-        <div class="mx-[10px] md:mx-[50px] mt-[2px] text-fuente text-[20px]">
+        <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
             <a href="{{route('personas')}}" class="underline text-blue-500">Personas</a> 
             / 
             <a href="" class="underline text-blue-500">{{$persona->nombre}}</a>
           </div>
 
-             <!--Titulo y opciones-->
-        <div class="mx-[10px] md:mx-[50px]  justify-between">
+             <!--Titulo-->
+        <div class="mx-[10px] md:mx-[50px]  justify-between  mt-[20px]">
           <p class="text-fuente text-[40px] mb-[20px]">{{$persona->nombreCompleto()}}</p>
           <p class="text-fuente ml-[4px] mb-[10px]">Opciones</p>
-          <form wire:submit="save">
-          <button class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click = "editar" type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{$lblboton}}</button>
+
+          <!--Opciones-->
+          <div class="mb-[20px]">
+            <form wire:submit="save">
+                <button class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click = "editar" type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{$lblboton}}</button>
+          </div>
         </div>
       </div>
 
                 <!--Contenedor-->
-            <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
-                <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0">
+            <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+                <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
                     <p class="text-fuente text-[20px]">INFORMACIÓN DE LA PERSONA</p>
                 </div>
                   @csrf
@@ -116,8 +124,8 @@
     </div>
 
                 <!--Contenedor-->
-                <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
-                    <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0">
+                <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+                    <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente" >
                         <p class="text-fuente text-[20px]">REFERENCIAS</p>
                     </div>
                     <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
@@ -171,11 +179,18 @@
             </form>
 
               <!--Contenedor-->
-              <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
-                <div class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center">
+              <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+                <div class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
                     <p class="text-fuente text-[20px]">Documentación</p>
                 </div>
-                    <p class="btn-primary rounded-none  h-[35px] w-[120px] mt-[20px] cursor-pointer" wire:click="documentos_alert">+ Agregar</p>
+                    <button class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == "" ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click="toggleArchivos" id="btnAceptar">{{$boton_documentacion}}</button>
+                    <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] {{$esconder_dropzone}}">
+                        <form action="{{route('personas_archivos_store',['persona_id'=>$persona->id])}}"
+                            class="dropzone  rounded-[30px] "
+                            id="my-awesome-dropzone"
+                            >
+                        </form>
+                    </div>
                 <div class=" mt-[1px] overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-md">
                         <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -197,7 +212,7 @@
                               
                               <td class="py-4 px-6 dark:text-fuente cursor-pointer text-left grid grid-cols-1 md:grid-cols-2 text-[16px] " >
                                 <button class="font-medium dark:text-rojo hover:underline" wire:click="eliminar_alert({{'"'. $archivo->url.'"'}},{{$archivo->id}})">Eliminar</button>
-                                <button class="font-medium dark:text-blue-600 hover:underline" >Editar</button>
+                                <button class="font-medium dark:text-blue-600 hover:underline"  wire:click="editar_archivo({{$archivo->id}})">Editar</button>
                               </td>
                           </tr>
                           @endforeach
@@ -206,3 +221,37 @@
                 </div>
             </div>
 </div>
+
+@section('js')
+
+<script src="{{ asset('js/dropzone.min.js') }}"></script>
+<script>
+    let nombres = [];
+    const btnAceptar = $("#btnAceptar");
+
+    Dropzone.options.myAwesomeDropzone = { 
+      headers:{
+        'X-CSRF-TOKEN' : "{{csrf_token()}}"
+      },
+    }
+
+    Dropzone.autoDiscover = false; // Para evitar que Dropzone busque automáticamente elementos con la clase "dropzone".
+        var miDropzone = new Dropzone("#my-awesome-dropzone", {
+
+     
+
+        success: function(file, response) {
+        console.log("Archivo subido con éxito:", file);
+        console.log("Respuesta del servidor:", response);
+        nombres.push(file.name);
+        console.log(nombres);
+      
+        }
+  });
+
+  btnAceptar.click(function(){
+          @this.dispatch('actualizarDocumentos', [nombres] )
+    })
+</script>
+
+@endsection

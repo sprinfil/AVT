@@ -10,3 +10,10 @@ composer require laravel-lang/common --dev
 php artisan lang:add es
 // y finalizamos con el sig. comando:
 php artisan lang:update
+
+Hacer copias de seguridad
+    Crear copia de seguridad nueva
+    php artisan backup:run 
+
+    Ver las copias se seguridad
+     php artisan backup:list

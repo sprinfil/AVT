@@ -49,6 +49,10 @@ class Edit extends Component
     public $url_eliminar;
     public $archivo_eliminar_id;
 
+    //variables para agregar documentacion
+    public $esconder_dropzone = "hidden";
+    public $boton_documentacion = "Agregar";
+
     public function render()
     {
         return view('livewire.personas.edit');
@@ -168,7 +172,41 @@ class Edit extends Component
         $this->dispatch('eliminar_alert', archivo_id:$archivo_id); 
     }
 
-    public function documentos_alert(){
-        $this->dispatch('documentos_alert',persona_id:$this->persona->id); 
+    public function toggleArchivos(){
+        if($this->esconder_dropzone == "hidden"){
+            $this->esconder_dropzone = "";
+            $this->boton_documentacion = "Aceptar";
+        }else{
+            //Aplicar cambios
+
+
+            $this->esconder_dropzone = "hidden";
+            $this->boton_documentacion = "Agregar";
+        }
+    }
+
+    #[On('actualizarDocumentos')] 
+    public function actualizarDocumentos($nombres){
+        $contador = 0;
+        $archivos = Archivo::where('persona',$this->persona->id)
+        ->whereNull('nombre')->get();
+        if(count($nombres) > 0){
+            foreach($archivos as $archivo){
+                $archivo->nombre = $nombres[$contador];
+                $archivo->save();
+                $contador = $contador + 1;
+            }
+            redirect(route('personas_edit',['persona_id' => $this->persona->id]));
+        }
+      
+    }
+
+    public function editar_archivo($archivo_id){
+        $this->dispatch('editar_archivo', archivo_id:$archivo_id);
+    }
+
+    #[On('ActualizarArchivos')] 
+    public function actualizarArchivos(){
+        redirect(route('personas_edit',['persona_id' => $this->persona->id]));
     }
 }

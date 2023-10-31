@@ -26,10 +26,22 @@ class SubirArchivos extends Component
     public function actualizarDocumentos($nombres){
         $contador = 0;
         $archivos = Archivo::where('persona',$this->persona_id)->get();
-        foreach($archivos as $archivo){
-            $archivo->nombre = $nombres[$contador];
-            $archivo->save();
-            $contador = $contador + 1;
+        if(count($nombres) > 0){
+            foreach($archivos as $archivo){
+                $archivo->nombre = $nombres[$contador];
+                $archivo->save();
+                $contador = $contador + 1;
+            }
         }
+
+    }
+
+    public function aceptar(){
+        $this->dispatch('success');
+    }
+
+    #[On('salir')] 
+    public function salir(){
+        return redirect(route('personas'));
     }
 }
