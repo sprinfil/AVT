@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Artisan;
 
 class ConfiguracionController extends Controller
@@ -67,15 +67,9 @@ class ConfiguracionController extends Controller
 
     public function actualizar_sistema(){
 
-        $command = 'git pull origin jeremy';
-
-        Artisan::call($command);
-        
-        // Obtén la salida del comando si es necesario
-        $output = Artisan::output();
-        
-        // Imprime la salida si es necesario
-        echo $output;
-
+        $actualizar_sistema = Process::run('git pull origin main');
+        Artisan::call('migrate');
+        $result = $actualizar_sistema->output();
+        echo $result;
     }
 }
