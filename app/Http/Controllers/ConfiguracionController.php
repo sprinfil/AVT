@@ -66,7 +66,6 @@ class ConfiguracionController extends Controller
     }
 
     public function actualizar_sistema(){
-
         $actualizar_sistema = Process::run('git pull origin main');
         Artisan::call('migrate');
         $result = $actualizar_sistema->output();

@@ -1,7 +1,7 @@
 <!--Seccion menu-->
-<nav class="close-nav text-gray-300 w-[250px] ease-out duration-500 bg-negro-menu h-screen shadow-lg" id="menu" >
+<nav class="close-nav text-gray-300 min-[1180px]:w-[250px] w-screen ease-out duration-500 bg-negro-menu h-screen shadow-lg" id="menu" >
     <div class="container px-3">   <!--seccion superior-->
-        <div class="flex justify-between h-full pt-3 ">
+        <div class="flex justify-between h-full pt-3">
             <div class="">
                        <!--Texto Superior-->
                  <p class=" font-bold texto ocultar-texto text-[20px] text-fuente">MENU</p>
@@ -9,6 +9,11 @@
                  @if (session()->has('usuario'))
                  <p class="text-[17px] texto mt-2 ocultar-texto">{{session('usuario')->nombre}} - {{session('usuario')->Tipo}}</p>
                  @endif
+           </div>
+           <div>
+              <svg xmlns="http://www.w3.org/2000/svg" id="boton-toggle-menu" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-auto px-3 cursor-pointer active:bg-active bg-principal border border-solid border-principal text-fuente-botones ease-out duration-500 p-1 min-w-[60px] shadow-md ocultar-boton-responsive" onclick="togglemenu()">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
            </div>
   
        </div>
