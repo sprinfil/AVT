@@ -9,7 +9,7 @@
     <!--Cabecera-->
     <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden">
         <div class="mx-[10px] md:mx-[50px]  justify-between">
-            <p class="text-fuente text-[40px] mb-[20px]">CONFIGURACiÓN</p>
+            <p class="text-fuente text-[40px] mb-[20px]">CONFIGURACIÓN</p>
         </div>
     </div>
 
