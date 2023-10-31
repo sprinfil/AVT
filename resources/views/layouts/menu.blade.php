@@ -59,14 +59,14 @@
                     </a>
 
                   <!--///////Configuracion//////-->
-                  <a href="">
+                  <a href="{{route('configuracion')}}">
                     <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md" onclick="">
                       <!--Icono-->
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                       </svg>                                  
                           <!--Texto-->
-                    <li class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones"><span>Configuracion</span></li>
+                    <li class="text-center font-400 ml-[30px] texto ocultar-texto text-[19px] h-[30px] mt-[5px] text-fuente-botones"><span>Configuración</span></li>
                       </div> 
                   </a>
 

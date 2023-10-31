@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ArchivosController;
+use App\Http\Controllers\ConfiguracionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,11 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/personas/subir-archivos/store/{persona_id}','store')->name('personas_archivos_store');
     });
 
+    //CONFIGURACION
+    Route::controller(ConfiguracionController::class)->group(function () {
+        Route::get('/configuracion','index')->name('configuracion');
+        Route::get('/configuracion/actualizar','actualizar_sistema')->name('actualizar_sistema');
+    });
 
     //LOGOUT
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
