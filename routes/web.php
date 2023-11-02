@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(ConfiguracionController::class)->group(function () {
         Route::get('/configuracion','index')->name('configuracion');
         Route::get('/configuracion/actualizar','actualizar_sistema')->name('actualizar_sistema');
+        Route::get('/configuracion/copia-seguridad','generar_copia_seguridad')->name('generar_copia_seguridad');
     });
 
     //LOGOUT

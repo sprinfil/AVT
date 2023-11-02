@@ -71,4 +71,13 @@ class ConfiguracionController extends Controller
         $result = $actualizar_sistema->output();
         echo $result;
     }
+
+    public function generar_copia_seguridad(){
+        //Artisan::call('backup:run');
+        //Artisan::call('Illuminate/Support/Facades/Artisan backup:run');
+        //$output = Artisan::output();
+
+        $output = exec('php Illuminate/Support/Facades/Artisan backup:run');
+        return $output;
+    }
 }
