@@ -1,0 +1,28 @@
+Cambiar de idioma el proyecto 
+    //Paso1->Para instalar la carpeta lang/en
+    //Consola:
+    php artisan lang:publish
+
+    //Paso2->Para agregar paquetes “lang” en caso de utilizar idiomas diferente al ingles, debes ingresar el siguiente comando:
+    //Consola:
+    composer require laravel-lang/common --dev
+    //después el idioma que desees(si es español)
+    php artisan lang:add es
+    // y finalizamos con el sig. comando:
+    php artisan lang:update
+
+Hacer copias de seguridad
+    Crear copia de seguridad nueva
+        php artisan backup:run 
+
+    Ver las copias se seguridad
+        php artisan backup:list
+
+
+Documentacion para configurar cuenta google
+    https://www.tutsmake.com/laravel-10-backup-store-on-google-drive/
+
+Documentacion para hacer backups con drive
+    https://medium.com/@al_imran_ahmed/how-to-backup-your-laravel-application-in-google-drive-2803c31756a0
+    Recuerda que en el archivo de configuracion de backups (backup.php) en la parte de name hay que dejarlo como cadena vacia ""
+    la ruta para configurar la frecuencia de generar backups es en app/console/kernel.php

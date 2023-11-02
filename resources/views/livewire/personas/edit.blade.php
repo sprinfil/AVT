@@ -1,5 +1,6 @@
 @section('css')
     @vite('resources/css/dropzone.css')
+    @vite('resources/css/personas/personas.css')
 @endsection
 
 <div class="mx-2 md:mx-[60px] mt-[20px]">
@@ -183,10 +184,10 @@
                 <div class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
                     <p class="text-fuente text-[20px]">Documentación</p>
                 </div>
-                    <button class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == "" ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click="toggleArchivos" id="btnAceptar">{{$boton_documentacion}}</button>
-                    <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] {{$esconder_dropzone}}">
+                    <button class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == "" ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click="toggleArchivos" id="btnDocumentacionAceptar">{{$boton_documentacion}}</button>
+                    <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] overflow-hidden transition-transform" style="{{$estilo_dropzone}} {{$toggle_animacion_dropzone}}">
                         <form action="{{route('personas_archivos_store',['persona_id'=>$persona->id])}}"
-                            class="dropzone  rounded-[30px] "
+                            class="dropzone rounded-[30px]"
                             id="my-awesome-dropzone"
                             >
                         </form>
@@ -227,7 +228,7 @@
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
 <script>
     let nombres = [];
-    const btnAceptar = $("#btnAceptar");
+    const btnDocumentacionAceptar = $("#btnDocumentacionAceptar");
 
     Dropzone.options.myAwesomeDropzone = { 
       headers:{
@@ -249,7 +250,7 @@
         }
   });
 
-  btnAceptar.click(function(){
+  btnDocumentacionAceptar.click(function(){
           @this.dispatch('actualizarDocumentos', [nombres] )
     })
 </script>

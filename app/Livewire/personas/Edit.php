@@ -53,6 +53,13 @@ class Edit extends Component
     public $esconder_dropzone = "hidden";
     public $boton_documentacion = "Agregar";
 
+    //variables para esconder o mostrar la documentacion
+    public $estilo_dropzone = "animation-duration: 0.3s;
+                               animation-timing-function: ease-in-out; 
+    ";
+
+    public $toggle_animacion_dropzone = "height: 0px; display:none";
+
     public function render()
     {
         return view('livewire.personas.edit');
@@ -175,11 +182,11 @@ class Edit extends Component
     public function toggleArchivos(){
         if($this->esconder_dropzone == "hidden"){
             $this->esconder_dropzone = "";
+            $this->toggle_animacion_dropzone = "animation-name: crecer;";
             $this->boton_documentacion = "Aceptar";
         }else{
             //Aplicar cambios
-
-
+            $this->toggle_animacion_dropzone = "animation-name: cerrar; height: 0px; border: 0px";
             $this->esconder_dropzone = "hidden";
             $this->boton_documentacion = "Agregar";
         }

@@ -1,0 +1,17 @@
+@keyframes crecer {
+    0% {
+      height: 0px;
+    }
+    100% {
+      height: 150px; 
+    }
+  }
+
+  @keyframes cerrar {
+    0% {
+      height: 150px; 
+    }
+    100% {
+      height: 0px;
+    }
+  }

@@ -1,0 +1,17 @@
+idcliente
+143806300358-9h4holq47tg7pg4523cc8nqru57j7vsl.apps.googleusercontent.com
+
+secreto del cliente
+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
+
+refresh token
+1//04OTezDrZjRV7CgYIARAAGAQSNwF-L9IrX-z6ZFA3MLXTIkT4oYlPxbLu8q_2qnZDTUI10ecCXwO6ynl4va9Oz4bsYq1SqaafoVg
+
+json
+{"web":{"client_id":"143806300358-9h4holq47tg7pg4523cc8nqru57j7vsl.apps.googleusercontent.com","project_id":"avt2023-403915","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["https://developers.google.com/oauthplayground","https://avt.com"]}}
+
+Cuenta de google
+avtsurcode@gmail.com
+
+Contrasena
+TacosAlPastor23$
