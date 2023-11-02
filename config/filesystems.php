@@ -58,9 +58,9 @@ return [
 
         'google' => [
             'driver' => 'google',
-            'clientId' => '143806300358-9h4holq47tg7pg4523cc8nqru57j7vsl.apps.googleusercontent.com',
-            'clientSecret' => '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',
-            'refreshToken' => '1//04OTezDrZjRV7CgYIARAAGAQSNwF-L9IrX-z6ZFA3MLXTIkT4oYlPxbLu8q_2qnZDTUI10ecCXwO6ynl4va9Oz4bsYq1SqaafoVg',
+            'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
             'folder' => env('GOOGLE_DRIVE_FOLDER'), // without folder is root of drive or team drive
             //'teamDriveId' => env('GOOGLE_DRIVE_TEAM_DRIVE_ID'),
         ],

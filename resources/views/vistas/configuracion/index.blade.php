@@ -14,11 +14,11 @@
     </div>
 
         <!--CONTENEDOR PRINCIPAL-->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-[100px]">
 
 
         <!--COPIA DE SEGURIDAD-->
-        <div class="h-full bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full">
+        <div class="h-full bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full ">
 
             <div class="w-full h-[50px] bg-principal rounded-md  py-8 px-7 flex justify-center items-center mt-0  border-b border-fuente">
                 <p class="text-fuente text-[12px] md:text-[15px]">COPIA DE SEGURIDAD</p>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <!--COPIA DE SEGURIDAD-->
+        <!--ACTUALIZACIONES-->
         <div class="h-full bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full">
 
             <div class="w-full h-[50px] bg-principal rounded-md  py-8 px-7 flex justify-center items-center mt-0  border-b border-fuente">

@@ -68,16 +68,15 @@ class ConfiguracionController extends Controller
     public function actualizar_sistema(){
         $actualizar_sistema = Process::run('git pull origin main');
         Artisan::call('migrate');
-        $result = $actualizar_sistema->output();
+
+        $result = $actualizar_sistema->output() ." ". Artisan::output();
         echo $result;
     }
 
     public function generar_copia_seguridad(){
-        //Artisan::call('backup:run');
-        //Artisan::call('Illuminate/Support/Facades/Artisan backup:run');
-        //$output = Artisan::output();
+        Artisan::call('backup:run');
+        $output = Artisan::output();
 
-        $output = exec('php Illuminate/Support/Facades/Artisan backup:run');
         return $output;
     }
 }
