@@ -54,7 +54,7 @@
             <div class=" px-7 py-7 gap-x-20 grid grid-rows-2">
             <!--Primera fila-->
                 <div>
-                    <p class="text-fuente text-[15px] ">Buscar nuevas actualizaciones.</p>
+                    <p class="text-fuente text-[15px] ">Buscar nuevas actualizaciones. Versión actual (v 1.0.0)</p>
                 </div>
                 <!--segunda fila-->
                 <div>
