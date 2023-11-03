@@ -119,3 +119,6 @@ Modificar los permisos
     sudo chmod -R 777 /var/www/AVT/storage 
     sudo chown -R www-data.www-data /var/www/AVT
     sudo chown -R sprinfil.sprinfil /var/www/AVT
+
+Agregar directorio seguro para git
+    git config --global --add safe.directory /var/www/AVT
