@@ -26,3 +26,5 @@ Documentacion para hacer backups con drive
     https://medium.com/@al_imran_ahmed/how-to-backup-your-laravel-application-in-google-drive-2803c31756a0
     Recuerda que en el archivo de configuracion de backups (backup.php) en la parte de name hay que dejarlo como cadena vacia ""
     la ruta para configurar la frecuencia de generar backups es en app/console/kernel.php
+
+    

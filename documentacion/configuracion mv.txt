@@ -1,0 +1,121 @@
+Cambiar la ip de servidor ubuntu
+    https://serverspace.io/es/support/help/how-to-configure-static-ip-address-on-ubuntu-18-04/
+
+actualizar sistema
+    sudo apt upgrade
+
+paquete para ver la ip (ifocnfig)
+    sudo apt install net-tools 
+
+instalar ssh
+    sudo apt install ssh 
+
+instalar descompresor 
+    sudo apt install zip unzip software-properties-common 
+
+instalar php
+    sudo apt install php 
+
+paquetes de php
+    (cambiar las verisones segun la version del php)
+    sudo apt install php8.1-gd php8.1-mbstring php8.1-xml php8.1-zip 
+
+instalar apache y activar modulo de php 
+    sudo apt install apache2 libapache2-mod-php8.1
+
+instalar mysql y modulo de mysql para php
+    sudo apt install mysql-server php8.1-mysql 
+
+Instalar curl 
+    sudo apt install curl 
+
+Instalar composer (si se tarda espera)
+    curl -s https://getcomposer.org/installer | php
+
+Mueve y renombar composer para ser ejecutable por el usuario 
+    sudo mv composer.phar /usr/local/bin/composer
+
+Da permisos de ejecucion a composer 
+    sudo chmod +x /usr/local/bin/composer 
+
+Abre el archivo .bashrc para su edicion, este archivo contiene 
+configuracion sobre los comandos que puede ejecutar el usuario. 
+    sudo nano .bashrc 
+    agregar debajo de esac 
+    export PATH="$PATH:$HOME/.config/composer/vendor/bin" 
+
+Compila el archivo para poderlo utilizar 
+    source ~/.bashrc
+
+cambio los permiso de www
+    cd /var 
+    sudo chmod 777 www
+
+Instalar laravel
+    cd www 
+    composer global require laravel/installer
+    (si ocurre un error con composer ejecuta: sudo apt-get install php-curl)
+
+Instalar Proyecto
+    git clone https://github.com/sprinfil/AVT
+    composer install --ignore-platform-reqs
+    cp .env.example .env
+    php artisan key:generate
+    php artisna storage:link
+
+Creando la base de datos
+    sudo mysql -u root
+    CREATE DATABASE avt; 
+    CREATE USER 'avtuser'@'localhost' IDENTIFIED BY 'TacosAlPastor23$';
+    GRANT ALL ON avt.* to 'avtuser'@'localhost';
+    FLUSH PRIVILEGES; 
+
+Agregar en el .env
+    DB_DATABASE=avt
+    DB_USERNAME=avtuser
+    DB_PASSWORD=TacosAlPastor23$
+
+Configurar apache para mostrar la pagina
+    cd /etc/apache2/sites-enabled/
+    sudo cp 000-default.conf  000-default.conf.back
+    sudo nano 000-default.conf
+    
+    agregar los bloques de codigo:
+    
+        <VirtualHost *:80>
+                ServerName 192.168.1.33
+                ServerAlias www.avt.dev
+                ServerAdmin webmaster@localhost
+                DocumentRoot /var/www/AVT/public
+
+                <Directory /var/www/AVT/public>
+                        Options Indexes FollowSymLinks MultiViews
+                        AllowOverride All
+                        Order allow,deny
+                        Allow from all
+                        Require all granted
+                </Directory>
+
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </VirtualHost>
+
+Activar modulo rewirte en apache
+    sudo a2enmod rewrite 
+    sudo systemctl restart apache2 
+
+Instalamos nvm para manejar nodejs
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+    source ~/.bashrc
+    nvm --version
+    nvm install node
+
+    (hacer esto solo si se necesit auna version especifica de node)
+    nvm install 14.18.1 // Node LTS
+    nvm use 14.18.1
+
+Modificar los permisos
+    sudo chmod -R 755 /var/www/AVT
+    sudo chmod -R 777 /var/www/AVT/storage 
+    sudo chown -R www-data.www-data /var/www/AVT
+    sudo chown -R sprinfil.sprinfil /var/www/AVT
