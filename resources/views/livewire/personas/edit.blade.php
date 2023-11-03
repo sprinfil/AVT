@@ -180,7 +180,7 @@
             </form>
 
               <!--Contenedor-->
-              <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+              <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[120px] ">
                 <div class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
                     <p class="text-fuente text-[20px]">Documentación</p>
                 </div>
@@ -192,7 +192,7 @@
                             >
                         </form>
                     </div>
-                <div class=" mt-[1px] overflow-x-auto">
+                <div class=" mt-[1px] overflow-x-auto no-scrollbar mb-[50px]">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-md">
                         <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
