@@ -66,8 +66,10 @@ class ConfiguracionController extends Controller
     }
 
     public function actualizar_sistema(){
+        Process::run('git add .');
+        Process::run('git commit -m "nada"');
         Process::run('sudo chown -R sprinfil.sprinfil /var/www/AVT');
-        $actualizar_sistema = Process::run('git pull origin main');
+        $actualizar_sistema = Process::run('git pull --rebase origin main');
         Process::run('sudo chown -R www-data.www-data /var/www/AVT');
         Artisan::call('migrate');
 
