@@ -66,12 +66,18 @@ class ConfiguracionController extends Controller
     }
 
     public function actualizar_sistema(){
-        Process::run('sudo chown -R sprinfil.sprinfil /var/www/AVT');
-        $actualizar_sistema = Process::run('sudo git pull --rebase origin main');
-        Process::run('sudo chown -R www-data.www-data /var/www/AVT');
-        //Artisan::call('migrate');
+        //Process::run('sudo chown -R sprinfil.sprinfil /var/www/AVT');
+        exec('sudo chown -R sprinfil.sprinfil /var/www/AVT');
 
-        $result = $actualizar_sistema->output() ." ". Artisan::output();
+        //$actualizar_sistema = Process::run('sudo git pull --rebase origin main');
+        $actualizar_sistema = exec('sudo git pull --rebase origin main');
+
+        //Process::run('sudo chown -R www-data.www-data /var/www/AVT');
+        exec('sudo chown -R www-data.www-data /var/www/AVT');
+
+        Artisan::call('migrate');
+
+        $result = $actualizar_sistema ." ". Artisan::output();
         echo $result;
     }
 
