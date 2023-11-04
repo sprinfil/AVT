@@ -19,6 +19,7 @@ instalar php
 paquetes de php
     (cambiar las verisones segun la version del php)
     sudo apt install php8.1-gd php8.1-mbstring php8.1-xml php8.1-zip 
+    sudo apt install php8.1-bcmath
 
 instalar apache y activar modulo de php 
     sudo apt install apache2 libapache2-mod-php8.1
@@ -61,7 +62,7 @@ Instalar Proyecto
     composer install --ignore-platform-reqs
     cp .env.example .env
     php artisan key:generate
-    php artisna storage:link
+    php artisan storage:link
 
 Creando la base de datos
     sudo mysql -u root
@@ -122,3 +123,6 @@ Modificar los permisos
 
 Agregar directorio seguro para git
     git config --global --add safe.directory /var/www/AVT
+
+Agregar esto al .env
+    DB_DUMP_COMMAND='/usr/bin/'
