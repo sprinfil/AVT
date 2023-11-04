@@ -67,7 +67,6 @@ class ConfiguracionController extends Controller
 
     public function actualizar_sistema(){
         Process::run('sudo chown -R sprinfil.sprinfil /var/www/AVT');
-        Process::run('sudo git config --global credential.helper store');
         $actualizar_sistema = Process::run('sudo git pull --rebase origin main');
         Process::run('sudo chown -R www-data.www-data /var/www/AVT');
         Artisan::call('migrate');

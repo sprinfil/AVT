@@ -61,8 +61,8 @@ Instalar Proyecto
     git clone https://github.com/sprinfil/AVT
     composer install --ignore-platform-reqs
     cp .env.example .env
-    php artisan key:generate
-    php artisan storage:link
+    php artisan key:generate                               
+    php artisan storage:link            
 
 Creando la base de datos
     sudo mysql -u root

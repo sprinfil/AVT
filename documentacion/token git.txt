@@ -1,1 +1,4 @@
 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
+
+pot si no quiere hacer pull
+sudo git reset --hard HEAD~1
