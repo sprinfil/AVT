@@ -121,8 +121,13 @@ Modificar los permisos
     sudo chown -R www-data.www-data /var/www/AVT
     sudo chown -R sprinfil.sprinfil /var/www/AVT
 
+
 Agregar directorio seguro para git
     git config --global --add safe.directory /var/www/AVT
 
 Agregar esto al .env
     DB_DUMP_COMMAND='/usr/bin/'
+
+Comandos para hacer el pull
+    sudo git reset --hard HEAD~1 (por si no quiere hacer pull)
+    git pull --rebase origin main 2>&1
