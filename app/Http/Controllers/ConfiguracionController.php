@@ -66,14 +66,9 @@ class ConfiguracionController extends Controller
     }
 
     public function actualizar_sistema(){
-        //Process::run('sudo chown -R sprinfil.sprinfil /var/www/AVT');
-        //exec('sudo chown -R sprinfil.sprinfil /var/www/AVT');
+        //estos caracteres: 2>&1 sirven para mostrar el resultado del comando --rebase sirve para que resuleva conflictos automaticamente
 
-        //$actualizar_sistema = Process::run('sudo git pull --rebase origin main');
         $actualizar_sistema = exec('git pull --rebase origin main 2>&1');
-
-        //Process::run('sudo chown -R www-data.www-data /var/www/AVT');
-        //exec('sudo chown -R www-data.www-data /var/www/AVT');
 
         Artisan::call('migrate');
 
@@ -84,7 +79,6 @@ class ConfiguracionController extends Controller
     public function generar_copia_seguridad(){
         Artisan::call('backup:run');
         $output = Artisan::output();
-
         return $output;
     }
 }
