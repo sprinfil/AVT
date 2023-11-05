@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PersonaController;
@@ -33,6 +34,14 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/','index')->name('home');
     });
     
+    //USUARIOS
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/usuarios','index')->name('usuarios');
+        // Route::get('/usuarios/create','create')->name('usuarios_create');
+        Route::post('/usuarios/store','store');
+        // Route::get('/usuarios/edit/{persona_id}','show')->name('usuarios_edit');
+    });
+
     //PERSONAS
     Route::controller(PersonaController::class)->group(function () {
         Route::get('/personas','index')->name('personas');
