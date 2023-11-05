@@ -71,7 +71,7 @@ class ConfiguracionController extends Controller
 
         //$actualizar_sistema = Process::run('sudo git pull --rebase origin main');
         $output = [];
-        $actualizar_sistema = exec('sudo git pull --rebase origin main', $output);
+        $actualizar_sistema = exec('git pull --rebase origin main', $output);
 
         //Process::run('sudo chown -R www-data.www-data /var/www/AVT');
         //exec('sudo chown -R www-data.www-data /var/www/AVT');
