@@ -70,14 +70,15 @@ class ConfiguracionController extends Controller
         //exec('sudo chown -R sprinfil.sprinfil /var/www/AVT');
 
         //$actualizar_sistema = Process::run('sudo git pull --rebase origin main');
-        $actualizar_sistema = exec('sudo git pull --rebase origin main');
+        $output = " hola";
+        $actualizar_sistema = exec('sudo git pull --rebase origin main', $output);
 
         //Process::run('sudo chown -R www-data.www-data /var/www/AVT');
         //exec('sudo chown -R www-data.www-data /var/www/AVT');
 
         Artisan::call('migrate');
 
-        $result = $actualizar_sistema ." ". Artisan::output();
+        $result = $actualizar_sistema ." ". Artisan::output() . " ". $output;
         echo $result;
     }
 
