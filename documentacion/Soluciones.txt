@@ -27,4 +27,17 @@ Documentacion para hacer backups con drive
     Recuerda que en el archivo de configuracion de backups (backup.php) en la parte de name hay que dejarlo como cadena vacia ""
     la ruta para configurar la frecuencia de generar backups es en app/console/kernel.php
 
-    
+Solucionar el error de ssh en el servidor
+    primero entrar como ususario www-data
+    sudo -u www-data bash
+
+    crear una llave ssh
+    ssh-keygen
+
+    y luego das de alta la clave en github
+
+para las copias de seguridad la ruta de mysqldump es esta para el servidor ubuntu
+    DB_DUMP_COMMAND='/usr/bin/'
+
+Para cuando salga el error de livewire:not found hay que usar este comando (para refrescar las rutas de las clases livewire)
+    composer dump-autoload

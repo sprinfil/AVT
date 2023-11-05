@@ -78,7 +78,7 @@ class ConfiguracionController extends Controller
         Artisan::call('migrate');
 
         $result = $actualizar_sistema ." ". Artisan::output();
-        echo $result;
+        echo $result . "Refresque la pagina para aplicar los cambios";
     }
 
     public function generar_copia_seguridad(){
