@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 @foreach($usuarios as $usuario)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $usuario->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $usuario->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$usuario->id}})">
                         {{$usuario->name}}
                     </th>
