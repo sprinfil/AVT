@@ -78,7 +78,7 @@ class ConfiguracionController extends Controller
 
         Artisan::call('migrate');
 
-        $result = $actualizar_sistema ." ". Artisan::output() . " ". $output;
+        $result = $actualizar_sistema ." ". Artisan::output() .  " ". implode(' ', $output);
         echo $result;
     }
 
