@@ -68,7 +68,7 @@ class ConfiguracionController extends Controller
     public function actualizar_sistema(){
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando --rebase sirve para que resuleva conflictos automaticamente
 
-        $actualizar_sistema = exec('git pull --rebase origin main 2>&1');
+        $actualizar_sistema = exec('git pull origin main 2>&1');
 
         Artisan::call('migrate');
 
