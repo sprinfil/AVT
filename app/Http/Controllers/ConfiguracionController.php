@@ -73,7 +73,7 @@ class ConfiguracionController extends Controller
 
         Artisan::call('migrate');
 
-        $result = $actualizar_sistema ." ".$npm_build." " Artisan::output();
+        $result = $actualizar_sistema ." ".$npm_build." ". Artisan::output();
         echo $result . "Refresque la pagina para aplicar los cambios";
 
     }
