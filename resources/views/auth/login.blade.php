@@ -1,7 +1,7 @@
 @extends('layouts.principal')
 
 @section('titulo')
-    Iniciar Sesi&oacute;
+    Iniciar Sesi&oacute;n
 @endsection
 
 @section('contenido')
