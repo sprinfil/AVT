@@ -110,7 +110,8 @@ Instalamos nvm para manejar nodejs
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
     source ~/.bashrc
     nvm --version
-    nvm install node
+    nvm install node 
+    nvm ls para ver la version
 
     (hacer esto solo si se necesit auna version especifica de node)
     nvm install 14.18.1 // Node LTS
