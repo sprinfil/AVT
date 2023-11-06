@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -20,7 +19,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
         Blade::if('admin', function () {
             return auth()->check() && auth()->user()->tipo == 'ADMIN';
         });
