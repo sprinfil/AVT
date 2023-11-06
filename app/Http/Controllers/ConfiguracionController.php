@@ -71,7 +71,17 @@ class ConfiguracionController extends Controller
         $actualizar_sistema = exec('git pull origin main 2>&1');
 
         Artisan::call('migrate');
+        exec('git pull origin main', $output, $returnCode);
 
+        // Verificar la salida y el código de retorno
+        if ($returnCode === 0) {
+            // Comando exitoso
+            echo $output;
+        } else {
+            // Hubo un error
+            echo $output;
+        }
+        
         $result = $actualizar_sistema ." ". Artisan::output();
         echo $result . "Refresque la pagina para aplicar los cambios";
     }
