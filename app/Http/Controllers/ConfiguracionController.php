@@ -67,8 +67,8 @@ class ConfiguracionController extends Controller
 
     public function actualizar_sistema(){
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando 
-        chdir('/var/www/AVT');
-        $actualizar_sistema = exec('git pull origin main 2>&1');
+
+        //$actualizar_sistema = exec('git pull origin main 2>&1');
 
         Artisan::call('migrate');
         exec('git pull origin main', $output, $returnCode);
@@ -76,14 +76,19 @@ class ConfiguracionController extends Controller
         // Verificar la salida y el código de retorno
         if ($returnCode === 0) {
             // Comando exitoso
-            echo $output;
+            foreach($output as $a){
+                $resulato .= $a;
+            }
+            
         } else {
             // Hubo un error
-            echo $output;
+            foreach($output as $a){
+                $resulato .= $a;
+            }
         }
-        
+
         $result = $actualizar_sistema ." ". Artisan::output();
-        echo $result . "Refresque la pagina para aplicar los cambios";
+        echo $result . "Refresque la pagina para aplicar los cambios" . $resulato;
     }
 
     public function generar_copia_seguridad(){
