@@ -131,4 +131,3 @@ Comandos para hacer el pull
     sudo git reset --hard HEAD~1 (por si no quiere hacer pull)
     git pull origin main 2>&1
 
-Prueba323
