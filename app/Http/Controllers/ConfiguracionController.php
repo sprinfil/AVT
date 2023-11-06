@@ -72,7 +72,7 @@ class ConfiguracionController extends Controller
 
         Artisan::call('migrate');
         exec('git pull origin main', $output, $returnCode);
-
+        $resulato = "";
         // Verificar la salida y el código de retorno
         if ($returnCode === 0) {
             // Comando exitoso
