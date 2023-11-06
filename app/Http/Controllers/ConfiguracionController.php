@@ -69,7 +69,7 @@ class ConfiguracionController extends Controller
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando 
 
         //$actualizar_sistema = exec('git pull origin main 2>&1');
-        $actualizar_sistema = exec("git pull git@github.com:sprinfil/AVT.git master");
+        $actualizar_sistema = exec("git pull https://github.com/sprinfil/AVT.git 2>&1");
 
         Artisan::call('migrate');
 
