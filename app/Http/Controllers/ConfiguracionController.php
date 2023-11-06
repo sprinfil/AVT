@@ -68,24 +68,9 @@ class ConfiguracionController extends Controller
     public function actualizar_sistema(){
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando 
 
-        //$actualizar_sistema = exec('git pull origin main 2>&1');
-        $actualizar_sistema = "";
+        $actualizar_sistema = exec('git pull origin main 2>&1');
+
         Artisan::call('migrate');
-        exec('git pull origin main', $output, $returnCode);
-        $resulato = "";
-        // Verificar la salida y el código de retorno
-        if ($returnCode === 0) {
-            // Comando exitoso
-            foreach($output as $a){
-                $resulato .= $a;
-            }
-            
-        } else {
-            // Hubo un error
-            foreach($output as $a){
-                $resulato .= $a;
-            }
-        }
 
         $result = $actualizar_sistema ." ". Artisan::output();
         echo $result . "Refresque la pagina para aplicar los cambios" . $resulato;
