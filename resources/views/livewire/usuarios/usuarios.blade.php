@@ -24,7 +24,7 @@
             <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Nombre Completo
+                        Nombre
                     </th>
                     <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                         Usuario
@@ -50,7 +50,7 @@
                         {{$usuario->tipo}}
                     </td>
                     <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                        <button class="btn-primary  bg-rose-900" wire:click="eliminarUsuario({{ $usuario->id }})">Eliminar</button>
+                        <button class="btn-primary font-400 bg-rojo" wire:click="eliminarUsuario({{ $usuario->id }})">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
@@ -71,9 +71,9 @@
                         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                             <div class="p-2 bg-principal">
                                 @if ($this->editando)
-                                    <h3 class="text-white font-bold text-lg">Editar Usuario</h3>
+                                    <h3 class="text-white font-bold text-lg ml-[17px]">Editar Usuario</h3>
                                 @else
-                                    <h3 class="text-white font-bold text-lg">Agregar Usuario</h3>
+                                    <h3 class="text-white font-bold text-lg ml-[17px]">Agregar Usuario</h3>
                                 @endif
                             </div>
                             <div class="bg-gray-100">
@@ -86,7 +86,7 @@
                                     <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                         <!-- Campos del formulario -->
                                         <div class="mb-4">
-                                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo</label>
+                                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
                                             <input wire:model="name" type="text" id="name" name="name" class="input-pdv">
                                             @error('name') <span class="text-red-500">{{ $message }}</span> @enderror
                                         </div>

@@ -15,7 +15,7 @@ class LoginController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'username' => 'required|min:5',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
@@ -24,7 +24,6 @@ class LoginController extends Controller
         if(!auth()->attempt($request->only('username', 'password'), $request->remember)){
             return back()->with('mensaje', 'Credenciales Incorrectas');
         }
-
         return redirect()->route('home');
     }
 }

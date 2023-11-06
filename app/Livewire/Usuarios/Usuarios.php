@@ -41,7 +41,6 @@ class Usuarios extends Component
         else{
             $this->validate([
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
                 'username' => 'required|unique:users,username',
                 'password' => 'required',
                 'tipo' => 'required',
@@ -91,7 +90,6 @@ class Usuarios extends Component
     public function editar($usuario_id){
         $this->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $this->usuarioEdit->id,
             'username' => 'required|unique:users,username,' . $this->usuarioEdit->id,
             'tipo' => 'required',
         ]);
