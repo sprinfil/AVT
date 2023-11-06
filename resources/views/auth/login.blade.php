@@ -70,7 +70,7 @@
                 <input 
                     type="submit"
                     value="Ingresar"
-                    class=" bg-negro-fondo text-fuente-botones transition-colors cursor-pointer p-3 rounded-lg mt-5 w-[50%]"
+                    class=" bg-negro-fondo text-fuente-botones transition-colors cursor-pointer p-3 rounded-lg mt-5 w-[70%]"
                 />
             </div>
         </form>
