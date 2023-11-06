@@ -216,4 +216,8 @@ class Edit extends Component
     public function actualizarArchivos(){
         redirect(route('personas_edit',['persona_id' => $this->persona->id]));
     }
+
+    public function bajaPersona(){
+        $this->dispatch('bajaPersona', persona_id:$this->persona->id);
+    }
 }

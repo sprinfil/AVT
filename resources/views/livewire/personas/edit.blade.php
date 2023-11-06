@@ -22,6 +22,7 @@
           <div class="mb-[20px]">
             <form wire:submit="save">
                 <button class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click = "editar" type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{$lblboton}}</button>
+                <button class="btn-primary bg-rojo font-400" wire:click="bajaPersona">Dar de baja</button>
           </div>
         </div>
       </div>
