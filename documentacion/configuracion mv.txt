@@ -127,5 +127,8 @@ Agregar directorio seguro para git
     git config --global --add safe.directory /var/www/AVT
 
 Comandos para hacer el pull
+    sudo -u www-data bash
     sudo git reset --hard HEAD~1 (por si no quiere hacer pull)
     git pull origin main 2>&1
+
+Prueba
