@@ -5,8 +5,8 @@
 @endsection
 
 @section('contenido')
-<div class="h-full md:flex md:justify-center md:gap-10 md:items-center p-2">
-    <div class="md:w-4/12 bg-login-fondo p-6 rounded-lg shadow-xl  border-2 border-color-borde">
+<div class="h-full md:flex md:justify-center md:gap-10 md:items-center items-center flex p-2">
+    <div class="md:w-[35%] bg-login-fondo p-6 rounded-lg shadow-xl  border-2 border-color-borde w-full">
 
         <div class="flex justify-center mb-10">
             <svg class="w-[50%] text-terciario" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.2" stroke="currentColor">

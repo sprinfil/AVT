@@ -39,5 +39,9 @@ Solucionar el error de ssh en el servidor
 para las copias de seguridad la ruta de mysqldump es esta para el servidor ubuntu
     DB_DUMP_COMMAND='/usr/bin/'
 
-Para cuando salga el error de livewire:not found hay que usar este comando (para refrescar las rutas de las clases livewire)
+Para cuando salga el error de livewire:not found hay que usar este comando (para refrescar las rutas de las clases livewire), 
+recuerda seguir el estandar psr-4
     composer dump-autoload
+
+Documentacion para ssl de la maquina virtual
+    https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-20-04
