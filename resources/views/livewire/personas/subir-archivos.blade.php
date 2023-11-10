@@ -31,51 +31,54 @@
     <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0 border-b border-fuente">
         <p class="text-fuente text-[20px]">DOCUMENTACIÓN</p>
     </div>
-    <div class=" px-7 py-7 gap-x-20 ">
-    <!--Primera Columna-->
-    <div class="border-2 border-sky-500 border-dashed rounded-[30px]">
-        <form action="{{route('personas_archivos_store',['persona_id'=>$persona_id])}}"
-            class="dropzone  rounded-[30px] "
-            id="my-awesome-dropzone"
-            >
-        </form>
+    <div class=" px-7 py-7 md:gap-y-0 gap-y-10 md:gap-x-10 grid grid-cols-1 md:grid-cols-3">
+            <!--FOTO-->
+            <div>
+                <p class="text-fuente text-[16px] ml-[12px] mb-[20px]">Agregar Fotografia:</p>
+                <div class="border-2 border-sky-500 border-dashed rounded-[30px]">
+                    <form action="{{route('personas_archivos_store_image',['persona_id'=>$persona_id])}}"
+                        class="dropzone  rounded-[30px] "
+                        id="my-awesome-dropzone-2"
+                        >
+                    </form>
+                </div>
+            </div>
+
+        <!--ARCHIVOS-->
+        <div class="col-span-2">
+            <p class="text-fuente text-[16px] ml-[12px] mb-[20px]">Agregar Documentos:</p>
+            <div class="border-2 border-sky-500 border-dashed rounded-[30px] w-full">
+                <form action="{{route('personas_archivos_store',['persona_id'=>$persona_id])}}"
+                    class="dropzone  rounded-[30px] "
+                    id="my-awesome-dropzone"
+                    >
+                </form>
+            </div>
+        </div>
+        
     </div>
-
-
-    </div>
-
 </div>
 
 @section('js')
 
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
 <script>
-    let nombres = [];
     const btnAceptar = $("#btnAceptar");
 
-    Dropzone.options.myAwesomeDropzone = { 
-      headers:{
-        'X-CSRF-TOKEN' : "{{csrf_token()}}"
-      },
-    }
-
     Dropzone.autoDiscover = false; // Para evitar que Dropzone busque automáticamente elementos con la clase "dropzone".
-        var miDropzone = new Dropzone("#my-awesome-dropzone", {
 
-     
+    var miDropzone = new Dropzone("#my-awesome-dropzone", {
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+    });
 
-        success: function(file, response) {
-        console.log("Archivo subido con éxito:", file);
-        console.log("Respuesta del servidor:", response);
-        nombres.push(file.name);
-        console.log(nombres);
-      
-        }
-  });
+    var miDropzone2 = new Dropzone("#my-awesome-dropzone-2", {
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+    });
 
-  btnAceptar.click(function(){
-          @this.dispatch('actualizarDocumentos', [nombres] )
-    })
 </script>
 
 <script src="{{ asset('js/sweetalert.js') }}"></script>

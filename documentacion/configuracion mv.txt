@@ -1,6 +1,3 @@
-Cambiar la ip de servidor ubuntu
-    https://serverspace.io/es/support/help/how-to-configure-static-ip-address-on-ubuntu-18-04/
-
 actualizar sistema
     sudo apt upgrade
 

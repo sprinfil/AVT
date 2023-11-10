@@ -11,24 +11,43 @@ class Persona extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        //informacion personal
         'nombre',
         'apellido_1',
         'apellido_2',
-        'estado',
-        'ciudad',
-        'celular',
-        'telefono',
-        'lugar_nac',
+        'sexo',
         'fecha_nac',
+        
+        //lugar de nacimiento
+        'estado',
+        'municipio',
+        'ciudad_nac',
+        'pais',
+
         'nacionalidad',
-        'colonia',
-        'direccion',
-        'rfc',
-        'otros',
         'estado_civil',
         'curp',
+        'rfc',
         'ine',
         'ocupacion',
+
+        //direccion
+        'calle',
+        'numero_interior',
+        'numero_exterior',
+        'colonia_direccion',
+        'codigo_postal',
+        'estado_direccion',
+        'municipio_direccion',
+        'ciudad',
+        'pais_direccion',
+
+        //contacto
+        'celular',
+        'telefono',
+        'correo',
+
+        //referencias
         'referencia1_nombre',
         'referencia1_cel',
         'referencia1_parentesco',
@@ -36,6 +55,7 @@ class Persona extends Model
         'referencia2_cel',
         'referencia2_parentesco',
         '_token',
+
     ];
     public function nombreCompleto(){
         return $this->nombre." ".$this->apellido_1." ".$this->apellido_2;

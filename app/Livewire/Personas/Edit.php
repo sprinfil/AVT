@@ -2,45 +2,68 @@
 
 namespace App\Livewire\Personas;
 
-use App\Models\Archivo;
-use App\Models\Persona;
 use DateTime;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Archivo;
+use App\Models\Entidad;
+use App\Models\Persona;
 use Livewire\Component;
+use App\Models\Municipio;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Storage;
 
 class Edit extends Component
 {
     //mount
     public $persona;
     public $archivos;
+    public $foto;
     
-    //campos
-    public $nombre;
-    public $apellido_1;
-    public $apellido_2;
-    public $estado;
-    public $ciudad;
-    public $celular;
-    public $telefono;
-    public $lugar_nac;
-    public $fecha_nac;
-    public $nacionalidad;
-    public $colonia;
-    public $direccion;
-    public $rfc;
-    public $estado_civil;
-    public $curp;
-    public $ine;
-    public $ocupacion;
-    public $otros;
-    public $referencia1_nombre;
-    public $referencia1_cel;
-    public $referencia1_parentesco;
-    public $referencia2_nombre;
-    public $referencia2_cel;
-    public $referencia2_parentesco;
-
+     //estados
+     public $entidades;
+     public $municipiosNac;
+     public $municipiosDireccion;
+ 
+     //informacion personal----------------
+     public $nombre;
+     public $apellido_1;
+     public $apellido_2;
+     public $sexo;
+     public $fecha_nac;
+     public $estado;
+     public $municipio;
+     public $ciudad_nac;
+     public $pais;
+     public $nacionalidad;
+     public $estado_civil;
+     public $curp;
+     public $rfc;
+     public $ine;
+     public $ocupacion;
+ 
+     //direccion
+     public $calle;
+     public $numero_interior;
+     public $numero_exterior;
+     public $colonia_direccion;
+     public $codigo_postal;
+     public $estado_direccion;
+     public $municipio_direccion;
+     public $ciudad;
+     public $pais_direccion;
+ 
+     //contacto
+     public $celular;
+     public $telefono;
+     public $correo;
+ 
+     //referencias
+     public $referencia1_nombre;
+     public $referencia1_cel;
+     public $referencia1_parentesco;
+     public $referencia2_nombre;
+     public $referencia2_cel;
+     public $referencia2_parentesco;
+    //------------------------------------
     //otras
     public $toggleEditar = false;
     public $lblboton = "Editar";
@@ -68,27 +91,41 @@ class Edit extends Component
     public function mount($persona_id){
         $this->persona = Persona::find($persona_id);
         $this->archivos = Archivo::where('persona',$this->persona->id)->get();
+        $this->entidades = Entidad::All();
+        $this->municipiosNac = Municipio::All();
+        $this->municipiosDireccion = Municipio::All();
+        $this->foto = Archivo::where('nombre','foto')
+                              ->where('persona',$this->persona->id)->first();
 
         $fecha_nac_formato = new DateTime($this->persona->fecha_nac);
 
         $this->nombre = $this->persona->nombre;
         $this->apellido_1 = $this->persona->apellido_1;
         $this->apellido_2 = $this->persona->apellido_2;
-        $this->estado = $this->persona->estado;
-        $this->ciudad = $this->persona->ciudad;
-        $this->celular = $this->persona->celular;
-        $this->telefono = $this->persona->telefono;
-        $this->lugar_nac = $this->persona->lugar_nac;
+        $this->sexo = $this->persona->sexo;
         $this->fecha_nac = $fecha_nac_formato->format('Y-m-d');
+        $this->estado = $this->persona->estado;
+        $this->municipio = $this->persona->municipio;
+        $this->ciudad_nac = $this->persona->ciudad_nac;
+        $this->pais = $this->persona->pais;
         $this->nacionalidad = $this->persona->nacionalidad;
-        $this->colonia = $this->persona->colonia;
-        $this->direccion = $this->persona->direccion;
-        $this->rfc = $this->persona->rfc;
         $this->estado_civil = $this->persona->estado_civil;
         $this->curp = $this->persona->curp;
+        $this->rfc = $this->persona->rfc;
         $this->ine = $this->persona->ine;
         $this->ocupacion = $this->persona->ocupacion;
-        $this->otros = $this->persona->otros;
+        $this->calle = $this->persona->calle;
+        $this->numero_interior = $this->persona->numero_interior;
+        $this->numero_exterior = $this->persona->numero_exterior;
+        $this->colonia_direccion = $this->persona->colonia_direccion;
+        $this->codigo_postal = $this->persona->codigo_postal;
+        $this->estado_direccion = $this->persona->estado_direccion;
+        $this->municipio_direccion = $this->persona->municipio_direccion;
+        $this->ciudad = $this->persona->ciudad;
+        $this->pais_direccion = $this->persona->pais_direccion;
+        $this->celular = $this->persona->celular;
+        $this->telefono = $this->persona->telefono;
+        $this->correo = $this->persona->correo;
         $this->referencia1_nombre = $this->persona->referencia1_nombre;
         $this->referencia1_cel = $this->persona->referencia1_cel;
         $this->referencia1_parentesco = $this->persona->referencia1_parentesco;

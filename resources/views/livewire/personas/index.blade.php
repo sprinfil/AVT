@@ -64,7 +64,7 @@
           </tbody>
       </table>
       <div class="px-[10px] py-[10px] bg-gray-700">
-        {{ $personas->links()}}
+        {{ $personas->links('vendor.pagination.tailwind')}}
     </div>
   </div>
     

@@ -67,14 +67,19 @@ class ConfiguracionController extends Controller
 
     public function actualizar_sistema(){
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando 
-
-        $actualizar_sistema = exec('git pull origin main --no-edit 2>&1');
-        $npm_build = exec('npm run build 2>&1');
-
-        Artisan::call('migrate');
-
-        $result = $actualizar_sistema ." ".$npm_build." ". Artisan::output();
-        echo $result . "Refresque la pagina para aplicar los cambios";
+        try{
+            $actualizar_sistema = exec('git pull origin main --no-edit 2>&1');
+            $npm_build = exec('npm run build 2>&1');
+    
+            Artisan::call('migrate');
+            //Artisan::call('db:seed');
+    
+            $result = $actualizar_sistema ." ".$npm_build." ". Artisan::output();
+            return redirect(route('configuracion'));
+    
+        }catch(Exception $e){
+            echo 'ocurrio un error en la actualizacion contacte a soporte.';
+        }
 
     }
 

@@ -22,19 +22,6 @@ class SubirArchivos extends Component
         $this->archivos = Archivo::where('persona',$this->persona_id)->get();
     }
 
-    #[On('actualizarDocumentos')] 
-    public function actualizarDocumentos($nombres){
-        $contador = 0;
-        $archivos = Archivo::where('persona',$this->persona_id)->get();
-        if(count($nombres) > 0){
-            foreach($archivos as $archivo){
-                $archivo->nombre = $nombres[$contador];
-                $archivo->save();
-                $contador = $contador + 1;
-            }
-        }
-
-    }
 
     public function aceptar(){
         $this->dispatch('success');

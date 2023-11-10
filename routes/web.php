@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(ArchivosController::class)->group(function () {
         Route::get('/personas/subir-archivos/{persona_id}','index')->name('personas_archivos');
         Route::post('/personas/subir-archivos/store/{persona_id}','store')->name('personas_archivos_store');
+        Route::post('/personas/subir-archivos/store_image/{persona_id}','store_image')->name('personas_archivos_store_image');
     });
 
     //CONFIGURACION

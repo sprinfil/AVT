@@ -31,10 +31,13 @@ class PersonaController extends Controller
      */
     public function store(PersonaRequest $request)
     {
-        //
+        /// 
+        /*
         Persona::create($request->all());
         $persona = Persona::orderBy('id', 'desc')->first();
         return redirect(route('personas_archivos',['persona_id'=>$persona->id]));
+        */
+
     }
 
     /**

@@ -45,3 +45,6 @@ recuerda seguir el estandar psr-4
 
 Documentacion para ssl de la maquina virtual
     https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-20-04
+
+Cambiar la ip de servidor ubuntu
+    https://serverspace.io/es/support/help/how-to-configure-static-ip-address-on-ubuntu-18-04/

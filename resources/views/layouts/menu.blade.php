@@ -4,8 +4,7 @@
         <div class="flex justify-between h-full pt-3">
             <div class="">
                        <!--Texto Superior-->
-                 <p class=" font-bold texto ocultar-texto text-[20px] text-fuente">MENU</p>
-                 <p class="text-[20px] texto mt-2 ocultar-texto text-fuente">AVT</p>
+                 <p class="texto ocultar-texto text-[20px] text-fuente">MENU</p>
                  @if (session()->has('usuario'))
                  <p class="text-[17px] texto mt-2 ocultar-texto">{{session('usuario')->nombre}} - {{session('usuario')->Tipo}}</p>
                  @endif
@@ -18,7 +17,7 @@
   
        </div>
        <br>
-      <hr class="bg-fuente h-[3px]">
+      <hr class="bg-fuente h-[1px]">
   
   
     <div class="overflow-auto no-scrollbar pt-3 mt-2" id="contenedor-botones">         <!--div contenedor-->
