@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Personas;
 
+use Carbon\Carbon;
 use App\Models\Entidad;
 use App\Models\Persona;
 use Livewire\Component;
@@ -30,6 +31,7 @@ class Create extends Component
     public $rfc;
     public $ine;
     public $ocupacion;
+
 
     //direccion
     public $calle;
@@ -116,6 +118,8 @@ class Create extends Component
 
         Persona::create($data);
         $persona = Persona::orderBy('id', 'desc')->first();
+        $persona->edad = Carbon::parse($this->fecha_nac)->age;
+        $persona->save();
         redirect(route('personas_archivos',['persona_id'=>$persona->id]));
     }
 

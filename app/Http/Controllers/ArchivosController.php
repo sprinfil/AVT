@@ -38,26 +38,15 @@ class ArchivosController extends Controller
 
     public function store_image(Request $request){
 
-        $nombre = 'foto.'.$request->file('file')->getClientOriginalExtension();
+        $nombre = 'foto.'.'jpg';
         //guardar archivo y obtener ruta
         $archivo = $request->file('file')->storeAs('public/personas/imagenes/'.$request->persona_id, $nombre);
 
         //convertir la ruta en vez de public a storage
         $url_archivo = Storage::url($archivo);
 
-
-        //validar archivo
-        $archivo = Archivo::where('url',$url_archivo);
-        if($archivo){
-            $archivo->delete();
-        }
-
-        //crear archivo
-        $archivo = new Archivo();
-        $archivo->url =  $url_archivo;
-        $archivo->persona = $request->persona_id;
-        $archivo->nombre = 'foto';
-        $archivo->save();
-
+        $persona = Persona::find($request->persona_id);
+        $persona->foto = $url_archivo;
+        $persona->save();
     }
 }

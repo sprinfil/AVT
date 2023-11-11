@@ -35,15 +35,13 @@
                   <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                       CURP
                   </th>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                      direccion
-                  </th>
               </tr>
           </thead>
           <tbody>
             @foreach($personas as $persona)
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
-                <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$persona->id}})">
+                <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex items-center gap-x-7" wire:click="edit({{$persona->id}})">
+                    <img src="{{ $persona->foto }}" alt="" class="w-[70px] rounded-md">
                     {{$persona->nombreCompleto()}}
                 </th>
                 <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
@@ -54,9 +52,6 @@
                 </td>
                 <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
                     {{$persona->curp}}
-                </td>
-                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
-                    {{$persona->direccion}}
                 </td>
             </tr>
             @endforeach

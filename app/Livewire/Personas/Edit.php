@@ -3,6 +3,7 @@
 namespace App\Livewire\Personas;
 
 use DateTime;
+use Carbon\Carbon;
 use App\Models\Archivo;
 use App\Models\Entidad;
 use App\Models\Persona;
@@ -39,6 +40,7 @@ class Edit extends Component
      public $rfc;
      public $ine;
      public $ocupacion;
+     public $edad;
  
      //direccion
      public $calle;
@@ -90,12 +92,11 @@ class Edit extends Component
 
     public function mount($persona_id){
         $this->persona = Persona::find($persona_id);
-        $this->archivos = Archivo::where('persona',$this->persona->id)->get();
+        $this->archivos = Archivo::where('persona',$this->persona->id)
+        ->where('nombre','!=','foto')->get();
         $this->entidades = Entidad::All();
         $this->municipiosNac = Municipio::All();
         $this->municipiosDireccion = Municipio::All();
-        $this->foto = Archivo::where('nombre','foto')
-                              ->where('persona',$this->persona->id)->first();
 
         $fecha_nac_formato = new DateTime($this->persona->fecha_nac);
 
@@ -104,6 +105,7 @@ class Edit extends Component
         $this->apellido_2 = $this->persona->apellido_2;
         $this->sexo = $this->persona->sexo;
         $this->fecha_nac = $fecha_nac_formato->format('Y-m-d');
+        $this->edad = $this->persona->edad;
         $this->estado = $this->persona->estado;
         $this->municipio = $this->persona->municipio;
         $this->ciudad_nac = $this->persona->ciudad_nac;
@@ -132,6 +134,7 @@ class Edit extends Component
         $this->referencia2_nombre = $this->persona->referencia2_nombre;
         $this->referencia2_cel = $this->persona->referencia2_cel;
         $this->referencia2_parentesco = $this->persona->referencia2_parentesco;
+
     }
 
     public function editar(){
@@ -142,57 +145,59 @@ class Edit extends Component
     }
 
     public function save(){
-
             //validar datos
-            $validated = $this->validate([ 
+            $data = $this->validate([
+                //informacion personal
                 'nombre' => 'required|min:1|max:255',
                 'apellido_1' => 'required|min:1|max:255',
-                'apellido_2' => 'required|min:1|max:255',
-                'estado' => 'required|min:1|max:255',
-                'ciudad' => 'required|min:1|max:255',
-                'estado' => 'required|min:1|max:255',
-                'celular' => 'required||numeric|min:1000000000|max:9999999999',
-                'telefono' => 'required|min:1000000000|max:9999999999|numeric',
-                'lugar_nac' => 'required|min:1|max:255',
+                'apellido_2' => 'nullable|min:1|max:255',
+                'sexo' => 'required',
                 'fecha_nac' => 'required',
-                'nacionalidad' => 'required|min:1|max:255',
-                'colonia' => 'required|min:1|max:255',
-                'direccion' => 'required|min:1|max:255',
-                'rfc' => 'required|min:13|max:13',
+                
+                //lugar de nacimiento
+                'estado' => 'nullable',
+                'municipio' => 'nullable',
+                'ciudad_nac' => 'nullable',
+                'pais' => 'nullable',
+    
+                'nacionalidad' => 'required',
                 'estado_civil' => 'required',
                 'curp' => 'required|min:18|max:18',
+                'rfc' => 'nullable|min:13|max:13',
                 'ine' => 'required|min:1000000000000|max:9999999999999|numeric',
                 'ocupacion' => 'required|min:1|max:255',
+    
+                //direccion
+                'calle' => 'required|min:1|max:255',
+                'numero_interior' => 'nullable|min:1|max:255',
+                'numero_exterior' => 'nullable|min:1|max:255',
+                'colonia_direccion' => 'required|min:1|max:255',
+                'codigo_postal' => 'required|min:1|max:255',
+                'estado_direccion' => 'required|min:1|max:255',
+                'municipio_direccion' => 'required|min:1|max:255',
+                'ciudad' => 'nullable|min:1|max:255',
+                'pais_direccion' => 'required|min:1|max:255',
+    
+                //contacto
+                'celular' => 'required|min:1000000000|max:9999999999|numeric',
+                'telefono' => 'nullable|min:1000000000|max:9999999999|numeric',
+                'correo' => 'nullable',
+    
+                //referencias
+                'referencia1_nombre'=> 'nullable',
                 'referencia1_cel' => 'nullable|numeric|min:1000000000|max:9999999999',
+                'referencia1_parentesco' => 'nullable',
+                'referencia2_nombre'=> 'nullable',
                 'referencia2_cel' => 'nullable|numeric|min:1000000000|max:9999999999',
+                'referencia2_parentesco' => 'nullable',
             ]);
-            $this->persona->nombre = $this->nombre;
-            $this->persona->apellido_1 = $this->apellido_1;
-            $this->persona->apellido_2 = $this->apellido_2;
-            $this->persona->estado = $this->estado;
-            $this->persona->ciudad = $this->ciudad;
-            $this->persona->celular = $this->celular;
-            $this->persona->telefono = $this->telefono;
-            $this->persona->lugar_nac = $this->lugar_nac;
-            $this->persona->fecha_nac = $this->fecha_nac;
-            $this->persona->nacionalidad = $this->nacionalidad;
-            $this->persona->colonia = $this->colonia;
-            $this->persona->direccion = $this->direccion;
-            $this->persona->rfc = $this->rfc;
-            $this->persona->estado_civil = $this->estado_civil;
-            $this->persona->curp = $this->curp;
-            $this->persona->ine =$this->ine;
-            $this->persona->ocupacion = $this->ocupacion;
-            $this->persona->otros =$this->otros;
-            $this->persona->referencia1_nombre = $this->referencia1_nombre;
-            $this->persona->referencia1_cel = $this->referencia1_cel;
-            $this->persona->referencia1_parentesco = $this->referencia1_parentesco;
-            $this->persona->referencia2_nombre =$this->referencia2_nombre;
-            $this->persona->referencia2_cel = $this->referencia2_cel;
-            $this->persona->referencia2_parentesco = $this->referencia2_parentesco;
+            $this->persona->update($data);
+            $this->persona->edad = Carbon::parse($this->fecha_nac)->age;
+            $this->edad = Carbon::parse($this->fecha_nac)->age;
             $this->persona->save();
             $this->toggleEditar = false;
             $this->lblboton = "Editar";
+            return redirect(route('personas_edit',['persona_id' => $this->persona->id]));
     }
 
     public function verArchivo($url){
@@ -230,19 +235,8 @@ class Edit extends Component
     }
 
     #[On('actualizarDocumentos')] 
-    public function actualizarDocumentos($nombres){
-        $contador = 0;
-        $archivos = Archivo::where('persona',$this->persona->id)
-        ->whereNull('nombre')->get();
-        if(count($nombres) > 0){
-            foreach($archivos as $archivo){
-                $archivo->nombre = $nombres[$contador];
-                $archivo->save();
-                $contador = $contador + 1;
-            }
+    public function actualizarDocumentos(){
             redirect(route('personas_edit',['persona_id' => $this->persona->id]));
-        }
-      
     }
 
     public function editar_archivo($archivo_id){
@@ -256,5 +250,23 @@ class Edit extends Component
 
     public function bajaPersona(){
         $this->dispatch('bajaPersona', persona_id:$this->persona->id);
+    }
+
+    public function ActualizarEstadoNac(){
+        if($this->estado != "" && $this->estado != "Otro"){
+            $estado = Entidad::where('name',$this->estado)->first();
+            $this->municipiosNac = Municipio::where('estado_id',$estado->id)->get();
+        }else{
+            $this->municipiosNac = Municipio::all();
+        }
+    }
+
+    public function ActualizarEstadoDireccion(){
+        if($this->estado_direccion != "" && $this->estado_direccion != "Otro"){
+            $estado = Entidad::where('name',$this->estado_direccion)->first();
+            $this->municipiosDireccion = Municipio::where('estado_id',$estado->id)->get();
+        }else{
+            $this->municipiosDireccion = Municipio::all();
+        }
     }
 }

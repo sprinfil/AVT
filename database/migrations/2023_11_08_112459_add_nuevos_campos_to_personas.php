@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('pais')->nullable()->default(NUll);
             $table->string('correo')->nullable()->default(NUll);
             $table->string('ciudad_nac')->nullable()->default(NUll);
+            $table->string('edad')->nullable()->default(NUll);
 
 
             //direccion

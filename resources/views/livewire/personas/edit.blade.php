@@ -16,20 +16,31 @@
         <div class="md:flex grid-cols-1">
             <!--Imagen de la persona-->
             <div>
-                @if($foto == null)
+                @if($persona->foto == null && $toggleEditar == false)
                 <div class="flex md:justify-start justify-center items-center mx-4 py-4">
                    <div class="w-[300px] h-[300px] rounded-md shadow-md border-2 border-dashed border-blue-500  flex items-center justify-center">
                         <p class="text-fuente">Sin datos</p>
                    </div>
                 </div>
                 @endif
-                @if($foto != null)
+                @if($persona->foto != null && $toggleEditar == false)
                 <div class="h-full flex  md:justify-start w-full justify-center items-center mx-4 py-4">
-                    <a href="@if($foto!=null) {{ $foto->url}} @endif ">
-                        <img src="@if($foto!=null) {{ $foto->url}} @endif " alt="" class="w-[300px] rounded-md shadow-md">
+                    <a href=" {{ $persona->foto }}">
+                        <img src="{{ $persona->foto }}" alt="" class="w-[300px] rounded-md shadow-md">
                     </a>
                 </div>
                 @endif
+
+                <!--iMAGEN DROPZONE-->
+                <div class="flex md:justify-start justify-center items-center mx-4 py-4 {{ $toggleEditar == true ? '' : 'hidden' }}">
+                    <div class="w-[300px] h-[300px] rounded-md shadow-md border-2 border-dashed border-blue-500  flex items-center justify-center">
+                        <form action="{{route('personas_archivos_store_image',['persona_id'=>$persona->id])}}"
+                            class="dropzone  rounded-md w-full h-full"
+                            id="my-awesome-dropzone-2"
+                            >
+                        </form>
+                   </div>
+                </div>
 
             </div>
 
@@ -42,13 +53,13 @@
                 <!--Opciones-->
                 <div class="mb-[20px] flex gap-x-1 justify-start items-end">
                   <form wire:submit="save" class="mb-[20px] flex gap-x-1 justify-start">
-                      <button class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click = "editar" type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{$lblboton}}</button>
+                      <button id="btnEditar" class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click = "editar" type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{$lblboton}}</button>
                       <div class="flex btn-primary gap-x-2 items-center justify-center  mb-[10px] cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                       </svg>
                         PDF
                     </div>
-                    <button class="btn-primary bg-rojo font-400 w-full" wire:click="bajaPersona">Baja</button>
+                    <div class="btn-primary flex items-center justify-center bg-rojo" wire:click="bajaPersona">Baja Persona</div> 
                 </div>
             </div>
 
@@ -67,19 +78,19 @@
                     <!--Primera Columna-->
                       <div>
                         <p class="text-fuente">Nombre(s):</p>
-                        <input wire:model="nombre" type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre" placeholder="nombre(s)" value="{{old('nombre')}}">
+                        <input wire:model="nombre" type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre" placeholder="nombre(s)" value="{{old('nombre')}}" @if($toggleEditar == false) disabled @endif>
                         @error('nombre')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">Apellido Paterno:</p>
-                        <input wire:model="apellido_1" type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_1" placeholder="Apellido Paterno" value="{{old('apellido_1')}}" >
+                        <input wire:model="apellido_1" type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_1" placeholder="Apellido Paterno" value="{{old('apellido_1')}}" @if($toggleEditar == false) disabled @endif>
                         @error('apellido_1')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">Apellido Materno:</p>
-                        <input wire:model="apellido_2" type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_2" placeholder="Apellido Materno" value="{{old('apellido_2')}}" >
+                        <input wire:model="apellido_2" type="text" class="input-pdv w-full mb-3 text-[15px]" name="apellido_2" placeholder="Apellido Materno" value="{{old('apellido_2')}}" @if($toggleEditar == false) disabled @endif>
                         @error('apellido_2')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">Sexo:</p>
-                        <select wire:model="sexo" name="sexo" id="sexo" class="input-pdv w-full mb-3">
+                        <select wire:model="sexo" name="sexo" id="sexo" class="input-pdv w-full mb-3" @if($toggleEditar == false) disabled @endif>
                           <option value="" selected >-- SELECCIONAR --</option>
                           <option value="MASCULINO" @if(old('sexo') === 'MASCULINO') selected @endif>MASCULINO</option>
                           <option value="FEMENINO" @if(old('sexo') === 'FEMENINO') selected @endif>FEMENINO</option>
@@ -87,12 +98,16 @@
                         @error('sexo')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
                         
                         <p class="text-fuente">Fecha de nacimineto:</p>
-                        <input wire:model="fecha_nac" type="date" class="input-pdv w-full mb-3 text-[15px]" name="fecha_nac" placeholder="Fecha de nacimiento" value="{{old('fecha_nac')}}">
+                        <input wire:model="fecha_nac" type="date" class="input-pdv w-full mb-3 text-[15px]" name="fecha_nac" placeholder="Fecha de nacimiento" value="{{old('fecha_nac')}}" @if($toggleEditar == false) disabled @endif>
                         @error('fecha_nac')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
+
+                        <p class="text-fuente">Edad:</p>
+                        <input wire:model="edad" type="number" class="input-pdv w-full mb-3 text-[15px]" name="edad" placeholder="Edad" value="{{old('edad')}}" disabled>
+                        @error('edad')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente text-[24px] mb-[10px] mt-[40px]">Lugar de nacimiento</p>
                         <p class="text-fuente">Estado:</p>
-                        <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]" wire:model="estado" wire:change="ActualizarEstadoNac">
+                        <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]" wire:model="estado" wire:change="ActualizarEstadoNac" @if($toggleEditar == false) disabled @endif>
                           <option value="" selected >-- SELECCIONAR --</option>
                           @foreach($entidades as $entidad)
                           <option value="{{ $entidad->name }}"  @if(old('estado') === '{{ $entidad->name }}') selected @endif> {{ $entidad->name }}</option>
@@ -102,7 +117,7 @@
                         @error('estado')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">Municipio:</p>
-                        <select wire:model="municipio" name="municipio" id="municipio" class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio">
+                        <select wire:model="municipio" name="municipio" id="municipio" class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio" @if($toggleEditar == false) disabled @endif>
                           <option value="" selected>-- SELECCIONAR --</option>
                           @foreach($municipiosNac as $municipio)
                           <option value="{{ $municipio->name }}"  @if(old('municipio') === '{{ $municipio->name }}') selected @endif> {{ $municipio->name }}</option>
@@ -112,11 +127,11 @@
                         @error('municipio')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">Ciudad o localidad:</p>
-                        <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad_nac" placeholder="Ciudad" value="{{old('ciudad_nac')}}" >
+                        <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad_nac" placeholder="Ciudad" value="{{old('ciudad_nac')}}" @if($toggleEditar == false) disabled @endif>
                         @error('ciudad_nac')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
   
                         <p class="text-fuente">País:</p>
-                        <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3">
+                        <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3" @if($toggleEditar == false) disabled @endif>
                           <option value="" selected >-- SELECCIONAR --</option>
                           <option value="Mexico" @if(old('pais') === 'Mexico') selected @endif>México</option>
                           <option value="Estados Unidos" @if(old('pais') === 'Estados Unidos') selected @endif>Estados Unidos</option>
@@ -128,7 +143,7 @@
                     <!--Segunda Columna-->
                       <div>
                         <p class="text-fuente">Nacionalidad:</p>
-                        <select wire:model="nacionalidad" name="nacionalidad" id="nacionalidad" class="input-pdv w-full mb-3">
+                        <select wire:model="nacionalidad" name="nacionalidad" id="nacionalidad" class="input-pdv w-full mb-3" @if($toggleEditar == false) disabled @endif>
                             <option value="" selected >-- SELECCIONAR --</option>
                             <option value="Mexicana" @if(old('nacionalidad') === 'Mexicana') selected @endif>Mexicana</option>
                             <option value="Estadounidense" @if(old('nacionalidad') === 'Estadounidense') selected @endif>Estadounidense</option>
@@ -138,7 +153,7 @@
                         @error('nacionalidad')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
     
                         <p class="text-fuente">Estado Civil:</p>
-                        <select wire:model="estado_civil" class="input-pdv w-full mb-3" name="estado_civil" id="" value="{{old('estado_civil')}}">
+                        <select wire:model="estado_civil" class="input-pdv w-full mb-3" name="estado_civil" id="" value="{{old('estado_civil')}}" @if($toggleEditar == false) disabled @endif>
                          <option value=""  selected>-- SELECCIONAR --</option>  
                          <option value="SOLTER@" @if(old('estado_civil') === 'SOLTER@') selected @endif>SOLTER@</option>
                          <option value="CASAD@" @if(old('estado_civil') === 'CASAD@') selected @endif>CASAD@</option>
@@ -149,19 +164,19 @@
                         @error('estado_civil')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
     
                         <p class="text-fuente">CURP:</p>
-                        <input wire:model="curp" type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp" placeholder="CURP" value="{{old('curp')}}">
+                        <input wire:model="curp" type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp" placeholder="CURP" value="{{old('curp')}}" @if($toggleEditar == false) disabled @endif>
                         @error('curp')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
     
                         <p class="text-fuente">RFC:</p>
-                        <input wire:model="rfc" type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc" placeholder="RFC" value="{{old('rfc')}}">
+                        <input wire:model="rfc" type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc" placeholder="RFC" value="{{old('rfc')}}"@if($toggleEditar == false) disabled @endif>
                         @error('rfc')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
     
                         <p class="text-fuente">INE:</p>
-                        <input wire:model="ine" type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine" placeholder="INE" value="{{old('ine')}}">
+                        <input wire:model="ine" type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine" placeholder="INE" value="{{old('ine')}}"@if($toggleEditar == false) disabled @endif>
                         @error('ine')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
     
                         <p class="text-fuente">Ocupación o Profesión:</p>
-                        <input wire:model="ocupacion" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ocupacion" placeholder="Ocupación" value="{{old('ocupacion')}}">
+                        <input wire:model="ocupacion" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ocupacion" placeholder="Ocupación" value="{{old('ocupacion')}}"@if($toggleEditar == false) disabled @endif>
                         @error('ocupacion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
                       </div>
                       
@@ -180,30 +195,30 @@
         <!--Primera Columna-->
             <div>
                 <p class="text-fuente">Calle:</p>
-                <input wire:model="calle" type="text" class="input-pdv w-full mb-3 text-[15px]" name="calle" placeholder="Calle" value="{{old('calle')}}">
+                <input wire:model="calle" type="text" class="input-pdv w-full mb-3 text-[15px]" name="calle" placeholder="Calle" value="{{old('calle')}}" @if($toggleEditar == false) disabled @endif>
                 @error('calle')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Número Interior:</p>
-                <input wire:model="numero_interior" type="text" class="input-pdv w-full mb-3 text-[15px]" name="numero_interior" placeholder="Número interior" value="{{old('numero_interior')}}">
+                <input wire:model="numero_interior" type="text" class="input-pdv w-full mb-3 text-[15px]" name="numero_interior" placeholder="Número interior" value="{{old('numero_interior')}}" @if($toggleEditar == false) disabled @endif>
                 @error('numero_interior')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Número Exterior:</p>
-                <input wire:model="numero_exterior" type="text" class="input-pdv w-full mb-3 text-[15px]" name="numero_exterior" placeholder="Número exterior" value="{{old('numero_exterior')}}">
+                <input wire:model="numero_exterior" type="text" class="input-pdv w-full mb-3 text-[15px]" name="numero_exterior" placeholder="Número exterior" value="{{old('numero_exterior')}}"@if($toggleEditar == false) disabled @endif>
                 @error('numero_exterior')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Colonia:</p>
-                <input wire:model="colonia_direccion" type="text" class="input-pdv w-full mb-3 text-[15px]" name="colonia_direccion" placeholder="Colonia" value="{{old('colonia_direccion')}}">
+                <input wire:model="colonia_direccion" type="text" class="input-pdv w-full mb-3 text-[15px]" name="colonia_direccion" placeholder="Colonia" value="{{old('colonia_direccion')}}"@if($toggleEditar == false) disabled @endif>
                 @error('colonia_direccion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
             </div>
         <!--Segunda Columna-->
             <div>
                 <p class="text-fuente">Código Postal:</p>
-                <input wire:model="codigo_postal" type="text" class="input-pdv w-full mb-3 text-[15px]" name="codigo_postal" placeholder="Código Postal" value="{{old('codigo_postal')}}">
+                <input wire:model="codigo_postal" type="text" class="input-pdv w-full mb-3 text-[15px]" name="codigo_postal" placeholder="Código Postal" value="{{old('codigo_postal')}}"@if($toggleEditar == false) disabled @endif>
                 @error('codigo_postal')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Estado:</p>
-                <select wire:model="estado_direccion" name="estado_direccion" id="estado_direccion" class="input-pdv w-full mb-3 text-[15px]" wire:model="estado_direccion" wire:change="ActualizarEstadoDireccion">
+                <select wire:model="estado_direccion" name="estado_direccion" id="estado_direccion" class="input-pdv w-full mb-3 text-[15px]" wire:model="estado_direccion" wire:change="ActualizarEstadoDireccion"@if($toggleEditar == false) disabled @endif>
                     <option value="" selected >-- SELECCIONAR --</option>
                     @foreach($entidades as $entidad)
                     <option value="{{ $entidad->name }}"  @if(old('estado') === '{{ $entidad->name }}') selected @endif> {{ $entidad->name }}</option>
@@ -213,7 +228,7 @@
                 @error('estado_direccion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Municipio:</p>
-                <select wire:model="municipio_direccion" name="municipio_direccion" id="municipio_direccion" class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio_direccion">
+                <select wire:model="municipio_direccion" name="municipio_direccion" id="municipio_direccion" class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio_direccion"@if($toggleEditar == false) disabled @endif>
                     <option value="" selected >-- SELECCIONAR --</option>
                     @foreach($municipiosDireccion as $municipio)
                     <option value="{{ $municipio->name }}"  @if(old('municipio_direccion') === '{{ $municipio->name }}') selected @endif> {{ $municipio->name }}</option>
@@ -223,11 +238,11 @@
                 @error('municipio_direccion')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">Ciudad o Localidad:</p>
-                <input wire:model="ciudad" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad" placeholder="Ciudad o Localidad" value="{{old('ciudad')}}">
+                <input wire:model="ciudad" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad" placeholder="Ciudad o Localidad" value="{{old('ciudad')}}"@if($toggleEditar == false) disabled @endif>
                 @error('ciudad')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
 
                 <p class="text-fuente">País:</p>
-                <select wire:model="pais_direccion" name="pais_direccion" id="pais_direccion" class="input-pdv w-full mb-3">
+                <select wire:model="pais_direccion" name="pais_direccion" id="pais_direccion" class="input-pdv w-full mb-3"@if($toggleEditar == false) disabled @endif>
                   <option value="" selected >-- SELECCIONAR --</option>
                   <option value="Mexico" @if(old('pais') === 'Mexico') selected @endif>México</option>
                   <option value="Estados Unidos" @if(old('pais') === 'Estados Unidos') selected @endif>Estados Unidos</option>
@@ -250,18 +265,18 @@
                 <!--Primera Columna-->
                     <div>
                         <p class="text-fuente">Celular:</p>
-                        <input wire:model="celular" type="number" class="input-pdv w-full mb-3 text-[15px]" name="celular" placeholder="celular"  value="{{old('celular')}}" >
+                        <input wire:model="celular" type="number" class="input-pdv w-full mb-3 text-[15px]" name="celular" placeholder="celular"  value="{{old('celular')}}" @if($toggleEditar == false) disabled @endif>
                         @error('celular')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
         
                         <p class="text-fuente">Teléfono:</p>
-                        <input wire:model="telefono" type="number" class="input-pdv w-full mb-3 text-[15px]" name="telefono" placeholder="telefono" value="{{old('telefono')}}" >
+                        <input wire:model="telefono" type="number" class="input-pdv w-full mb-3 text-[15px]" name="telefono" placeholder="telefono" value="{{old('telefono')}}" @if($toggleEditar == false) disabled @endif>
                         @error('telefono')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
         
                     </div>
                 <!--Segunda Columna-->
                     <div>
                         <p class="text-fuente">Correo Electrónico:</p>
-                        <input wire:model="correo" type="text" class="input-pdv w-full mb-3 text-[15px]" name="correo" placeholder="nombre(s)" value="{{old('correo')}}">
+                        <input wire:model="correo" type="text" class="input-pdv w-full mb-3 text-[15px]" name="correo" placeholder="nombre(s)" value="{{old('correo')}}"@if($toggleEditar == false) disabled @endif>
                         @error('correo')<div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>@enderror
         
                     </div>
@@ -373,31 +388,35 @@
 
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
 <script>
-    let nombres = [];
     const btnDocumentacionAceptar = $("#btnDocumentacionAceptar");
+    let finalizar = false;
+    Dropzone.autoDiscover = false;
 
-    Dropzone.options.myAwesomeDropzone = { 
-      headers:{
-        'X-CSRF-TOKEN' : "{{csrf_token()}}"
-      },
-    }
 
-    Dropzone.autoDiscover = false; // Para evitar que Dropzone busque automáticamente elementos con la clase "dropzone".
+        var miDropzone2 = new Dropzone("#my-awesome-dropzone-2", {
+            headers:{
+                'X-CSRF-TOKEN' : "{{csrf_token()}}"
+            },
+        });
+
+
         var miDropzone = new Dropzone("#my-awesome-dropzone", {
-
-     
+        headers:{
+            'X-CSRF-TOKEN' : "{{csrf_token()}}"
+        },
 
         success: function(file, response) {
-        console.log("Archivo subido con éxito:", file);
-        console.log("Respuesta del servidor:", response);
-        nombres.push(file.name);
-        console.log(nombres);
-      
+            finalizar = true;
         }
   });
 
+
+
   btnDocumentacionAceptar.click(function(){
-          @this.dispatch('actualizarDocumentos', [nombres] )
+    console.log(finalizar);
+        if(finalizar){
+            @this.dispatch('actualizarDocumentos')
+        }
     })
 </script>
 
