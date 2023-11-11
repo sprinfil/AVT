@@ -23,36 +23,36 @@
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                      Nombre Completo
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                      Celular
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                      RFC
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                      CURP
+                  <th scope="col" class="px-6 py-3 text-fuente text-[13px] text-center">
+                    Personas
                   </th>
               </tr>
           </thead>
           <tbody>
             @foreach($personas as $persona)
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
-                <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex items-center gap-x-7" wire:click="edit({{$persona->id}})">
-                    <img src="{{ $persona->foto }}" alt="" class="w-[70px] rounded-md">
-                    {{$persona->nombreCompleto()}}
-                </th>
-                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
-                    {{$persona->celular}}
-                </td>
-                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
-                    {{$persona->rfc}}
-                </td>
-                <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$persona->id}})">
-                    {{$persona->curp}}
-                </td>
+                <td class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente " wire:click="edit({{$persona->id}})">
+                    <div class="flex items-center gap-x-7">
+                        <div class="min-w-[50px]">
+                            <img src="{{ $persona->foto }}" alt="" class="w-[70px] rounded-md">    
+                        </div>
+                        <div>
+                            <p class="underline">{{$persona->nombreCompleto()}}</p>
+                            <p>{{$persona->celular}}</p>
+                            @if($persona->correo == null)
+                            <p>Sin Correo</p>
+                            @else
+                            <p>{{$persona->correo}}</p> 
+                            @endif
+                        </div>
+                        <div class="w-full flex justify-end">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                              </svg>
+                        </div> 
+                    </div>
+                </td>           
+   
             </tr>
             @endforeach
 

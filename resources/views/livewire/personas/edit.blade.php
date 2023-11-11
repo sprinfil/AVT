@@ -48,7 +48,12 @@
             <div class="mx-[10px] md:mx-[50px] justify-center mt-[20px] grid grid-rows-2 md:justify-normal w-full">
                 <!--Titulo-->
                 <div>
-                    <p class="text-fuente text-[40px] mb-[20px]">{{$persona->nombreCompleto()}}</p>
+                    <p class="text-fuente text-[40px]">{{$persona->nombreCompleto()}}</p>
+                    <a href="#infopersonal" class=" underline text-blue-500">INFORMACION PERSONAL</a>
+                    <a href="#direccion" class=" underline text-blue-500">DIRECCION</a>
+                    <a href="#contacto" class=" underline text-blue-500">CONTACTO</a>
+                    <a href="#referencias" class=" underline text-blue-500">REFERENCIAS</a>
+                    <a href="#documentacion" class=" underline text-blue-500">DOCUMENTACION</a>
                 </div>
                 <!--Opciones-->
                 <div class="mb-[20px] flex gap-x-1 justify-start items-end">
@@ -71,7 +76,7 @@
                 <!--INFORMACION PERSONAL-->
             <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
                 <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                    <p class="text-fuente text-[20px]">INFORMACIÓN DE LA PERSONA</p>
+                    <p class="text-fuente text-[20px]" id="infopersonal">INFORMACIÓN PERSONAL</p>
                 </div>
                   @csrf
                   <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
@@ -189,7 +194,7 @@
      <!--DIRECCION-->
      <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
         <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-            <p class="text-fuente text-[20px]">DIRECCIÓN</p>
+            <p class="text-fuente text-[20px]" id="direccion">DIRECCIÓN</p>
         </div>
         <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
         <!--Primera Columna-->
@@ -259,7 +264,7 @@
             <!--CONTACTO-->
             <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
                 <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                    <p class="text-fuente text-[20px]">CONTACTO</p>
+                    <p class="text-fuente text-[20px]" id="contacto">CONTACTO</p>
                 </div>
                 <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
                 <!--Primera Columna-->
@@ -288,7 +293,7 @@
                 <!--REFERENCIAS-->
                 <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
                     <div class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente" >
-                        <p class="text-fuente text-[20px]">REFERENCIAS</p>
+                        <p class="text-fuente text-[20px]" id="referencias">REFERENCIAS</p>
                     </div>
                     <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
                     <!--Primera Columna-->
@@ -343,7 +348,7 @@
               <!--DOCUMENTACION-->
               <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[120px] ">
                 <div class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
-                    <p class="text-fuente text-[20px]">Documentación</p>
+                    <p class="text-fuente text-[20px]" id="documentacion">Documentación</p>
                 </div>
                     <button class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == "" ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}" wire:click="toggleArchivos" id="btnDocumentacionAceptar">{{$boton_documentacion}}</button>
                     <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] overflow-hidden transition-transform" style="{{$estilo_dropzone}} {{$toggle_animacion_dropzone}}">
