@@ -61,7 +61,7 @@
                         <br>
                         Detalle de actualización v 1.0.1.
                         <br>
-                        - Nuevos campos para dar de alta usuario.
+                        - Nuevos campos para dar de alta persona.
                         <br>
                         - Generar pdf con la información de la persona.
                         <br>
