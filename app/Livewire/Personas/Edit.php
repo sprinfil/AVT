@@ -269,4 +269,8 @@ class Edit extends Component
             $this->municipiosDireccion = Municipio::all();
         }
     }
+
+    public function persona_pdf(){
+        return redirect(route('persona_pdf',['persona_id' => $this->persona->id]));
+    }
 }

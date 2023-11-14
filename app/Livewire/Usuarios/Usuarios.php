@@ -18,6 +18,7 @@ class Usuarios extends Component
     public $email;
     public $username;
     public $password;
+    public $repeat_password;
     public $tipo = 'ADMIN';
 
     public function render()
@@ -43,9 +44,10 @@ class Usuarios extends Component
                 'name' => 'required',
                 'username' => 'required|unique:users,username',
                 'password' => 'required',
+                'repeat_password' => 'required|same:password',
                 'tipo' => 'required',
             ]);
-    
+            
             User::create([
                 'name' => $this->name,
                 'email' => $this->email,
@@ -88,10 +90,12 @@ class Usuarios extends Component
     }
 
     public function editar($usuario_id){
+        
         $this->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $this->usuarioEdit->id,
             'tipo' => 'required',
+            'repeat_password' => 'same:password',
         ]);
 
         $this->usuarioEdit->name = $this->name;

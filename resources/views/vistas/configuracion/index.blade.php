@@ -14,22 +14,23 @@
     </div>
 
         <!--CONTENEDOR PRINCIPAL-->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-[100px]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[100px] ">
 
 
         <!--COPIA DE SEGURIDAD-->
-        <div class="h-full bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full ">
+        <div class=" bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full ">
 
             <div class="w-full h-[50px] bg-principal rounded-md  py-8 px-7 flex justify-center items-center mt-0  border-b border-fuente">
                 <p class="text-fuente text-[12px] md:text-[15px]">COPIA DE SEGURIDAD</p>
             </div>
-            <div class=" px-7 py-7 gap-x-20 grid grid-rows-2">
+
+            <div class="p-4">
             <!--Primera fila-->
-                <div>
+                <div class="">
                     <p class="text-fuente text-[15px]">Genera una copia de seguridad que se almacena en el drive previamente configurado. Las copias de seguridad estan configuradas automaticamente para que se generen semanalmente o bien puedes generar una copia de seguridad manualmente pulsando "generar".</p>
                 </div>
                 <!--segunda fila-->
-                <div>
+                <div class="mt-[40px]">
                     <a href="https://drive.google.com/drive/u/3/my-drive">
                         <div class="btn-primary flex mt-[20px] mb-[20px] text-center items-center justify-center">
                             <p class="underline">DRIVE</p>
@@ -42,22 +43,37 @@
                     </a>
                 </div>
             </div>
-
         </div>
 
         <!--ACTUALIZACIONES-->
-        <div class="h-full bg-terciario shadow-lg  mt-[20px] rounded-lg  w-full">
+        <div class=" bg-terciario shadow-lg  mt-[20px] rounded-lg w-full">
 
-            <div class="w-full h-[50px] bg-principal rounded-md  py-8 px-7 flex justify-center items-center mt-0  border-b border-fuente">
+            <div class="w-full h-[50px] bg-principal rounded-md  py-8 px-7 flex justify-center items-center mt-0  border-b border-fuente ">
                 <p class="text-fuente text-[12px] md:text-[15px]">ACTUALIZAR</p>
             </div>
-            <div class=" px-7 py-7 gap-x-20 grid grid-rows-2">
+
+            <div class="p-4 text-fuente ">
             <!--Primera fila-->
-                <div>
-                    <p class="text-fuente text-[15px] ">Buscar nuevas actualizaciones. Versión actual (v 1.0.0)</p>
+                <div class="max-h-[300px] overflow-y-auto no-scrollbar">
+                    <p>
+                        Versión actual (v 1.0.1)
+                        <br>
+                        <br>
+                        Detalle de actualización v 1.0.1.
+                        <br>
+                        - Nuevos campos para dar de alta usuario.
+                        <br>
+                        - Generar pdf con la información de la persona.
+                        <br>
+                        - Subir foto de persona.
+                        <br>
+                        - Se agrego confirmar contraseña en usuarios.
+                        <br>
+                        - Subir foto de persona.
+                    </p>        
                 </div>
                 <!--segunda fila-->
-                <div>
+                <div class="">
                     <a href="{{route('actualizar_sistema')}}"><button class="btn-primary w-full mt-[30px]">ACTUALIZAR</button></a>
                 </div>
             </div>

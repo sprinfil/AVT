@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 @foreach($usuarios as $usuario)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $usuario->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $usuario->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$usuario->id}})">
                         {{$usuario->name}}
                     </th>
@@ -50,7 +50,7 @@
                         {{$usuario->tipo}}
                     </td>
                     <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                        <button class="btn-primary font-400 bg-rojo" wire:click="eliminarUsuario({{ $usuario->id }})">Eliminar</button>
+                        <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminarUsuario({{ $usuario->id }})">Eliminar</button>
                     </td>
                 </tr>
                 @endforeach
@@ -105,6 +105,13 @@
                                             <input wire:model="password" type="password" id="password" name="password" class="input-pdv">
                                             @error('password') <span class="text-red-500">{{ $message }}</span> @enderror
                                         </div>
+
+                                        <div class="mb-4">
+                                            <label for="repeat_password" class="block text-gray-700 text-sm font-bold mb-2">Repetir Contraseña</label>
+                                            <input wire:model="repeat_password" type="password" id="repeat_password" name="repeat_password" class="input-pdv">
+                                            @error('repeat_password') <span class="text-red-500">{{ $message }}</span> @enderror
+                                        </div>
+
                                         <div class="mb-4">
                                             <label for="tipo" class="block text-gray-700 text-sm font-bold mb-2">Tipo</label>
                                             <select wire:model="tipo" id="tipo" name="tipo" class="input-pdv">

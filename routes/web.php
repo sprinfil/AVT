@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ArchivosController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ConfiguracionController;
 
 /*
@@ -68,4 +69,10 @@ Route::middleware(['auth'])->group(function (){
 
     //LOGOUT
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+    //REPORTES
+    Route::controller(ReportesController::class)->group(function () {
+        Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
+    });
+
 });
