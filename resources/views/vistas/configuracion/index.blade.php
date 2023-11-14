@@ -59,7 +59,7 @@
                         Versión actual (v 1.0.1)
                         <br>
                         <br>
-                        Detalle de actualización v 1.0.1.
+                         Detalle de actualización v 1.0.1.
                         <br>
                         - Nuevos campos para dar de alta persona.
                         <br>
@@ -70,6 +70,8 @@
                         - Se agrego confirmar contraseña en usuarios.
                         <br>
                         - Subir foto de persona.
+                        <br>
+                        - Poder marcar a la persona.
                     </p>        
                 </div>
                 <!--segunda fila-->
