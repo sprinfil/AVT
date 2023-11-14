@@ -71,7 +71,7 @@ class ConfiguracionController extends Controller
             $actualizar_sistema = exec('git pull origin main --no-edit 2>&1');
             $npm_build = exec('npm run build 2>&1');
     
-            Artisan::call('composer update');
+            exec('composer update');
             Artisan::call('migrate');
             Artisan::call('db:seed');
     
