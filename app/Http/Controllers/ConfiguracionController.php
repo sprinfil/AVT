@@ -73,7 +73,7 @@ class ConfiguracionController extends Controller
     
             Artisan::call('composer update');
             Artisan::call('migrate');
-            //Artisan::call('db:seed');
+            Artisan::call('db:seed');
     
             $result = $actualizar_sistema ." ".$npm_build." ". Artisan::output();
             return redirect(route('configuracion'));
