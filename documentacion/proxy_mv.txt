@@ -1,0 +1,33 @@
+sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
+
+sudo systemctl restart apache2
+
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+sudo systemctl restart apache2 
+
+<VirtualHost *:443>
+        ServerName 192.168.1.85
+        ServerAlias www.pdv2.dev
+        ServerAdmin webmaster@localhost
+
+        <Proxy balancer://mycluster>
+                BalancerMember http://192.168.1.100
+                BalancerMember http://192.168.1.101
+        </Proxy>
+
+        ProxyPreserveHost On
+        ProxyPass / balancer://mycluster/
+        ProxyPassReverse / balancer://mycluster/
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        SSLEngine on
+        SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
+        SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName 192.168.1.85
+        Redirect / https://192.168.1.85/
+</VirtualHost>

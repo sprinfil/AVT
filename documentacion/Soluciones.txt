@@ -48,3 +48,7 @@ Documentacion para ssl de la maquina virtual
 
 Cambiar la ip de servidor ubuntu
     https://serverspace.io/es/support/help/how-to-configure-static-ip-address-on-ubuntu-18-04/
+
+Cambiar UUid
+    uuidgen
+    sudo nano /var/lib/mysql/auto.cnf
