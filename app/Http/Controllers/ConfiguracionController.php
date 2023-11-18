@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Artisan;
 
 class ConfiguracionController extends Controller
 {
