@@ -78,61 +78,6 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente text-[24px] mb-[10px] mt-[40px]">Lugar de nacimiento</p>
-                    <p class="text-fuente">Estado:</p>
-                    <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]"
-                        wire:model="estado" wire:change="ActualizarEstadoNac">
-                        <option value="" selected>-- SELECCIONAR --</option>
-                        @foreach ($entidades as $entidad)
-                            <option value="{{ $entidad->name }}" @if (old('estado') === '{{ $entidad->name }}') selected @endif>
-                                {{ $entidad->name }}</option>
-                        @endforeach
-                        <option value="Otro" @if (old('estado') === 'Otro') selected @endif>Otro</option>
-                    </select>
-                    @error('estado')
-                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
-                        </div>
-                    @enderror
-
-                    <p class="text-fuente">Municipio:</p>
-                    <select wire:model="municipio" name="municipio" id="municipio"
-                        class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio">
-                        <option value="" selected>-- SELECCIONAR --</option>
-                        @foreach ($municipiosNac as $municipio)
-                            <option value="{{ $municipio->name }}" @if (old('municipio') === '{{ $municipio->name }}') selected @endif>
-                                {{ $municipio->name }}</option>
-                        @endforeach
-                        <option value="Otro" @if (old('municipio') === 'Otro') selected @endif>Otro</option>
-                    </select>
-                    @error('municipio')
-                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
-                        </div>
-                    @enderror
-
-                    <p class="text-fuente">Ciudad o localidad:</p>
-                    <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]"
-                        name="ciudad_nac" placeholder="Ciudad" value="{{ old('ciudad_nac') }}">
-                    @error('ciudad_nac')
-                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
-                        </div>
-                    @enderror
-
-                    <p class="text-fuente">País:</p>
-                    <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3">
-                        <option value="" selected>-- SELECCIONAR --</option>
-                        <option value="Mexico" @if (old('pais') === 'Mexico') selected @endif>México</option>
-                        <option value="Estados Unidos" @if (old('pais') === 'Estados Unidos') selected @endif>Estados Unidos
-                        </option>
-                        <option value="Canada" @if (old('pais') === 'Canada') selected @endif>Canada</option>
-                        <option value="Otro" @if (old('pais') === 'Otro') selected @endif>Otro</option>
-                    </select>
-                    @error('pais')
-                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <!--Segunda Columna-->
-                <div>
 
                     <p class="text-fuente">Nacionalidad:</p>
                     <select wire:model="nacionalidad" name="nacionalidad" id="nacionalidad"
@@ -197,7 +142,62 @@
                         <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
                         </div>
                     @enderror
+                </div>
+                <!--Segunda Columna-->
+                <div>
 
+                    <p class="text-fuente text-[24px] mb-[10px]">Lugar de nacimiento</p>
+                    <p class="text-fuente">Estado:</p>
+                    <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]"
+                        wire:model="estado" wire:change="ActualizarEstadoNac">
+                        <option value="" selected>-- SELECCIONAR --</option>
+                        @foreach ($entidades as $entidad)
+                            <option value="{{ $entidad->name }}" @if (old('estado') === '{{ $entidad->name }}') selected @endif>
+                                {{ $entidad->name }}</option>
+                        @endforeach
+                        <option value="Otro" @if (old('estado') === 'Otro') selected @endif>Otro</option>
+                    </select>
+                    @error('estado')
+                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
+                        </div>
+                    @enderror
+
+                    <p class="text-fuente">Municipio:</p>
+                    <select wire:model="municipio" name="municipio" id="municipio"
+                        class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio">
+                        <option value="" selected>-- SELECCIONAR --</option>
+                        @foreach ($municipiosNac as $municipio)
+                            <option value="{{ $municipio->name }}" @if (old('municipio') === '{{ $municipio->name }}') selected @endif>
+                                {{ $municipio->name }}</option>
+                        @endforeach
+                        <option value="Otro" @if (old('municipio') === 'Otro') selected @endif>Otro</option>
+                    </select>
+                    @error('municipio')
+                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
+                        </div>
+                    @enderror
+
+                    <p class="text-fuente">Ciudad o localidad:</p>
+                    <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]"
+                        name="ciudad_nac" placeholder="Ciudad" value="{{ old('ciudad_nac') }}">
+                    @error('ciudad_nac')
+                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
+                        </div>
+                    @enderror
+
+                    <p class="text-fuente">País:</p>
+                    <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3">
+                        <option value="" selected>-- SELECCIONAR --</option>
+                        <option value="Mexico" @if (old('pais') === 'Mexico') selected @endif>México</option>
+                        <option value="Estados Unidos" @if (old('pais') === 'Estados Unidos') selected @endif>Estados Unidos
+                        </option>
+                        <option value="Canada" @if (old('pais') === 'Canada') selected @endif>Canada</option>
+                        <option value="Otro" @if (old('pais') === 'Otro') selected @endif>Otro</option>
+                    </select>
+                    @error('pais')
+                        <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
             </div>

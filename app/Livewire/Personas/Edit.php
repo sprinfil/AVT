@@ -159,30 +159,30 @@ class Edit extends Component
                 'municipio' => 'nullable',
                 'ciudad_nac' => 'nullable',
                 'pais' => 'nullable',
-    
+
                 'nacionalidad' => 'required',
-                'estado_civil' => 'required',
-                'curp' => 'required|min:18|max:18',
+                'estado_civil' => 'nullable',
+                'curp' => 'nullable|min:18|max:18',
                 'rfc' => 'nullable|min:13|max:13',
-                'ine' => 'required|min:1000000000000|max:9999999999999|numeric',
-                'ocupacion' => 'required|min:1|max:255',
-    
+                'ine' => 'nullable|min:1000000000000|max:9999999999999|numeric',
+                'ocupacion' => 'nullable|min:1|max:255',
+
                 //direccion
-                'calle' => 'required|min:1|max:255',
+                'calle' => 'nullable|min:1|max:255',
                 'numero_interior' => 'nullable|min:1|max:255',
                 'numero_exterior' => 'nullable|min:1|max:255',
-                'colonia_direccion' => 'required|min:1|max:255',
-                'codigo_postal' => 'required|min:1|max:255',
-                'estado_direccion' => 'required|min:1|max:255',
-                'municipio_direccion' => 'required|min:1|max:255',
+                'colonia_direccion' => 'nullable|min:1|max:255',
+                'codigo_postal' => 'nullable|min:1|max:255',
+                'estado_direccion' => 'nullable|min:1|max:255',
+                'municipio_direccion' => 'nullable|min:1|max:255',
                 'ciudad' => 'nullable|min:1|max:255',
-                'pais_direccion' => 'required|min:1|max:255',
-    
+                'pais_direccion' => 'nullable|min:1|max:255',
+
                 //contacto
-                'celular' => 'required|min:1000000000|max:9999999999|numeric',
+                'celular' => 'nullable|min:1000000000|max:9999999999|numeric',
                 'telefono' => 'nullable|min:1000000000|max:9999999999|numeric',
                 'correo' => 'nullable',
-    
+
                 //referencias
                 'referencia1_nombre'=> 'nullable',
                 'referencia1_cel' => 'nullable|numeric|min:1000000000|max:9999999999',
