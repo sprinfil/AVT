@@ -56,10 +56,19 @@
             <!--Primera fila-->
                 <div class="max-h-[300px] overflow-y-auto no-scrollbar">
                     <p>
-                        Versión actual (v 1.0.1)
+                        Versión actual (v 1.0.2)
                         <br>
                         <br>
-                         Detalle de actualización v 1.0.1.
+                        <br>
+                        <-- Actualización v 1.0.2. -->
+                        <br>
+                        - Ahora hay menos campos obligatorios al dar de alta la persona.    
+                        <br>
+                        - Se reacomodaron los campos al dar de alta la persona.  
+                        <br>
+                        <br>                  
+                        <br>
+                         < -- Actualización v 1.0.1. -->
                         <br>
                         - Nuevos campos para dar de alta persona.
                         <br>
