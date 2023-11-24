@@ -13,19 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        \App\Models\User::factory()->create();
+        
         if (!DB::table('seeders_log')->where('seeder_name', 'EntidadesSeeder')->exists()) {
             // Ejecuta el seeder
             $this->call(EntidadesSeeder::class);
         
             // Registra el seeder ejecutado en la tabla
-            DB::table('seeders_log')->insert(['EntidadesSeeder' => 'NombreDelSeeder']);
+            DB::table('seeders_log')->insert(['seeder_name' => 'EntidadesSeeder']);
         }
         if (!DB::table('seeders_log')->where('seeder_name', 'MunicipiosSeeder')->exists()) {
             // Ejecuta el seeder
             $this->call(MunicipiosSeeder::class);
         
             // Registra el seeder ejecutado en la tabla
-            DB::table('seeders_log')->insert(['MunicipiosSeeder' => 'NombreDelSeeder']);
+            DB::table('seeders_log')->insert(['seeder_name' => 'MunicipiosSeeder']);
         }
     }
 }
