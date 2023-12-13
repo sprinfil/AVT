@@ -55,6 +55,24 @@
                         </div>
                     </a>
 
+                    <!--///////Zonas//////-->
+                    <a href="{{ route('zonas.index') }}">
+                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                            onclick="">
+                            <!--Icono-->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                                stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                              
+                            <!--Texto-->
+                            <li
+                                class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                <span>Zonas</span></li>
+                        </div>
+                    </a>
+                    
                     <!--///////Personas//////-->
                     <a href="{{ route('personas') }}">
                         <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"

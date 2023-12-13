@@ -13,6 +13,8 @@ class ZonaController extends Controller
     public function index()
     {
         //
+
+        return view('vistas.zonas.index');
     }
 
     /**

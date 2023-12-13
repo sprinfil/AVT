@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre')->nullable();
-            $table->unsignedBigInteger('dueno')->nullable();
+            $table->unsignedBigInteger('dueno_id')->nullable();
 
+            $table->foreign('dueno_id')->references('id')->on('personas');
 
-            $table->foreign('dueno')->references('id')->on('personas');
+            $table->timestamps(); // Esto agregará las columnas created_at y updated_at
+
         });
     }
 

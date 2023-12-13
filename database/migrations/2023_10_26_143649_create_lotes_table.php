@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('estado')->nullable();
             $table->unsignedBigInteger('zona')->nullable();
 
-            $table->foreign('zona')->references('id')->on('zonas');
+            $table->foreign('zona')->references('id')->on('zonas')->onDelete('cascade');
         });
     }
 

@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Zona;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PersonaController;
@@ -49,6 +51,13 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/personas/create','create')->name('personas_create');
         Route::post('/personas/store','store')->name('personas_store');
         Route::get('/personas/edit/{persona_id}','show')->name('personas_edit');
+    });
+
+    //ZONAS
+    Route::prefix('zonas')->group(function () {
+        Route::controller(ZonaController::class)->group(function () {
+            Route::get('', 'index')->name('zonas.index');
+        });
     });
     
     //ARCHIVOS
