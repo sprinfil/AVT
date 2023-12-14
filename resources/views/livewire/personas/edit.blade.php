@@ -10,7 +10,7 @@
         <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
             <a href="{{ route('personas') }}" class="underline text-blue-500">Personas</a>
             /
-            <a href="" class="underline text-blue-500">{{ $persona->nombre }}</a>
+            <a href="" class=" text-fuente">{{ $persona->nombre }}</a>
         </div>
 
         <div class="md:flex grid-cols-1">

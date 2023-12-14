@@ -7,7 +7,7 @@
             <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
                 <a href="{{ route('personas') }}" class="underline text-blue-500">Personas</a>
                 /
-                <a href="" class="underline text-blue-500">Nueva persona</a>
+                <a href="" class=" text-blue-fuente">Nueva persona</a>
             </div>
 
             <!--Titulo -->

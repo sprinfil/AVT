@@ -24,8 +24,12 @@ class Create extends Component
                         ->orderBy('id', 'desc')
                         ->first();
 
-                   
-        $this->lote = $ultimoLote->lote + 1;
+        if($ultimoLote){
+            $this->lote = $ultimoLote->lote + 1;
+        }else{
+            $this->lote = 1;
+        }  
+
 
         return view('livewire.lotes.create', ['zona' => $this->zona]);
     }
@@ -42,7 +46,7 @@ class Create extends Component
             'noreste' => $this->noreste,
             'sureste' => $this->sureste,
             'suroeste' => $this->suroeste,
-            'noroeste' => $this->noreste,
+            'noreste' => $this->noreste,
             'norte' => $this->norte,
             'sur' => $this->sur,
             'este' => $this->este,

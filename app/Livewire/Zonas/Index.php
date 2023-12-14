@@ -7,6 +7,7 @@ use App\Models\Zona;
 use App\Models\Persona;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On; 
 
 class Index extends Component
 {
@@ -24,6 +25,7 @@ class Index extends Component
     public $zona_id = 0;
 
     public $nombre_dueno_zona;
+    public $zona_eliminar;
 
     protected $rules = [
         'nombre' => 'required|min:5',
@@ -36,7 +38,7 @@ class Index extends Component
     {
 
         // Se pueden pasar directamente a la vista sin necesidad de asignar a propiedades
-        $zonas = Zona::all();
+        $zonas = Zona::whereNull('baja')->get();
         $qPersonas = Persona::query();
 
 
@@ -57,6 +59,9 @@ class Index extends Component
         ]);
     }
 
+    public function mount(){
+        $this->dueno_id = Persona::orderBy('id','asc')->first()->id;
+    }
     public function guardarZona()
     {
         $this->validate();
@@ -76,13 +81,6 @@ class Index extends Component
 
         $this->aceptar();
         $this->cerrarModal();
-    }
-
-    public function eliminar($id)
-    {
-        Zona::destroy($id);
-
-        $this->eliminado();
     }
 
     public function edit($id)
@@ -116,10 +114,7 @@ class Index extends Component
         return redirect()->route('zonas.show', ['id' => $zona->id]);
     }
 
-    public function eliminado()
-    {
-        $this->dispatch('success_delete'); // Cambiado a dispatchBrowserEvent
-    }
+
     public function editando()
     {
         $this->dispatch('success_edit'); // Cambiado a dispatchBrowserEvent
@@ -148,5 +143,19 @@ class Index extends Component
     public function actualizarFiltroNombre()
     {
         $this->render();
+    }
+    public function show_eliminar($id){
+        $this->zona_eliminar = Zona::find($id);
+        $this->dispatch('show_eliminar');
+
+    }
+
+    #[On('eliminar')] 
+    public function eliminar(){
+        $zona = $this->zona_eliminar;
+        $zona->baja = "si";
+        $zona->save();
+        $this->render();
+        $this->dispatch('success_delete'); 
     }
 }

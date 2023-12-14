@@ -38,11 +38,12 @@
                             {{$zona->dueno->nombreCompleto()}}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
-                            {{ $zona->lotes->count() }}
+                            {{ $zona->lotes->whereNull('baja')->count() }}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
                             <button class="btn-primary font-400 bg-green h-full" wire:click="edit({{$zona->id}})">Editar</button>
-                            <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminar({{ $zona->id }})">Eliminar</button>
+                            <button class="btn-primary font-400 bg-rojo h-full" wire:click="show_eliminar({{ $zona->id }})">Baja</button>
+                          
                         </td>
                     </tr>
                     @endforeach
@@ -142,9 +143,8 @@
         Swal.fire({
             position: 'center-middle',
             icon: 'success',
-            title: 'Zona Elimnada con Exito',
+            title: 'Zona dada de baja con exito',
             showConfirmButton: false,
-            text: 'La zona se ha eliminado correctamente',
             timer: 1500,
         });
     });
@@ -158,5 +158,19 @@
             timer: 1500,
         });
     });
+    window.addEventListener('show_eliminar', event => {
+            Swal.fire({
+                title: "¿Dar de baja zona?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.dispatch('eliminar')
+                }
+            });
+        });
 </script>
 @endsection

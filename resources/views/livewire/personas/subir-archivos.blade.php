@@ -10,7 +10,7 @@
         <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
             <a href="{{route('personas')}}" class="underline text-blue-500">Personas</a> 
             / 
-            <a href="" class="underline text-blue-500">Nueva persona</a>
+            <a href="" class=" text-fuente">Nueva persona</a>
           </div>
 
         <div class="mx-[10px] md:mx-[50px]  justify-between mt-[20px]">
