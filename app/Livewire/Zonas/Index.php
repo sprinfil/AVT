@@ -37,9 +37,13 @@ class Index extends Component
         $qPersonas = Persona::query();
         
         if(empty($this->dueno_id)){
-            $qPersonas = Persona::all();
+            if($this->filtroNombre != ''){
+                $qPersonas = Persona::where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%')->get();
+            }else{
+                $qPersonas = Persona::All();
+            }
         }else{
-            $qPersonas = Persona::where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%');
+            $qPersonas = Persona::where('dueno_id', $this->dueno_id);
         }
    
         $this->personas = $qPersonas;
