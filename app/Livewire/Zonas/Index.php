@@ -22,7 +22,9 @@ class Index extends Component
     public $filtroNombre;
 
     public $zona_id = 0;
-    
+
+    public $nombre_dueno_zona;
+
     protected $rules = [
         'nombre' => 'required|min:5',
         'dueno_id' => 'required|not_in:0',
@@ -32,24 +34,25 @@ class Index extends Component
 
     public function render()
     {
+
         // Se pueden pasar directamente a la vista sin necesidad de asignar a propiedades
         $zonas = Zona::all();
         $qPersonas = Persona::query();
-        
-        if(empty($this->dueno_id)){
-            if($this->filtroNombre != ''){
-                $qPersonas = Persona::where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%')->get();
-            }else{
-                $qPersonas = Persona::All();
+
+
+        if ($this->filtroNombre != '') {
+            $qPersonas = Persona::where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%')->get();
+            if ($qPersonas->count() == 1) {
+                $this->dueno_id = $qPersonas->first()->id;
             }
-        }else{
-            $qPersonas = Persona::where('dueno_id', $this->dueno_id);
+        } else {
+            $qPersonas = Persona::All();
         }
-   
+
         $this->personas = $qPersonas;
-        
+
         return view('livewire.zonas.index', [
-            'zonas' => $zonas, 
+            'zonas' => $zonas,
             'personas' => $this->personas,
         ]);
     }
@@ -75,38 +78,41 @@ class Index extends Component
         $this->cerrarModal();
     }
 
-    public function eliminar($id){
+    public function eliminar($id)
+    {
         Zona::destroy($id);
 
         $this->eliminado();
     }
 
-    public function edit($id){
-        $this->abrirModal();
-        $this->editando = true;
+    public function edit($id)
+    {
 
+        $this->editando = true;
         $this->zona = Zona::find($id);
         $this->zona_id = $id;
-
-
         $this->nombre = $this->zona->nombre;
+        $this->nombre_dueno_zona = $this->zona->dueno->nombreCompleto();
+
+        $this->abrirModal();
     }
     public function editar($id)
     {
         $zona = Zona::find($id);
         $zona->nombre = $this->nombre;
-        if($this->dueno_id == 0)
+        if ($this->dueno_id == 0)
             $zona->dueno_id = $zona->dueno_id;
         else
             $zona->dueno_id = $this->dueno_id;
 
         $zona->save();
-        
+
         $this->editando();
         $this->cerrarModal();
     }
 
-    public function ver(Zona $zona){
+    public function ver(Zona $zona)
+    {
         return redirect()->route('zonas.show', ['id' => $zona->id]);
     }
 
@@ -123,7 +129,8 @@ class Index extends Component
         $this->dispatch('success'); // Cambiado a dispatchBrowserEvent
     }
 
-    public function abrirModal(){
+    public function abrirModal()
+    {
         $this->showModal = true;
     }
 
@@ -133,11 +140,13 @@ class Index extends Component
         $this->showModal = false;
     }
 
-    public function salir(){
+    public function salir()
+    {
         $this->esconder = 'hidden';
     }
 
-    public function actualizarFiltroNombre(){
+    public function actualizarFiltroNombre()
+    {
         $this->render();
     }
 }

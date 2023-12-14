@@ -31,17 +31,17 @@
                 <tbody>
                     @foreach($zonas as $zona)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $zona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
-                        <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$zona->id}})">
+                        <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="ver({{ $zona }}) ">
                             {{$zona->nombre}}
                         </th>
-                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$zona->id}})">
+                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
                             {{$zona->dueno->nombreCompleto()}}
                         </td>
-                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$zona->id}})">
+                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
                             {{ $zona->lotes->count() }}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                            <button class="btn-primary font-400 bg-green h-full" wire:click="ver({{ $zona }})">Ver Lotes</button>
+                            <button class="btn-primary font-400 bg-green h-full" wire:click="edit({{$zona->id}})">Editar</button>
                             <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminar({{ $zona->id }})">Eliminar</button>
                         </td>
                     </tr>
@@ -88,9 +88,7 @@
                                             <input type="text" class="input-pdv mb-[15px]" placeholder="Buscar..." wire:model="filtroNombre" wire:input="actualizarFiltroNombre">
                                             <select wire:model="dueno_id" id="dueno_id" name="dueno_id" class="input-pdv">
                                                 @if ($this->editando == true)
-                                                    <option value="{{ $this->zona->dueno_id }}" selected >{{ $zona->dueno->nombreCompleto() }} -- Actual Dueño</option>
-                                                @else    
-                                                    <option value="0" selected disabled>--Seleccionar un persona--</option>
+                                                    <option value="" selected >{{ $nombre_dueno_zona }} -- Actual Dueño</option>
                                                 @endif
                                                 @foreach ($personas as $persona)
                                                     <option value="{{ $persona->id }}">{{ $persona->nombre }} {{ $persona->apellido_1 }} {{ $persona->apellido_2 }}</option>

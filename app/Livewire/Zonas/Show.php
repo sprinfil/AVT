@@ -5,6 +5,7 @@ namespace App\Livewire\Zonas;
 use App\Models\Lote;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 
 class Show extends Component
@@ -13,15 +14,27 @@ class Show extends Component
 
     public $zona;
     public $filtro = 0;
+    public $filtro_texto;
     public $valor;
 
     public function render()
     {
+
         if($this->filtro == 0){
             $query = Lote::query()->where('zona', $this->zona->id)->paginate(10);
+        }else{
+            if($this->filtro == 1){
+                $query = Lote::where(DB::raw("catastral"), 'LIKE', '%' . $this->filtro_texto . '%')   
+                ->where("zona",$this->zona->id)->paginate(10);
+            }
+            if($this->filtro == 2){
+                $query = Lote::where('lote',$this->filtro_texto)
+                ->where("zona",$this->zona->id)->paginate(10);
+            }
         }
-    
+      
         $lotes = $query;
+
     
         return view('livewire.zonas.show', ['zona' => $this->zona, 'lotes' => $lotes]);
     }
@@ -42,5 +55,9 @@ class Show extends Component
     public function eliminado()
     {
         $this->dispatch('success_delete'); // Cambiado a dispatchBrowserEvent
+    }
+
+    public function actualizarNumFiltro(){
+        $this->render();
     }
 }
