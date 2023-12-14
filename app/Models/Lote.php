@@ -20,6 +20,7 @@ class Lote extends Model
         'noreste',        
         'sureste',
         'suroeste',
+        'noroeste',
         'norte',
         'sur', 
         'este',  

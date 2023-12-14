@@ -3,6 +3,7 @@
 use App\Models\Zona;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\LoginController;
@@ -57,6 +58,15 @@ Route::middleware(['auth'])->group(function (){
     Route::prefix('zonas')->group(function () {
         Route::controller(ZonaController::class)->group(function () {
             Route::get('', 'index')->name('zonas.index');
+            Route::get('/zona/{id}', 'show')->name('zonas.show');
+        });
+    });
+
+    //LOTES
+    Route::prefix('lotes')->group(function () {
+        Route::controller(LoteController::class)->group(function () {
+            Route::get('/lote/create/zona/{id}', 'create')->name('lotes.create');
+            Route::get('/lote/{id}', 'show')->name('lotes.show');
         });
     });
     

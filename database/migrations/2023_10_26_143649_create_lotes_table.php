@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('precio')->nullable();
             $table->string('noreste')->nullable();
             $table->string('sureste')->nullable();
+            $table->string('noroeste')->nullable();
             $table->string('suroeste')->nullable();
             $table->string('norte')->nullable();
             $table->string('sur')->nullable();

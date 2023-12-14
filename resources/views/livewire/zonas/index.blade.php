@@ -41,7 +41,7 @@
                             {{ $zona->lotes->count() }}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                            <button class="btn-primary font-400 bg-green h-full" wire:click="ver({{ $zona->id }})">Ver</button>
+                            <button class="btn-primary font-400 bg-green h-full" wire:click="ver({{ $zona }})">Ver</button>
                             <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminar({{ $zona->id }})">Eliminar</button>
                         </td>
                     </tr>

@@ -100,8 +100,8 @@ class Index extends Component
         $this->cerrarModal();
     }
 
-    public function ver($id){
-        dd($id);
+    public function ver(Zona $zona){
+        return redirect()->route('zonas.show', ['id' => $zona->id]);
     }
 
     public function eliminado()

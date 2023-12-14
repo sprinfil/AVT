@@ -36,9 +36,14 @@ class ZonaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Zona $zona)
+    public function show($id)
     {
+        $zona = Zona::find($id);
+
+        if(!$zona)
+            abort(404);
         //
+        return view('vistas.zonas.show', ['zona' => $zona]);
     }
 
     /**

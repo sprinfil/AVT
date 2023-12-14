@@ -18,9 +18,10 @@ class LoteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
         //
+        return view('vistas.lotes.create', ['id' => $id]);
     }
 
     /**
@@ -34,9 +35,10 @@ class LoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lote $lote)
+    public function show($id)
     {
         //
+        return view('vistas.lotes.show', ['id' => $id]);
     }
 
     /**
