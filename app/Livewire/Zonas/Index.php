@@ -6,6 +6,7 @@ use App\Models\Lote;
 use App\Models\Zona;
 use App\Models\Persona;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
@@ -18,6 +19,7 @@ class Index extends Component
     public $showModal = false;
     public $editando = false;
     public $esconder = 'hidden';
+    public $filtroNombre;
 
     public $zona_id = 0;
     
@@ -37,9 +39,9 @@ class Index extends Component
         if(empty($this->dueno_id)){
             $qPersonas = Persona::all();
         }else{
-            $qPersonas = Persona::where('dueno_id', $this->dueno_id);
+            $qPersonas = Persona::where(DB::raw("CONCAT(nombre, ' ',apellido_1, ' ', apellido_2)"), 'LIKE', '%' . $this->filtroNombre . '%');
         }
-
+   
         $this->personas = $qPersonas;
         
         return view('livewire.zonas.index', [
@@ -129,5 +131,9 @@ class Index extends Component
 
     public function salir(){
         $this->esconder = 'hidden';
+    }
+
+    public function actualizarFiltroNombre(){
+        $this->render();
     }
 }

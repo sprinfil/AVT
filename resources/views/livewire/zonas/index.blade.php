@@ -41,7 +41,7 @@
                             {{ $zona->lotes->count() }}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                            <button class="btn-primary font-400 bg-green h-full" wire:click="ver({{ $zona }})">Ver</button>
+                            <button class="btn-primary font-400 bg-green h-full" wire:click="ver({{ $zona }})">Ver Lotes</button>
                             <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminar({{ $zona->id }})">Eliminar</button>
                         </td>
                     </tr>
@@ -85,13 +85,14 @@
 
                                         <div class="mb-4">
                                             <label for="dueno_id" class="block text-gray-700 text-sm font-bold mb-2">Dueño</label>
+                                            <input type="text" class="input-pdv mb-[15px]" placeholder="Buscar..." wire:model="filtroNombre" wire:input="actualizarFiltroNombre">
                                             <select wire:model="dueno_id" id="dueno_id" name="dueno_id" class="input-pdv">
                                                 @if ($this->editando == true)
                                                     <option value="{{ $this->zona->dueno_id }}" selected >{{ $zona->dueno->nombreCompleto() }} -- Actual Dueño</option>
                                                 @else    
                                                     <option value="0" selected disabled>--Seleccionar un persona--</option>
                                                 @endif
-                                                @foreach ($personas as $persona)s
+                                                @foreach ($personas as $persona)
                                                     <option value="{{ $persona->id }}">{{ $persona->nombre }} {{ $persona->apellido_1 }} {{ $persona->apellido_2 }}</option>
                                                 @endforeach
                                             </select>
