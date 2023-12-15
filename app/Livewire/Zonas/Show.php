@@ -26,7 +26,7 @@ class Show extends Component
             $query = Lote::query()->where('zona', $this->zona->id)->whereNull('baja')->get();
         }else{
             if($this->filtro == 1){
-                $query = Lote::where(DB::raw("catastral"), 'LIKE', '%' . $this->filtro_texto)   
+                $query = Lote::where(DB::raw("catastral"), 'LIKE', $this->filtro_texto.'%')   
                 ->where("zona",$this->zona->id)->whereNull('baja')->get();
             }
             if($this->filtro == 2){

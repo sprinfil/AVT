@@ -36,7 +36,6 @@ class Create extends Component
 
     public function submit(){
         $this->validate();
-
         Lote::create([
             'lote' => $this->lote,
             'manzana' => $this->manzana,
@@ -46,7 +45,7 @@ class Create extends Component
             'noreste' => $this->noreste,
             'sureste' => $this->sureste,
             'suroeste' => $this->suroeste,
-            'noreste' => $this->noreste,
+            'noroeste' => $this->noroeste,
             'norte' => $this->norte,
             'sur' => $this->sur,
             'este' => $this->este,
@@ -59,18 +58,18 @@ class Create extends Component
 
     protected $rules = [
         'lote' => 'required|numeric',
-        'manzana' => 'required',
-        'catastral' => 'required',
-        'superficie' => 'required|numeric',
-        'precio' => 'required|numeric',
-        'noreste' => 'required|numeric',
-        'sureste' => 'required|numeric',
-        'suroeste' => 'required|numeric',
-        'noroeste' => 'required|numeric',
-        'norte' => 'required|numeric',
-        'sur' => 'required|numeric',
-        'este' => 'required|numeric',
-        'oeste' => 'required|numeric',
+        'manzana' => 'nullable',
+        'catastral' => 'nullable',
+        'superficie' => 'nullable|numeric',
+        'precio' => 'nullable|numeric',
+        'noreste' => 'nullable|numeric',
+        'sureste' => 'nullable|numeric',
+        'suroeste' => 'nullable|numeric',
+        'noroeste' => 'nullable|numeric',
+        'norte' => 'nullable|numeric',
+        'sur' => 'nullable|numeric',
+        'este' => 'nullable|numeric',
+        'oeste' => 'nullable|numeric',
     ];
 
 
