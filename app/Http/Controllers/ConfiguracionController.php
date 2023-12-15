@@ -69,10 +69,18 @@ class ConfiguracionController extends Controller
     public function actualizar_sistema(){
         //estos caracteres: 2>&1 sirven para mostrar el resultado del comando 
         try{
+            //por si hay cambios en el codigo local
+            $fetch = exec('git fetch --all');
+            $hard = exec('git reset --hard origin/main');
+
+            //pull
             $actualizar_sistema = exec('git pull origin main --no-edit 2>&1');
             $npm_build = exec('npm run build 2>&1');
     
+            //actualizar composer
             exec('/usr/local/bin/composer update');
+
+            //actualizar bd
             Artisan::call('migrate');
             Artisan::call('db:seed');
     
