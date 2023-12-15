@@ -56,7 +56,7 @@
             <!--Primera fila-->
                 <div class="max-h-[300px] overflow-y-auto no-scrollbar">
                     <p>
-                        Versión actual (v 1.0.2)
+                        Versión actual (v 2.0.0)
                         <br>
                         <br>
                         <br>
