@@ -31,7 +31,7 @@ class Show extends Component
             }
             if($this->filtro == 2){
                 $query = Lote::where('lote',$this->filtro_texto)
-                ->where("zona",$this->zona->id)->get();
+                ->where("zona",$this->zona->id)->whereNull('baja')->get();
 
             }
         }
