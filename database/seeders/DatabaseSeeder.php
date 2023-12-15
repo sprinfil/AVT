@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create();
+        //\App\Models\User::factory()->create();
         
         if (!DB::table('seeders_log')->where('seeder_name', 'EntidadesSeeder')->exists()) {
             // Ejecuta el seeder
