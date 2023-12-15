@@ -9,7 +9,7 @@
     <form wire:submit.prevent="submit" class="bg-terciario p-5 rounded mt-5">
         @csrf
         <!-- Información general -->
-        <h3 class="text-lg font-semibold text-gray-400 mb-4">Información General</h3>
+        <h3 class="text-lg font-semibold text-fuente mb-4">Información General</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <!-- Campos de información general -->
             @foreach (['lote', 'manzana', 'catastral', 'superficie', 'precio'] as $field)
@@ -31,7 +31,7 @@
 
         <!-- Medidas y colindancias -->
         <div class="mb-6">
-            <h3 class="text-lg text-gray-400 font-semibold mb-4">Medidas y colindancias</h3>
+            <h3 class="text-lg text-fuente font-semibold mb-4">Medidas y colindancias</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Campos de medidas y colindancias -->
                 @foreach (['noreste', 'sureste', 'suroeste', 'noroeste', 'norte', 'sur', 'este', 'oeste'] as $field)
