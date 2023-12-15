@@ -60,6 +60,12 @@
                         <br>
                         <br>
                         <br>
+                        <-- Actualización v 2.0.0. -->
+                        <br>
+                        - Nuevo modulo, Zonas y lotes
+                        <br>
+                        <br>
+                        <br>
                         <-- Actualización v 1.0.2. -->
                         <br>
                         - Ahora hay menos campos obligatorios al dar de alta la persona.    
