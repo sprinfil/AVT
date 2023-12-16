@@ -104,12 +104,6 @@
                                                 <input wire:model="numero_lotes" type="number" name="numero_lotes" id="numero_lotes" placeholder="Número de Lotes en la Zona" class="input-pdv">
                                                 @error('numero_lotes') <span class="text-red-500">{{ $message }}</span> @enderror
                                             </div>
-
-                                            <div class="mb-4">
-                                                <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Precio</label>
-                                                <input wire:model="precio" type="number" id="precio" name="precio" placeholder="Precio por Lote"  class="input-pdv">
-                                                @error('precio') <span class="text-red-500">{{ $message }}</span> @enderror
-                                            </div>
                                         @endif
                                     </div>
                                     <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">

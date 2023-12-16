@@ -16,7 +16,6 @@ class Index extends Component
     public $zona;
     public $nombre;
     public $numero_lotes = 0;
-    public $precio = 0;
     public $showModal = false;
     public $editando = false;
     public $esconder = 'hidden';
@@ -31,7 +30,6 @@ class Index extends Component
         'nombre' => 'required|min:5',
         'dueno_id' => 'required|not_in:0',
         'numero_lotes' => 'required|min:1',
-        'precio' => 'required|min:0'
     ];
 
     public function render()
@@ -74,7 +72,6 @@ class Index extends Component
         for ($i = 0; $i < $this->numero_lotes; $i++) {
             Lote::create([
                 'lote' => $i + 1, // Asegúrate de que 'numero' es el campo correcto en la tabla 'lotes'.
-                'precio' => $this->precio,
                 'zona' => $zona->id, // Utilizar directamente el id de la zona creada.
             ]);
         }
