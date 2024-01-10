@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VentaController;
 use App\Models\Zona;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -92,6 +93,11 @@ Route::middleware(['auth'])->group(function (){
     //REPORTES
     Route::controller(ReportesController::class)->group(function () {
         Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
+    });
+
+      //VENTAS
+      Route::controller(VentaController::class)->group(function () {
+        Route::get('/ventas','index')->name('ventas'); 
     });
 
 });
