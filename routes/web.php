@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function (){
       //VENTAS
       Route::controller(VentaController::class)->group(function () {
         Route::get('/ventas','index')->name('ventas'); 
+        Route::get('/ventas/nueva','index_nueva_venta')->name('nueva_venta'); 
     });
 
 });

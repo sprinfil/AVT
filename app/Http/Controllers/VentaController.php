@@ -12,7 +12,10 @@ class VentaController extends Controller
      */
     public function index()
     {
-        //
         return view('vistas.ventas.index');
+    }
+
+    public function index_nueva_venta(){
+        return view('vistas.ventas.nueva-venta');
     }
 }

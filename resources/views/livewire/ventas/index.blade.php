@@ -5,7 +5,7 @@
         <div class="mx-[10px] md:mx-[50px]  justify-between">
             <p class="text-fuente text-[40px] mb-[20px]">VENTAS</p>
             <p class="text-fuente ml-[4px] mb-[10px]">Opciones</p>
-            <a href=""><button class="btn-primary">Nueva venta</button></a>
+            <a href="{{ route('nueva_venta') }}"><button class="btn-primary">Nueva venta</button></a>
         </div>
     </div>
 
