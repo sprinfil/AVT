@@ -51,7 +51,8 @@
                             <!--Texto-->
                             <li
                                 class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
-                                <span>Home</span></li>
+                                <span>Home</span>
+                            </li>
                         </div>
                     </a>
 
@@ -60,19 +61,22 @@
                         <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
                             onclick="">
                             <!--Icono-->
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                             </svg>
-                              
+
                             <!--Texto-->
                             <li
                                 class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
-                                <span>Zonas</span></li>
+                                <span>Zonas</span>
+                            </li>
                         </div>
                     </a>
-                    
+
                     <!--///////Personas//////-->
                     <a href="{{ route('personas') }}">
                         <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
@@ -86,9 +90,27 @@
                             <!--Texto-->
                             <li
                                 class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
-                                <span>Personas</span></li>
+                                <span>Personas</span>
+                            </li>
                         </div>
                     </a>
+
+                         <!--///////Ventas//////-->
+                         <a href="{{ route('ventas') }}">
+                            <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                                onclick="">
+                                <!--Icono-->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                  
+                                <!--Texto-->
+                                <li
+                                    class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                    <span>Ventas</span>
+                                </li>
+                            </div>
+                        </a>
 
 
                     @admin
@@ -105,7 +127,8 @@
                                 <!--Texto-->
                                 <li
                                     class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
-                                    <span>Usuarios</span></li>
+                                    <span>Usuarios</span>
+                                </li>
                             </div>
                         </a>
 
@@ -122,7 +145,8 @@
                                 <!--Texto-->
                                 <li
                                     class="text-center font-400 ml-[30px] texto ocultar-texto text-[19px] h-[30px] mt-[5px] text-fuente-botones">
-                                    <span>Configuración</span></li>
+                                    <span>Configuración</span>
+                                </li>
                             </div>
                         </a>
                     @endadmin

@@ -28,4 +28,9 @@ class Lote extends Model
         'estado',
         'zona',
     ];
+
+    public function nombre_zona(){
+        $zona = Zona::where('id',$this->zona)->first();
+        return $zona->nombre;
+    }
 }
