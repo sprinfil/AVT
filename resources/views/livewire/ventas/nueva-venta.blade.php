@@ -111,21 +111,21 @@
                     <option value="CONTADO">CONTADO</option>
                 </select>
                 @if ($metodo_pago != '')
-                    <div class="md:w-[50%] w-full mt-[10px]">
-                        <p class="text-fuente text-[15px]">Costo del lote</p>
-                        <input type="number" class="input-pdv w-full" placeholder="costo del lote" id="costo_lote"
+                    <div class="md:w-[50%] w-full mt-[10px] ">
+                        <p class="text-fuente text-[15px] ">Costo del lote</p>
+                        <input type="text" class="input-pdv w-full" placeholder="costo del lote" id="costo_lote"
                             wire:model="costo_lote" wire:input="calcular_monto_por_mes">
                     </div>
                 @endif
                 @if ($metodo_pago == 'A MESES')
                     <div class="md:w-[50%] w-full  mt-[10px]">
                         <p class="text-fuente text-[15px]">Enganche</p>
-                        <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                        <input type="number" class="input-pdv w-full" placeholder="Enganche"
                             wire:model="enganche_meses" wire:input="calcular_monto_por_mes">
                     </div>
                     <div class="md:w-[50%] w-full  mt-[10px]">
                         <p class="text-fuente text-[15px]">Meses a pagar</p>
-                        <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                        <input type="number" class="input-pdv w-full" placeholder="Meses a pagar"
                             wire:model="meses_pagar" wire:input="calcular_monto_por_mes">
                     </div>
                     <div class="md:w-[50%] w-full  mt-[10px]">
@@ -149,26 +149,26 @@
                 @if($forma_de_pago == "EFECTIVO")
                 <div class="md:w-[50%] w-full  mt-[10px]">
                     <p class="text-fuente text-[15px]">Pago con ...</p>
-                    <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                    <input type="number" class="input-pdv w-full" placeholder="Pago con ..."
                         wire:model="pago_con_efectivo" wire:input="calcular_cambio_efectivo">
                 </div>
                 <div class="md:w-[50%] w-full  mt-[10px]">
                     <p class="text-fuente text-[15px]">Cambio</p>
-                    <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                    <input type="number" class="input-pdv w-full" placeholder="Cambio"
                         wire:model="cambio_efectivo" disabled>
                 </div>
                 @endif
                 @if($forma_de_pago == "TARJETA CREDITO")
                 <div class="md:w-[50%] w-full  mt-[10px]">
                     <p class="text-fuente text-[15px]">Referencia</p>
-                    <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                    <input type="number" class="input-pdv w-full" placeholder="Referencia"
                         wire:model="referencia_credito" wire:input="calcular_cambio_efectivo">
                 </div>
                 @endif
                 @if($forma_de_pago == "TARJETA DEBITO")
                 <div class="md:w-[50%] w-full  mt-[10px]">
                     <p class="text-fuente text-[15px]">Referencia</p>
-                    <input type="number" class="input-pdv w-full" placeholder="pago por mes"
+                    <input type="number" class="input-pdv w-full" placeholder="Referencia"
                         wire:model="referencia_debito" wire:input="calcular_cambio_efectivo">
                 </div>
                 @endif
@@ -179,7 +179,7 @@
         <div class="col-span-1">
             <div
                 class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]">
-                <div class="mx-[10px] md:mx-[50px] justify-center items-center">
+                <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
                     <p class="text-fuente text-[25px] mb-[20px]">RESUMEN</p>
                     <div class="w-full h-screen">
                         <p class="text-fuente">Comprador</p>
@@ -198,44 +198,42 @@
                         <input wire:model = "metodo_pago" type="text" class="input-pdv mb-[20px] w-full" disabled
                             placeholder="Metodo de pago">
                         <p class="text-fuente">Costo del Lote</p>
-                        <input wire:model = "costo_lote" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="Costo del lote">
+                        <p class="text-fuente mb-[20px]">$ @if($costo_lote != null){{ number_format($costo_lote,2) }}@endif</p>
                         @if ($metodo_pago == 'A MESES')
                             <p class="text-fuente">Enganche</p>
-                            <input wire:model = "enganche_meses" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="Enganche">
+                            <p class="text-fuente  mb-[20px]">$ @if($enganche_meses!=null) {{ number_format($enganche_meses,2) }}@endif</p>
+
                             <p class="text-fuente">Meses a pagar</p>
-                            <input wire:model = "meses_pagar" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="Meses a pagar">
+                            <p class="text-fuente  mb-[20px]">{{ $meses_pagar }}</p>
+
                             <p class="text-fuente">Monto por mes</p>
-                            <input wire:model = "monto_mes" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="Monto por mes">
+                            <p class="text-fuente  mb-[20px]">$ @if($monto_mes!=null){{ number_format($monto_mes,2) }}@endif</p>
                         @endif
                         @if($metodo_pago == "CONTADO")
                         <p class="text-fuente">Forma de pago</p>
-                        <input wire:model = "forma_de_pago" type="text" class="input-pdv mb-[20px] w-full" disabled
-                        placeholder="forma de pago">
+                        <p class="text-fuente mb-[20px]">{{ $forma_de_pago }}</p>
                             @if($forma_de_pago=="EFECTIVO")
                             <p class="text-fuente">Pago con ...</p>
-                            <input wire:model = "pago_con_efectivo" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="forma de pago">
+                            <p class="text-fuente  mb-[20px]">$ @if($pago_con_efectivo!=null){{ number_format($pago_con_efectivo,2) }}@endif</p>
+
                             <p class="text-fuente">Cambio</p>
-                            <input wire:model = "cambio_efectivo" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="cambio">
+                            <p class="text-fuente  mb-[20px]">$ @if($cambio_efectivo!=0){{ number_format($cambio_efectivo,2) }}@else{{ number_format(0,2) }} @endif</p>
+
                             @endif
                             @if($forma_de_pago=="TARJETA CREDITO")
                             <p class="text-fuente">Referencia</p>
-                            <input wire:model = "referencia_credito" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="referencia">
+                            <p class="text-fuente">{{ $referencia_credito }}</p>
                             @endif
                             @if($forma_de_pago=="TARJETA DEBITO")
                             <p class="text-fuente">Referencia</p>
-                            <input wire:model = "referencia_debito" type="text" class="input-pdv mb-[20px] w-full" disabled
-                            placeholder="referencia">
+                            <p class="text-fuente">{{ $referencia_debito }}</p>
                             @endif
                         @endif
+                        <button class="btn-primary w-full mt-[20px]"> Continuar</button>
                     </div>
+                  
                 </div>
+           
             </div>
         </div>
 
@@ -244,5 +242,11 @@
 </div>
 
 @section('js')
-    <script></script>
+    <script>
+
+        $(document).ready(function(){
+            console.log("jQuery cargado correctamente");
+        $('.mascara-dinero').mask('000,000,000,000,000', {reverse: true});
+    });
+    </script>
 @endsection

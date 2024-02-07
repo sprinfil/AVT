@@ -159,15 +159,29 @@ class NuevaVenta extends Component
     }
 
     public function SeleccionarMetodoPago(){
-        $this->forma_de_pago="";
-        $this->pago_con_efectivo = "";
-        $this->cambio_efectivo = "";
+        $this->forma_de_pago=null;
+        $this->pago_con_efectivo = null;
+        $this->cambio_efectivo = null;
+        $this->referencia_credito= null;
+        $this->referencia_debito= null;
+        $this->enganche_meses = null;
+        $this->meses_pagar = null;
+        $this->monto_mes = null;
+
+        /*
+           $this->forma_de_pago="";
+        $this->pago_con_efectivo = 0;
+        $this->cambio_efectivo = 0;
         $this->referencia_credito= "";
         $this->referencia_debito= "";
+        $this->enganche_meses = null;
+        $this->meses_pagar = null;
+        $this->monto_mes = null;
+        */
     }
 
     public function calcular_monto_por_mes(){
-        if($this->costo_lote != '' && $this->enganche_meses != '' && $this->meses_pagar && $this->metodo_pago == "A MESES"){
+        if($this->costo_lote != null && $this->enganche_meses != '' && $this->meses_pagar && $this->metodo_pago == "A MESES"){
             $total_a_pagar = $this->costo_lote - $this->enganche_meses;
             $this->monto_mes = $total_a_pagar / $this->meses_pagar;
         }
@@ -175,14 +189,21 @@ class NuevaVenta extends Component
     }
 
     public function cambio_forma_de_pago(){
-        $this->pago_con_efectivo = "";
-        $this->cambio_efectivo = "";
+        $this->pago_con_efectivo = null;
+        $this->cambio_efectivo = null;
+        $this->referencia_credito= null;
+        $this->referencia_debito= null;
+
+        /*
+                $this->pago_con_efectivo = 0;
+        $this->cambio_efectivo = 0;
         $this->referencia_credito= "";
         $this->referencia_debito= "";
+        */
     }
 
     public function calcular_cambio_efectivo(){
-        if($this->costo_lote != "" && $this->forma_de_pago=="EFECTIVO" && $this->pago_con_efectivo != ""){
+        if($this->costo_lote != null && $this->forma_de_pago=="EFECTIVO" && $this->pago_con_efectivo != null){
             $this->cambio_efectivo = $this->pago_con_efectivo - $this->costo_lote;
         }
     }
