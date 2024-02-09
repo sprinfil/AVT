@@ -9,7 +9,7 @@ export default defineConfig({
             'resources/css/menu.css','resources/css/lightbox.min.css',
             'resources/css/photoswipe.css','resources/css/dropzone.css','resources/css/loader.css',
             'resources/css/fondo.css',
-            'resources/css/personas/personas.css'],
+            'resources/css/personas/personas.css','resources/css/personas/sweetalert2.min.css'],
             refresh: true,
         }),
     ],

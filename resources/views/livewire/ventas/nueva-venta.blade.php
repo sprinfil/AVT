@@ -11,6 +11,7 @@
 
         <!--CONTENEDOR PARA IR SELECCIONANDO-->
         <div class="col-span-2 gap-x-10 ">
+
             <div class="">
                 <p class="text-fuente text-[25px]">Comprador</p>
 
@@ -59,6 +60,33 @@
                     <option value="" selected>--SELECCIONAR--</option>
                     @foreach ($avales as $aval)
                         <option value="{{ $aval->id }}">{{ $aval->nombreCompleto() }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!--VENDEDOR-->
+            <div>
+                <p class="text-fuente text-[25px] mt-[30px]">Vendedor</p>
+
+                <!--Input de busqueda-->
+                <div class="relative mt-[10px]">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" class="input-pdv pl-10 w-full" placeholder="Buscar persona..."
+                        wire:model="filtroVendedores" wire:input="actualizarFiltroVendedor">
+                </div>
+
+                <!--SELECT VENDEDOR-->
+                <select name="vendedor" id="vendedor" class="input-pdv mt-[10px] w-full" wire:change = "SeleccionarVendedor"
+                    wire:model = "vendedorLista">
+                    <option value="" selected>--SELECCIONAR--</option>
+                    @foreach ($vendedores as $vendedor)
+                        <option value="{{ $vendedor->id }}">{{ $vendedor->nombreCompleto() }}</option>
                     @endforeach
                 </select>
             </div>
@@ -188,6 +216,9 @@
                         <p class="text-fuente">Aval</p>
                         <input wire:model = "avalMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                             placeholder="Aval">
+                        <p class="text-fuente">Vendedor</p>
+                        <input wire:model = "vendedorMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
+                        placeholder="Vendedor">
                         <p class="text-fuente">Zona</p>
                         <input wire:model = "zonaMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                             placeholder="Zona">
@@ -229,11 +260,14 @@
                             <p class="text-fuente">{{ $referencia_debito }}</p>
                             @endif
                         @endif
-                        <button class="btn-primary w-full mt-[20px]"> Continuar</button>
+                        <button class="btn-primary w-full mt-[20px]" wire:click="advertencia_venta"> Continuar</button>
+                        @if($this->error)
+                        <div class="w-full h-[30px] bg-red-500 rounded-md flex items-center justify-center text-fuente py-[20px] mt-[20px]">
+                            <p>Rellena todos los campos</p>
+                        </div>
+                        @endif
                     </div>
-                  
                 </div>
-           
             </div>
         </div>
 
@@ -249,4 +283,22 @@
         $('.mascara-dinero').mask('000,000,000,000,000', {reverse: true});
     });
     </script>
+    <script>
+        window.addEventListener('advertencia_venta', event => {
+            Swal.fire({
+                title: "¿Continuar con la venta?",
+                text: 'Asegurate de que los campos esten correctos',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.dispatch('crear_venta')
+                }
+            });
+        });
+    </script>
+    
 @endsection
