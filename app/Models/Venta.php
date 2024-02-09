@@ -24,6 +24,10 @@ class Venta extends Model
         return $this->hasOne(Lote::class,'id','lote');
     }
 
+    public function Zona(){
+        return $this->hasOne(Zona::class,'id','zona_id');
+    }
+
     public function proximo_cobro(){
         return Importe::where('venta',$this->id)
         ->where('monto','>',0)->first();

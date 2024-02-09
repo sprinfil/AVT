@@ -96,9 +96,10 @@ Route::middleware(['auth'])->group(function (){
     });
 
       //VENTAS
-      Route::controller(VentaController::class)->group(function () {
+    Route::controller(VentaController::class)->group(function () {
         Route::get('/ventas','index')->name('ventas'); 
         Route::get('/ventas/nueva','index_nueva_venta')->name('nueva_venta'); 
+        Route::get('/ventas/nueva/resumen-venta/{venta_id}','index_resumen_venta')->name('index_resumen_venta'); 
     });
 
 });

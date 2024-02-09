@@ -287,5 +287,7 @@ class NuevaVenta extends Component
             $importe->venta = $venta->id;
             $importe->save();
         }
+
+        return redirect(route('index_resumen_venta',['venta_id'=>$venta->id]));
     }
 }
