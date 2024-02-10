@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="{{asset('js/menu.js')}}"></script>
 <script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/menu.js')}}"></script>
 <script src="{{asset('js/jquery.mask.js')}}"></script>
 <script src="{{asset('js/loader.js')}}"></script>
 <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>

@@ -1,11 +1,11 @@
 <!--Seccion menu-->
-<nav class="close-nav text-gray-300 min-[1180px]:w-[250px] w-screen ease-out duration-500 bg-negro-menu h-screen shadow-lg"
+<nav class=" text-gray-300 min-[1180px]:w-[250px] w-screen ease-out duration-500 bg-negro-menu h-screen shadow-lg"
     id="menu">
     <div class="px-3"> <!--seccion superior-->
         <div class="flex justify-between h-full pt-3">
             <div class="">
                 <!--Texto Superior-->
-                <p class="texto ocultar-texto text-[20px] text-fuente">MENU</p>
+                <p class="texto text-[20px] text-fuente">MENU</p>
 
                 <!--Usuario-->
                 <div class="md:hidden justify-end flex items-center w-full">
@@ -50,7 +50,7 @@
                             </svg>
                             <!--Texto-->
                             <li
-                                class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                 <span>Home</span>
                             </li>
                         </div>
@@ -71,7 +71,7 @@
 
                             <!--Texto-->
                             <li
-                                class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                 <span>Zonas</span>
                             </li>
                         </div>
@@ -89,7 +89,7 @@
                             </svg>
                             <!--Texto-->
                             <li
-                                class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                 <span>Personas</span>
                             </li>
                         </div>
@@ -106,7 +106,7 @@
                                   
                                 <!--Texto-->
                                 <li
-                                    class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                    class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                     <span>Ventas</span>
                                 </li>
                             </div>
@@ -126,7 +126,7 @@
                                 </svg>
                                 <!--Texto-->
                                 <li
-                                    class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                    class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                     <span>Usuarios</span>
                                 </li>
                             </div>
@@ -144,7 +144,7 @@
                                 </svg>
                                 <!--Texto-->
                                 <li
-                                    class="text-center font-400 ml-[30px] texto ocultar-texto text-[19px] h-[30px] mt-[5px] text-fuente-botones">
+                                    class="text-center font-400 ml-[30px] texto text-[19px] h-[30px] mt-[5px] text-fuente-botones">
                                     <span>Configuración</span>
                                 </li>
                             </div>
@@ -166,7 +166,7 @@
                             </svg>
                             <!-- Texto -->
                             <li
-                                class="text-center font-400 ml-[30px] texto ocultar-texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                                class="text-center font-400 ml-[30px] texto text-[20px] h-[30px] mt-[5px] text-fuente-botones">
                                 <span>Salir</span>
                             </li>
                         </button>

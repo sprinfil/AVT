@@ -30,7 +30,7 @@
 
     
     <!--Main-->
-    <main class="fondo bg-negro-fondo ease-out duration-100 h-screen main-cerrado overflow-auto overflow-x-hidden no-scrollbar" id="main" >                
+    <main class="flex-grow fondo bg-negro-fondo ease-out duration-100 h-screen overflow-auto overflow-x-hidden no-scrollbar" id="main" >                
 
         @auth
             <!--Iconos de acceso rapido-->
