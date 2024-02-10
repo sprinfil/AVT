@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function (){
     //REPORTES
     Route::controller(ReportesController::class)->group(function () {
         Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
+        Route::get('/ventas/nueva/generar_contrato/{venta_id}','generar_contrato')->name('generar_contrato');
     });
 
       //VENTAS

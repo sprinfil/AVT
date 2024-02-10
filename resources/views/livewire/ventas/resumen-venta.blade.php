@@ -78,8 +78,12 @@
                                 <p class="text-fuente">{{ $venta->referencia }}</p>
                             @endif
                         @endif
-                        <button class="btn-primary w-full mt-[20px]" wire:click="advertencia_venta"> Generar
+                        @if($contrato_generado)
+                        <button class="btn-primary w-full mt-[20px]" wire:click="continuar"> Continuar</button>
+                        @else
+                        <button class="btn-primary w-full mt-[20px]" wire:click="generar_contrato"> Generar
                             Contrato</button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -130,7 +134,13 @@
                         <div class="px-[10px] py-[10px] bg-gray-700">
                             {{ $importes->links() }}
                         </div>
+                        <div>
+                            @if($total_pagar > 0)
+                            <p class="text-fuente text-[20px] mt-[20px]">Monto Restante: $ {{number_format( $total_pagar ,2)}}</p>
+                            @endif
+                        </div>
                     </div>
+
                     <!--FIN IMPORTES-->
                 @else
                     <p class="text-fuente text-[25px]">SIN IMPORTES.</p>

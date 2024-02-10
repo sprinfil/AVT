@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use DateTime;
 use Dompdf\Dompdf;
+use App\Models\Venta;
+use App\Models\Importe;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -17,6 +19,13 @@ class ReportesController extends Controller
         $fecha_nacimiento = $f->format('d-m-Y');
 
         $pdf = Pdf::loadView('docs.personas.informacion_persona',compact('persona','fecha_nacimiento'));
+        return $pdf->stream();
+    }
+
+    public function generar_contrato(Request $request){
+        $venta = Venta::find($request->venta_id);
+        $importes = Importe::where('venta',$venta->id)->get();
+        $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes'));
         return $pdf->stream();
     }
 }

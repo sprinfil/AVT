@@ -15,6 +15,9 @@ class ResumenVenta extends Component
     public $zonaMostrar;
     public $loteMostrar;
     public $metodo_pago;
+    public $total_pagar;
+
+    public $contrato_generado = false;
 
 
 
@@ -32,5 +35,11 @@ class ResumenVenta extends Component
         $this->zonaMostrar = $this->venta->Zona->nombre;
         $this->loteMostrar = $this->venta->Lote->lote;
         $this->metodo_pago = $this->venta->metodo_pago;
+        $this->total_pagar =  $this->venta->costo_lote - $this->venta->enganche;
+    }
+
+    public function generar_contrato(){
+        $this->contrato_generado = true;
+        return redirect(route('generar_contrato',['venta_id'=>$this->venta->id]));
     }
 }
