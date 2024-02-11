@@ -43,6 +43,11 @@
             <!--Seccion del contenido-->
             @section('contenido')
             @show
+
+            @section('footer')
+            @include('layouts.footer')
+            @show
+    
             
     </main>
     @livewireScripts

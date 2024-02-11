@@ -25,6 +25,15 @@ class ReportesController extends Controller
     public function generar_contrato(Request $request){
         $venta = Venta::find($request->venta_id);
         $importes = Importe::where('venta',$venta->id)->get();
+        $numero_tablas = 1;
+
+        foreach($importes as $importe){
+            if($importe->numero % 16 == 0){
+                $numero_tablas = $numero_tablas + 1;
+            }
+        }
+
+
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes'));
         return $pdf->stream();
     }

@@ -15,7 +15,8 @@ class Zona extends Model
 
     protected $fillable = [
         'nombre',
-        'dueno_id'
+        'dueno_id',
+        'antecedentes'
     ];
 
     public function dueno(){

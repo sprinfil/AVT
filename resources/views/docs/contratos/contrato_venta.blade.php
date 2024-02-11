@@ -48,9 +48,9 @@
     /*ESTILOS PARA LA TABLA*/
     table {
     border-collapse: collapse; /* colapsa los bordes de las celdas adyacentes en uno solo */
-    width: 100%; /* ancho de la tabla */
-    font-size: 15px;
-    page-break-inside: avoid; 
+    width: 30%; /* ancho de la tabla */
+    font-size: 10px;
+    /*page-break-inside: avoid; */
 }
 
 /* Estilos para las celdas de encabezado */
@@ -117,11 +117,9 @@ td {
     @endif
 
     <div class="parrafo">
-        <p>b).- Antecedentes de la propiedad. - Escritura pública número 7,165, volumen número 83, en la ciudad de La Paz, capital del estado de Baja California Sur, México
-            , a los 7 (siete) días del mes de abril del año 1999 (mil novecientos noventa y nueve), expedida el Licenciado Roberto Fort Amador, notario público número cuatro e inscrita
-            en el Registro Público de la Propiedad bajo el número 927, del Volumen número 239, de la Sección Primera, de fecha 11 de mayo de 1999. <br>
+        <p>b).- Antecedentes de la propiedad. - {{ $venta->Zona->antecedentes }} <br>
             c).- Ser de nacionalidad mexicana, estar al corriente de sus impuestos, indica que tiene como domicilio para oír y recibir todo tipo de notificaciones, Calle 
-            Ignacio Altamirano esq. Con Isla Coronado local 1, Fraccionamiento Loreto, CP 23099, municipio La Paz, Baja California Sur, Tel: 612-12-3-27-07.
+            {{ $venta->Vendedor->calle }}, Col. {{ $venta->Vendedor->colonia_direccion }}, CP. {{ $venta->Vendedor->codigo_postal }},en el Municipio de {{ $venta->Vendedor->municipio_direccion }}, Estado de {{ $venta->Vendedor->estado_direccion }}, Cel: {{ $venta->Vendedor->celular }}.
         </p>
     </div>
 
@@ -129,9 +127,8 @@ td {
         <p>II.- DECLARA EL PROMINENTE COMPRADOR:</p>
     </div>
     <div class="parrafo">
-        <p>a)- Ser de nacionalidad mexicana, estar al corriente de sus impuestos, indica que tiene como domicilio para oír 
-            y recibir todo tipo de notificaciones, Calle Cabo San Lucas 218, Col. Bellavista, C.P. 23050, en el Municipio de La 
-            Paz, Estado de Baja California Sur, Cel: (647) 10-6-55-81.</p>
+        <p>Ser de nacionalidad mexicana, estar al corriente de sus impuestos, indica que tiene como domicilio para oír y recibir todo tipo de notificaciones, Calle 
+            {{ $venta->Comprador->calle }}, Col. {{ $venta->Comprador->colonia_direccion }}, CP. {{ $venta->Comprador->codigo_postal }},en el Municipio de {{ $venta->Comprador->municipio_direccion }}, Estado de {{ $venta->Comprador->estado_direccion }}, Cel: {{ $venta->Comprador->celular }}.</p>
     </div>
     <div class="parrafo">
         <p>

@@ -21,6 +21,7 @@ class Index extends Component
     public $editando = false;
     public $esconder = 'hidden';
     public $filtroNombre;
+    public $antecedentes;
 
     public $zona_id = 0;
 
@@ -31,7 +32,7 @@ class Index extends Component
         'nombre' => 'required|min:5',
         'dueno_id' => 'required|not_in:0',
         'numero_lotes' => 'required|min:1',
-        'precio' => 'required|min:0'
+        'antecedentes' => 'nullable',
     ];
 
     public function render()
@@ -69,12 +70,12 @@ class Index extends Component
         $zona = Zona::create([
             'nombre' => $this->nombre,
             'dueno_id' => $this->dueno_id,
+            'antecedentes' => $this->antecedentes,
         ]);
 
         for ($i = 0; $i < $this->numero_lotes; $i++) {
             Lote::create([
                 'lote' => $i + 1, // Asegúrate de que 'numero' es el campo correcto en la tabla 'lotes'.
-                'precio' => $this->precio,
                 'zona' => $zona->id, // Utilizar directamente el id de la zona creada.
             ]);
         }
@@ -91,6 +92,7 @@ class Index extends Component
         $this->zona_id = $id;
         $this->nombre = $this->zona->nombre;
         $this->nombre_dueno_zona = $this->zona->dueno->nombreCompleto();
+        $this->antecedentes = $this->zona->antecedentes;
 
         $this->abrirModal();
     }
@@ -98,6 +100,7 @@ class Index extends Component
     {
         $zona = Zona::find($id);
         $zona->nombre = $this->nombre;
+        $zona->antecedentes = $this->antecedentes;
         if ($this->dueno_id == 0)
             $zona->dueno_id = $zona->dueno_id;
         else
