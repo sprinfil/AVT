@@ -6,12 +6,6 @@
 <div class="mx-2 md:mx-[60px] mt-[20px]">
     <!--Cabecera-->
     <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden no-scrollbar">
-        <!--navegacion superior-->
-        <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
-            <a href="{{ route('personas') }}" class="underline text-blue-500">Personas</a>
-            /
-            <a href="" class=" text-fuente">{{ $persona->nombre }}</a>
-        </div>
 
         <div class="md:flex grid-cols-1">
             <!--Imagen de la persona-->

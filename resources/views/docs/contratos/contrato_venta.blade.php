@@ -235,7 +235,8 @@
             E).- Los documentos tendrán su importe y vencimiento como sigue: <br>
             </p>
         </div>
-    
+
+        @if(count($importes) > 0)
         <div class="titulo-principal">
             <h1>IMPORTE EN MONEDA NACIONAL</h1>
         </div>
@@ -276,6 +277,7 @@
             </table>
         </div>
         @endfor
+        @endif
         <br>
     
         <div style="padding-top: 20px;">

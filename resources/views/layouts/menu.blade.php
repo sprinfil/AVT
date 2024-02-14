@@ -1,5 +1,5 @@
 <!--Seccion menu-->
-<nav class=" text-gray-300 min-[1180px]:w-[250px] w-screen ease-out duration-500 bg-negro-menu h-screen shadow-lg"
+<nav class=" text-gray-300 min-[1180px]:w-[250px] w-screen ease-out duration-500 bg-negro-menu h-screen shadow-lg  "
     id="menu">
     <div class="px-3"> <!--seccion superior-->
         <div class="flex justify-between h-full pt-3">

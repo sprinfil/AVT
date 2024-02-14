@@ -7,3 +7,4 @@
 @section('contenido')
     @livewire('ventas.index')
 @endsection
+

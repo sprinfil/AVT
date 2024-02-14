@@ -3,12 +3,6 @@
     <div class="mx-2 md:mx-[60px] mt-[20px]">
         <!--Cabecera-->
         <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden">
-            <!--navegacion superior-->
-            <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
-                <a href="{{ route('personas') }}" class="underline text-blue-500">Personas</a>
-                /
-                <a href="" class=" text-blue-fuente">Nueva persona</a>
-            </div>
 
             <!--Titulo -->
             <div class="mx-[10px] md:mx-[50px]  justify-between mt-[20px]">

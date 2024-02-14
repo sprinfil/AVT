@@ -91,7 +91,7 @@
 
         <div class="mt-[30px] md:mt-[0px]">
             <!--IMPORTES-->
-            @if ($importes != null)
+            @if (count($importes) > 0)
                 <div class="">
                     <p class="text-fuente text-[25px] ">IMPORTES Y VENCIMINETOS</p>
                     <!-- Tabla de datos -->

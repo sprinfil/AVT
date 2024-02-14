@@ -260,6 +260,7 @@ class NuevaVenta extends Component
 
     #[On('crear_venta')] 
     public function crear_venta(){
+
         $venta = new Venta();
         $venta->comprador = $this->compradorSeleccionado->id;
         $venta->aval = $this->avalSeleccionado->id;
@@ -274,8 +275,13 @@ class NuevaVenta extends Component
         $venta->forma_de_pago = $this->forma_de_pago != null ? $this->forma_de_pago : null;
         $venta->pago_con = $this->pago_con_efectivo != null ? $this->pago_con_efectivo : null;
         $venta->cambio = $this->cambio_efectivo != null ? $this->cambio_efectivo : null;
-        $venta->referencia = $this->referencia_credito != null ? $this->referencia_credito : null;
-        $venta->referencia = $this->referencia_debito != null ? $this->referencia_debito : null;
+        if($this->referencia_credito != null){
+            $venta->referencia = $this->referencia_credito;
+        }
+        if($this->referencia_debito != null){
+            $venta->referencia = $this->referencia_debito;
+        }
+
         $venta->save();
 
         //CREAR LOS IMPORTES

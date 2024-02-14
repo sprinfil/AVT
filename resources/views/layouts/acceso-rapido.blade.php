@@ -1,5 +1,5 @@
 <!--Boton Para desplegar el menu-->
-<div class="bg-terciario flex overflow-x-hidden w-full shadow-md text-center items-center justify-center">
+<div class="bg-terciario flex overflow-x-hidden w-full shadow-md text-center items-center justify-center border-b border-fuente">
 
     <svg xmlns="http://www.w3.org/2000/svg" id="boton-toggle-menu" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-auto px-3 cursor-pointer active:bg-active bg-principal border border-solid border-principal text-fuente-botones ease-out duration-500 p-1 min-w-[60px] shadow-md" onclick="togglemenu()">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

@@ -7,12 +7,6 @@
 
     <!--Cabecera-->
     <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden ">
-        <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
-            <a href="{{route('personas')}}" class="underline text-blue-500">Personas</a> 
-            / 
-            <a href="" class=" text-fuente">Nueva persona</a>
-          </div>
-
         <div class="mx-[10px] md:mx-[50px]  justify-between mt-[20px]">
         <p class="text-fuente text-[40px] mb-[20px]">SUBIR DOCUMENTACIÓN</p>
 

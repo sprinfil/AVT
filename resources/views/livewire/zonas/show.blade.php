@@ -1,11 +1,6 @@
 <div class="mx-2 md:mx-[60px] mt-[20px]">
     <!-- Cabecera -->
-    <!--navegacion superior-->
-    <div class=" text-fuente text-[20px] shadow-lg bg-principal rounded-md px-5 py-2 border-b border-fuente">
-        <a href="{{ route('zonas.index') }}" class="underline text-blue-500">Zonas</a>
-        /
-        <a href="" class=" text-fuente">{{ $zona->nombre }}</a>
-    </div>
+
 
     <div class="w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
         <div class="mx-[10px] md:mx-[50px] justify-between">
@@ -47,9 +42,6 @@
                             Lote
                         </th>
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                            Precio
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                             Manzana
                         </th>
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
@@ -81,10 +73,6 @@
                                 @if ($lote->lote >= 100)
                                     {{ $lote->lote }}
                                 @endif
-                            </td>
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
-                                {{ '$ ' . number_format($lote->precio, 2, '.', ',') }}
                             </td>
                             <td class="px-6 py-4 dark:text-fuente cursor-pointer"
                                 wire:click="edit({{ $lote->id }})">

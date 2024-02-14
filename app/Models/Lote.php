@@ -29,6 +29,9 @@ class Lote extends Model
         'zona',
     ];
 
+    public function Zona(){
+        return $this->hasOne(Zona::class,'id','zona');
+    }
     public function nombre_zona(){
         $zona = Zona::where('id',$this->zona)->first();
         return $zona->nombre;
