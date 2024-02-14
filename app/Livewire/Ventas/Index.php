@@ -13,4 +13,8 @@ class Index extends Component
         $ventas = Venta::All();
         return view('livewire.ventas.index', compact('ventas'));
     }
+
+    public function detalle_venta($venta_id){
+        return redirect(route('index_detalle_venta',["venta_id"=>$venta_id]));
+    }
 }

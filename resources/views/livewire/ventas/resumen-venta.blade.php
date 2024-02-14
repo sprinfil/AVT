@@ -14,7 +14,7 @@
                 class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]">
                 <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
                     <p class="text-fuente text-[25px] mb-[20px]">RESUMEN</p>
-                    <div class="w-full h-screen">
+                    <div class="w-full">
                         <p class="text-fuente">Comprador</p>
                         <input wire:model = "compradorMostrar" type="text" class="input-pdv mb-[20px] w-full"
                             disabled placeholder="Comprador">
@@ -78,12 +78,9 @@
                                 <p class="text-fuente">{{ $venta->referencia }}</p>
                             @endif
                         @endif
-                        @if($contrato_generado)
-                        <button class="btn-primary w-full mt-[20px]" wire:click="continuar"> Continuar</button>
-                        @else
                         <button class="btn-primary w-full mt-[20px]" wire:click="generar_contrato"> Generar
                             Contrato</button>
-                        @endif
+
                     </div>
                 </div>
             </div>
@@ -153,4 +150,4 @@
     <!--FIN-->
 </div>
 
-</div>
+

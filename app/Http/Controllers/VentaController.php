@@ -24,4 +24,9 @@ class VentaController extends Controller
         $venta_id = $request->venta_id;
         return view('vistas.ventas.resumen-venta',compact('venta_id'));
     }
+
+    public function index_detalle_venta(Request $request){
+        $venta_id = $request->venta_id;
+        return view('vistas.ventas.detalle-venta',compact('venta_id'));
+    }
 }

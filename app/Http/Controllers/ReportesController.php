@@ -9,6 +9,8 @@ use App\Models\Persona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ReportesController extends Controller
 {
@@ -58,7 +60,20 @@ class ReportesController extends Controller
 
         $id_tabla_vista = 0;
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista'));
-        return $pdf->stream();
+        //return $pdf->stream();
+
+        $nombreArchivo = 'CONTRATO NO.' . $venta->id . date('dmYhi') . '.pdf';
+
+        $rutaArchivo = storage_path('app/public/ventas/'.$nombreArchivo);
+
+        File::makeDirectory('app/public/ventas/', 0777, true, true);
+
+        $pdf->save($rutaArchivo);
+
+        $venta->contrato = $nombreArchivo;
+        $venta->save();
+
+        return $pdf->download($nombreArchivo);
         
         /* 
         LOGICA DE LA TABLA
@@ -71,6 +86,20 @@ class ReportesController extends Controller
             }
         }
         */
+    }
+
+    public function ver_contrato(Request $request){
+        $venta = Venta::find($request->venta_id);
+
+        $pdfPath = 'ventas/'.$venta->contrato;
+
+        // Asegúrate de que el archivo exista antes de intentar mostrarlo
+        if (Storage::disk('public')->exists($pdfPath)) {
+            return response()->file(Storage::disk('public')->path($pdfPath));
+        }
+
+        // Manejo de errores si el archivo no existe
+        abort(404, 'El archivo PDF no se encontró.');
     }
 
     function obtenerArreglo($numero) {

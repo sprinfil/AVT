@@ -94,6 +94,7 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(ReportesController::class)->group(function () {
         Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
         Route::get('/ventas/nueva/generar_contrato/{venta_id}','generar_contrato')->name('generar_contrato');
+        Route::get('/ver_contrato/{venta_id}','ver_contrato')->name('ver_contrato');
     });
 
       //VENTAS
@@ -101,6 +102,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/ventas','index')->name('ventas'); 
         Route::get('/ventas/nueva','index_nueva_venta')->name('nueva_venta'); 
         Route::get('/ventas/nueva/resumen-venta/{venta_id}','index_resumen_venta')->name('index_resumen_venta'); 
+        Route::get('/ventas/detalle/{venta_id}','index_detalle_venta')->name('index_detalle_venta'); 
     });
 
 });

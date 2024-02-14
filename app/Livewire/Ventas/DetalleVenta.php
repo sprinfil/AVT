@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Ventas;
 
-use App\Models\Importe;
 use App\Models\Venta;
+use App\Models\Importe;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ResumenVenta extends Component
+class DetalleVenta extends Component
 {
     use WithPagination;
     public $venta;
@@ -18,18 +18,19 @@ class ResumenVenta extends Component
     public $loteMostrar;
     public $metodo_pago;
     public $total_pagar;
+    public $forma_de_pago;
+    public $cantidad_abonar;
+    public $pago_con;
+    public $cambio;
+    public $referencia;
+    
 
     public $contrato_generado = false;
 
-
-
     public function render()
     {
-        if($this->venta->contrato){
-            $this->contrato_generado = true;
-        }
         $importes = Importe::where('venta',$this->venta->id)->paginate(12);
-        return view('livewire.ventas.resumen-venta',compact('importes'));
+        return view('livewire.ventas.detalle-venta',compact('importes'));
     }
 
     public function mount($venta_id){
@@ -43,8 +44,16 @@ class ResumenVenta extends Component
         $this->total_pagar =  $this->venta->costo_lote - $this->venta->enganche;
     }
 
-    public function generar_contrato(){
-        $this->contrato_generado = true;
-        return redirect(route('generar_contrato',['venta_id'=>$this->venta->id]));
+    public function cambio_forma_de_pago(){
+        $this->cambio = null;
+        $this->cantidad_abonar = null;
+        $this->pago_con = null;
+        $this->referencia = null;
+    }
+
+    public function calcular_cambio(){
+        if($this->pago_con!=null && $this->forma_de_pago == "EFECTIVO"){
+            $this->cambio = $this->pago_con - $this->cantidad_abonar;
+        }
     }
 }

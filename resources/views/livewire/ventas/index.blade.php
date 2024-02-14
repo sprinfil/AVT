@@ -51,7 +51,7 @@
             </thead>
             <tbody>
                 @foreach($ventas as $venta)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer">
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer" wire:click="detalle_venta({{ $venta->id }})">
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
                         {{$venta->Lote->catastral}}
                     </th>

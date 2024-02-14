@@ -6,7 +6,7 @@
         <a href="" class=" text-fuente">NUEVA VENTA</a>
     </div>
 
-    <div class="mx-2 md:mx-[60px] mt-[20px]">
+    <div class="mx-2 md:mx-[60px] mt-[20px] mb-[80px]">
 
         <!--Cabecera-->
         <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden border-color-borde">
@@ -221,7 +221,7 @@
                     class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]">
                     <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
                         <p class="text-fuente text-[25px] mb-[20px]">RESUMEN</p>
-                        <div class="w-full h-screen">
+                        <div class="w-full">
                             <p class="text-fuente">Comprador</p>
                             <input wire:model = "compradorMostrar" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Comprador">
