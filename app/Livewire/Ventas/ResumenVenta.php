@@ -5,9 +5,11 @@ namespace App\Livewire\Ventas;
 use App\Models\Importe;
 use App\Models\Venta;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ResumenVenta extends Component
 {
+    use WithPagination;
     public $venta;
     public $compradorMostrar;
     public $avalMostrar;

@@ -129,7 +129,7 @@
                     @endforeach
                 </select>
             </div>
-            <div>
+            <div class="mb-[80px]">
                 <!--SELECT METODO PAGO-->
                 <p class="text-fuente text-[25px] mt-[30px]">Metodo de pago</p>
                 <select name="metodo_pago" id="metodo_pago" class="input-pdv mt-[10px] w-full"
