@@ -16,7 +16,6 @@ class Index extends Component
     public $zona;
     public $nombre;
     public $numero_lotes = 0;
-    public $precio = 0;
     public $showModal = false;
     public $editando = false;
     public $esconder = 'hidden';

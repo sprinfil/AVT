@@ -34,7 +34,7 @@
             <h3 class="text-lg text-fuente font-semibold mb-4">Medidas y colindancias</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Campos de medidas y colindancias -->
-                @foreach (['noreste', 'sureste', 'suroeste', 'noroeste', 'norte', 'sur', 'este', 'oeste'] as $field)
+                @foreach (['norte', 'noreste', 'sur', 'sureste', 'este', 'noroeste', 'oeste', 'suroeste'] as $field)
                     <div class="mb-4">
                         <label class="block text-gray-300 text-sm font-bold mb-2" for="{{ $field }}">
                             {{ ucfirst($field) }}:

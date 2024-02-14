@@ -56,6 +56,18 @@
             <!--Primera fila-->
                 <div class="max-h-[300px] overflow-y-auto no-scrollbar">
                     <p>
+                        Versión actual (v 2.0.1)
+                        <br>
+                        <br>
+                        <br>
+                        <-- Actualización v 2.0.1. -->
+                        <br>
+                        - El precio del lote no se pide al crear la zona
+                        <br>
+                        - La orientación de los campos de lote fueron reordenados para la mejor identifiación
+                        <br>
+                        <br>
+                        <br>
                         Versión actual (v 2.0.0)
                         <br>
                         <br>
