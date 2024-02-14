@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <form wire:submit.prevent="submit" class="bg-terciario p-5 rounded mt-5">
+    <form wire:submit.prevent="submit" class="bg-terciario p-5 rounded mt-5 mb-[70px]">
         @csrf
         <!-- Información general -->
         <h3 class="text-lg font-semibold text-fuente mb-4">Información General</h3>

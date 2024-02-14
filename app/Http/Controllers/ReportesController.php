@@ -34,7 +34,7 @@ class ReportesController extends Controller
         $tabla_principal = array();
         $id_tabla = 0;
 
-        $limite_renglones_por_tabla = 16;
+        $limite_renglones_por_tabla = 25;
         
 
         foreach($importes as $importe){
