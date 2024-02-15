@@ -10,16 +10,20 @@ class Create extends Component
 {
     public $id;
     public $zona;
+    public $lotes;
 
     public $lote, $manzana, $catastral, $superficie, $precio;
     public $noreste, $sureste;
     public $suroeste, $noroeste;
     public $norte, $sur, $este, $oeste;
+
+    public $colindancia_noreste_id = 0, $colindancia_noroeste_id = 0, $colindancia_sureste_id = 0, $colindancia_suroeste_id = 0,
+    $colindancia_norte_id = 0, $colindancia_sur_id = 0, $colindancia_este_id = 0, $colindancia_oeste_id = 0;
     
     public function render()
     {
         $this->zona = Zona::find($this->id);
-
+        $this->lotes = Lote::where('zona', $this->zona->id)->whereNull('baja')->get();
         $ultimoLote = Lote::where('zona', $this->zona->id)
                         ->orderBy('id', 'desc')
                         ->first();
@@ -51,6 +55,15 @@ class Create extends Component
             'este' => $this->este,
             'oeste' => $this->oeste,
             'zona' => $this->zona->id,
+            
+            'colindancia_noreste_id' => $this->colindancia_noreste_id !== 0 ? $this->colindancia_noreste_id : null,
+            'colindancia_sureste_id' => $this->colindancia_sureste_id !== 0 ? $this->colindancia_sureste_id : null,
+            'colindancia_suroeste_id' => $this->colindancia_suroeste_id !== 0 ? $this->colindancia_suroeste_id : null,
+            'colindancia_noroeste_id' => $this->colindancia_noroeste_id !== 0 ? $this->colindancia_noroeste_id : null,
+            'colindancia_norte_id' => $this->colindancia_norte_id !== 0 ? $this->colindancia_norte_id : null,
+            'colindancia_sur_id' => $this->colindancia_sur_id !== 0 ? $this->colindancia_sur_id : null,
+            'colindancia_este_id' => $this->colindancia_este_id !== 0 ? $this->colindancia_este_id : null,
+            'colindancia_oeste_id' => $this->colindancia_oeste_id !== 0 ? $this->colindancia_oeste_id : null,
         ]);
 
         return redirect()->route('zonas.show' , ['id' => $this->zona->id]);
@@ -70,6 +83,15 @@ class Create extends Component
         'sur' => 'nullable|numeric',
         'este' => 'nullable|numeric',
         'oeste' => 'nullable|numeric',
+        
+        'colindancia_noreste_id' => 'nullable|numeric',
+        'colindancia_sureste_id' => 'nullable|numeric',
+        'colindancia_noroeste_id' => 'nullable|numeric',
+        'colindancia_suroeste_id' => 'nullable|numeric',
+        'colindancia_norte_id' => 'nullable|numeric',
+        'colindancia_sur_id' => 'nullable|numeric',
+        'colindancia_este_id' => 'nullable|numeric',
+        'colindancia_oeste_id' => 'nullable|numeric',
     ];
 
 

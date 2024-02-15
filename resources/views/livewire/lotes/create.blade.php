@@ -34,14 +34,41 @@
             <h3 class="text-lg text-fuente font-semibold mb-4">Medidas y colindancias</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Campos de medidas y colindancias -->
-                @foreach (['norte', 'noreste', 'sur', 'sureste', 'este', 'noroeste', 'oeste', 'suroeste'] as $field)
+                @foreach ([
+                    'norte' => 'Norte',
+                    'colindancia_norte_id' => 'Colindancia Norte',
+                    'sur' => 'Sur',
+                    'colindancia_sur_id' => 'Colindancia Sur',
+                    'este' => 'Este',
+                    'colindancia_este_id' => 'Colindancia Este',
+                    'oeste' => 'Oeste',
+                    'colindancia_oeste_id' => 'Colindancia Oeste',
+                    'noreste' => 'Noreste',
+                    'colindancia_noreste_id' => 'Colindancia Noreste',
+                    'sureste' => 'Sureste',
+                    'colindancia_sureste_id' => 'Colindancia Sureste',
+                    'suroeste' => 'Suroeste',
+                    'colindancia_suroeste_id' => 'Colindancia Suroeste',
+                    'noroeste' => 'Noroeste',
+                    'colindancia_noroeste_id' => 'Colindancia Noroeste',
+                ] as $field => $label)
                     <div class="mb-4">
                         <label class="block text-gray-300 text-sm font-bold mb-2" for="{{ $field }}">
-                            {{ ucfirst($field) }}:
+                            {{ ucfirst($label) }}:
                         </label>
-                        <input wire:model.lazy="{{ $field }}" id="{{ $field }}" type="text"
-                            placeholder="{{ ucfirst($field) }}"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @if (strpos($field, 'colindancia_') !== false)
+                            <select wire:model.lazy="{{ $field }}" 
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="0" disabled selected>Selecciona un lote</option>
+                                @foreach ($lotes as $lote)
+                                    <option value="{{ $lote->id }}">{{ $lote->lote }} - {{ $lote->catastral }}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <input wire:model.lazy="{{ $field }}" type="text"
+                                placeholder="{{ ucfirst($label) }}"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @endif
                         @error($field)
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
