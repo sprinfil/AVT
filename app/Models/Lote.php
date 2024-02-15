@@ -27,6 +27,15 @@ class Lote extends Model
         'oeste',
         'estado',
         'zona',
+
+        'colindancia_noreste_id',
+        'colindancia_sureste_id',
+        'colindancia_suroeste_id',
+        'colindancia_noroeste_id',
+        'colindancia_norte_id',
+        'colindancia_sur_id',
+        'colindancia_este_id',
+        'colindancia_oeste_id',
     ];
 
     public function nombre_zona(){
