@@ -48,7 +48,7 @@
                     'sureste' => 'Sureste',
                     'colindancia_sureste_id' => 'Colindancia Sureste',
                     'suroeste' => 'Suroeste',
-                    'colindancia_suroeste_id' => 'Colindancia Suroeste'
+                    'colindancia_suroeste_id' => 'Colindancia Suroeste',
                     'noroeste' => 'Noroeste',
                     'colindancia_noroeste_id' => 'Colindancia Noroeste',
                 ] as $field => $label)
