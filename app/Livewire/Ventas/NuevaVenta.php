@@ -35,6 +35,24 @@ class NuevaVenta extends Component
     public $loteMostrar;
     public $desactivarLotes = true;
 
+    //Metodo de pago
+    public $metodo_pago;
+    public $costo_lote;
+
+    //MESES
+    public $enganche_meses;
+    public $meses_pagar;
+    public $monto_mes;
+
+    //CONTADO
+    public $forma_de_pago;
+    public $pago_con_efectivo;
+    public $cambio_efectivo;
+    public $referencia_credito;
+    public $referencia_debito;
+
+
+
     public function render()
     {
         if($this->zonaSeleccionada != false){
@@ -137,6 +155,35 @@ class NuevaVenta extends Component
         if($this->loteLista != null){
             $this->loteSeleccionado = Lote::find($this->loteLista);
             $this->loteMostrar = $this->loteSeleccionado->lote;
+        }
+    }
+
+    public function SeleccionarMetodoPago(){
+        $this->forma_de_pago="";
+        $this->pago_con_efectivo = "";
+        $this->cambio_efectivo = "";
+        $this->referencia_credito= "";
+        $this->referencia_debito= "";
+    }
+
+    public function calcular_monto_por_mes(){
+        if($this->costo_lote != '' && $this->enganche_meses != '' && $this->meses_pagar && $this->metodo_pago == "A MESES"){
+            $total_a_pagar = $this->costo_lote - $this->enganche_meses;
+            $this->monto_mes = $total_a_pagar / $this->meses_pagar;
+        }
+        $this->calcular_cambio_efectivo();
+    }
+
+    public function cambio_forma_de_pago(){
+        $this->pago_con_efectivo = "";
+        $this->cambio_efectivo = "";
+        $this->referencia_credito= "";
+        $this->referencia_debito= "";
+    }
+
+    public function calcular_cambio_efectivo(){
+        if($this->costo_lote != "" && $this->forma_de_pago=="EFECTIVO" && $this->pago_con_efectivo != ""){
+            $this->cambio_efectivo = $this->pago_con_efectivo - $this->costo_lote;
         }
     }
 }
