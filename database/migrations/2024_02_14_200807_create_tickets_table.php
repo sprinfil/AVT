@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ticket_pdf')->nullable();
             $table->enum('metodo_pago', ['EFECTIVO', 'TARJETA CREDITO', 'TARJETA DEBITO'])->nullable();
+            $table->decimal('cantidad_abonar',20 ,2)->nullable();
             $table->decimal('pago_con',20 ,2)->nullable();
             $table->string('referencia')->nullable();
             $table->decimal('cambio',20 ,2)->nullable();

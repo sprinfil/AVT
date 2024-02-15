@@ -12,7 +12,7 @@
         <div class="col-span-1">
             <div
                 class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]">
-                <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
+                <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px] ">
                     <p class="text-fuente text-[25px] mb-[20px]">RESUMEN</p>
                     <div class="w-full">
                         <p class="text-fuente">Comprador</p>

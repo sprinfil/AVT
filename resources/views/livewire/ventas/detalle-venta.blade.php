@@ -13,6 +13,13 @@
         <div class="mt-[30px] md:mt-[0px]">
             <!--ABONAR-->
             <div class="bg-negro-menu py-10 rounded-md mb-[50px] px-[10px] md:px-[50px]">
+                @if($error == true)
+                <div class="h-[20px] w-full bg-red-500 text-fuente py-4 px-4 flex justify-center items-center rounded-lg">    
+                    <div>
+                        <p>Llena todos los campos</p>
+                    </div>
+                </div>
+                @endif
                 <p class="text-fuente text-[25px]">Abonar</p>
                 <p class="text-fuente text-[15px] mt-[20px]">Forma de pago</p>
                 <select name="metodo_pago" id="metodo_pago" class="input-pdv mt-[10px] w-full"
@@ -24,20 +31,20 @@
                 </select>
                 @if($forma_de_pago != "")
                 <p class="text-fuente text-[15px] mt-[20px]">Cantidad que abonara</p>
-                <input type="number" class="input-pdv w-full" wire:model="cantidad_abonar" wire:input="calcular_cambio">
+                <input type="number" class="input-pdv w-full"   placeholder="Cantidad que abonara" wire:model="cantidad_abonar" wire:input="calcular_cambio">
                 @endif
 
                 @if($forma_de_pago == "EFECTIVO")
                 <p class="text-fuente text-[15px] mt-[20px]">Pago Con...</p>
-                <input type="number" class="input-pdv w-full" wire:model="pago_con" wire:input="calcular_cambio">
+                <input type="number" class="input-pdv w-full" wire:model="pago_con" wire:input="calcular_cambio" placeholder="Pago Con...">
                 <p class="text-fuente text-[40px] mt-[20px]" wire:model="cambio">Cambio $ {{ number_format( $this->cambio,2) }}</p>
                 @endif 
                 
                 @if($forma_de_pago == "TARJETA DEBITO" || $forma_de_pago == "TARJETA CREDITO")
                 <p class="text-fuente text-[15px] mt-[20px]">REFERENCIA</p>
-                <input type="number" class="input-pdv w-full" wire:model="referencia">
+                <input type="number" class="input-pdv w-full" wire:model="referencia" placeholder="REFERENCIA">
                 @endif
-                    <button class="btn-primary w-full mt-[20px]"> Abonar</button>
+                    <button class="btn-primary w-full mt-[20px]" wire:click="advertencia_ticket"> Abonar</button>
             </div>
 
 
@@ -177,7 +184,7 @@
 
                 </div>
                 <div class="absolute bottom-0 w-full px-[40px] py-[20px]">
-                    <button class="btn-primary w-full mt-[20px]"> Regenerar
+                    <button class="btn-primary w-full mt-[20px]" > Regenerar
                         Contrato</button>
                     </div> 
             </div>
@@ -190,3 +197,30 @@
     <!--FIN-->
 </div>
 
+<script>
+    window.addEventListener('advertencia_ticket', event => {
+        Swal.fire({
+            title: "¿Abonar?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Aceptar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                @this.dispatch('crear_ticket')
+            }
+        });
+    });
+
+    window.addEventListener('ticket_creado', event => {
+        Swal.fire({
+            position: 'center-middle',
+            icon: 'success',
+            title: 'Abono completado',
+            showConfirmButton: false,
+            timer: 1500,   
+            }
+        )
+    });
+</script>
