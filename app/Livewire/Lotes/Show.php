@@ -33,7 +33,7 @@ class Show extends Component
     private function loadLote()
     {
         $this->Instance = Lote::find($this->id);
-        $this->lotes = Lote::where('zona', $this->Instance->zona)->get();
+        $this->lotes = Lote::where('zona', $this->zona->id)->where('baja' , '!=' , 'si')->where('id',  '!=', $this->id)->get();
         
         if ($this->Instance) {
             $this->lote = $this->Instance->lote;

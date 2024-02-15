@@ -23,7 +23,7 @@ class Create extends Component
     public function render()
     {
         $this->zona = Zona::find($this->id);
-        $this->lotes = Lote::where('zona', $this->zona->id)->get();
+        $this->lotes = Lote::where('zona', $this->zona->id)->where('baja' , '!=' , 'si')->get();
         $ultimoLote = Lote::where('zona', $this->zona->id)
                         ->orderBy('id', 'desc')
                         ->first();
