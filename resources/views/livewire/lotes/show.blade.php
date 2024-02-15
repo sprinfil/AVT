@@ -37,20 +37,20 @@
                 @foreach ([
                     'norte' => 'Norte',
                     'colindancia_norte_id' => 'Colindancia Norte',
-                    'noreste' => 'Noreste',
-                    'colindancia_noreste_id' => 'Colindancia Noreste',
                     'sur' => 'Sur',
                     'colindancia_sur_id' => 'Colindancia Sur',
-                    'sureste' => 'Sureste',
-                    'colindancia_sureste_id' => 'Colindancia Sureste',
                     'este' => 'Este',
                     'colindancia_este_id' => 'Colindancia Este',
-                    'noroeste' => 'Noroeste',
-                    'colindancia_noroeste_id' => 'Colindancia Noroeste',
                     'oeste' => 'Oeste',
                     'colindancia_oeste_id' => 'Colindancia Oeste',
+                    'noreste' => 'Noreste',
+                    'colindancia_noreste_id' => 'Colindancia Noreste',
+                    'sureste' => 'Sureste',
+                    'colindancia_sureste_id' => 'Colindancia Sureste',
                     'suroeste' => 'Suroeste',
                     'colindancia_suroeste_id' => 'Colindancia Suroeste'
+                    'noroeste' => 'Noroeste',
+                    'colindancia_noroeste_id' => 'Colindancia Noroeste',
                 ] as $field => $label)
                     <div class="mb-4">
                         <label class="block text-gray-300 text-sm font-bold mb-2" for="{{ $field }}">
