@@ -2,17 +2,21 @@
 
 namespace App\Livewire\Ventas;
 
-use App\Models\Ticket;
-use App\Models\Venta;
-use App\Models\Importe;
 use Carbon\Carbon;
+use App\Models\Venta;
+use App\Models\Ticket;
+use App\Models\Importe;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Livewire\Attributes\On; 
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class DetalleVenta extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     public $venta;
     public $compradorMostrar;
     public $avalMostrar;
@@ -27,10 +31,13 @@ class DetalleVenta extends Component
     public $cambio;
     public $referencia;
     public $error = false;
+    public $tickets;
+    public $contrato;
     
 
     public $contrato_generado = false;
 
+    #[On('render')] 
     public function render()
     {
         $importes = Importe::where('venta',$this->venta->id)->paginate(12);
@@ -45,7 +52,8 @@ class DetalleVenta extends Component
         $this->zonaMostrar = $this->venta->Zona->nombre;
         $this->loteMostrar = $this->venta->Lote->lote;
         $this->metodo_pago = $this->venta->metodo_pago;
-        $this->total_pagar =  $this->venta->costo_lote - $this->venta->enganche;
+        $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
+        $this->tickets = Ticket::where('venta_id', $this->venta->id)->get();
     }
 
     public function cambio_forma_de_pago(){
@@ -87,6 +95,8 @@ class DetalleVenta extends Component
         $this->refrescar_pago();
         $this->forma_de_pago = null;
 
+        return redirect(route('generar_ticket',['ticket_id' => $ticket->id]));
+
     }
 
     public function refrescar_pago(){
@@ -122,6 +132,53 @@ class DetalleVenta extends Component
                 //montos pagados
             }
         }
-    
+        $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
+        $this->tickets = Ticket::where('venta_id', $this->venta->id)->get();
+
+        $venta = Venta::find($this->venta->id);
+
+        if($venta->proximo_cobro() == null){
+            $venta->proximo_cobro = null;
+        }else{
+            $venta->proximo_cobro = $venta->proximo_cobro()->vencimiento;
+        }
+        
+        $venta->save();
+        $this->render();
     }
+
+    public function regenerar_contrato(){
+        return redirect(route('generar_contrato',['venta_id'=>$this->venta->id]));
+    }
+
+    public function guardar_contrato(){
+
+         // Validar que se haya subido un archivo
+    $this->validate([
+        'contrato' => 'required|file', // 10 MB máximo
+    ]);
+
+        $nombreOriginal = $this->contrato->getClientOriginalName();
+
+        // Guardar el archivo con el nombre específico y obtener la ruta
+        $archivo = $this->contrato->storeAs('public/ventas/'.$nombreOriginal);
+
+        //convertir la ruta en vez de public a storage
+        //$url_archivo = Storage::url($archivo);
+
+           //crear los archivos
+        $venta = Venta::find($this->venta->id);
+        $venta->contrato =  $nombreOriginal;
+        $venta->save();
+
+        $this->contrato = null;
+        $this->dispatch('contrato_subido', ['venta_id' => json_encode($this->venta->id)]);
+        //$this->dispatch('contrato_subido');
+        $this->render();
+    }
+
+    public function descargar_ticket($ticket_id){
+        return redirect(route('generar_ticket',['ticket_id' => $ticket_id]));
+    }
+
 }

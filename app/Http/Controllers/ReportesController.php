@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use DateTime;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Venta;
+use App\Models\Ticket;
 use App\Models\Importe;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Options;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,16 +64,7 @@ class ReportesController extends Controller
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista'));
         //return $pdf->stream();
 
-        $nombreArchivo = 'CONTRATO NO.' . $venta->id . date('dmYhi') . '.pdf';
-
-        $rutaArchivo = storage_path('app/public/ventas/'.$nombreArchivo);
-
-        File::makeDirectory('app/public/ventas/', 0777, true, true);
-
-        $pdf->save($rutaArchivo);
-
-        $venta->contrato = $nombreArchivo;
-        $venta->save();
+        $nombreArchivo = 'CONTRATO NO.' . $venta->id ."_" .date('dmYhi') . '.pdf';
 
         return $pdf->download($nombreArchivo);
         
@@ -88,10 +81,28 @@ class ReportesController extends Controller
         */
     }
 
+    public function guardar_contrato(Request $request){
+
+        $nombreOriginal = $request->file('file')->getClientOriginalName();
+
+        // Guardar el archivo con el nombre específico y obtener la ruta
+        $archivo = $request->file('file')->storeAs('public/ventas/'.$nombreOriginal);
+
+        //convertir la ruta en vez de public a storage
+        $url_archivo = Storage::url($archivo);
+
+           //crear los archivos
+        $venta = Venta::find($request->venta_id);
+        $venta->contrato =  $url_archivo;
+        $venta->save();
+
+    }
+
     public function ver_contrato(Request $request){
         $venta = Venta::find($request->venta_id);
 
         $pdfPath = 'ventas/'.$venta->contrato;
+
 
         // Asegúrate de que el archivo exista antes de intentar mostrarlo
         if (Storage::disk('public')->exists($pdfPath)) {
@@ -100,6 +111,20 @@ class ReportesController extends Controller
 
         // Manejo de errores si el archivo no existe
         abort(404, 'El archivo PDF no se encontró.');
+    }
+
+    public function generar_ticket(Request $request){
+        $ticket = Ticket::Find($request->ticket_id);
+        $pdf = Pdf::loadView('docs.contratos.ticket',compact('ticket'));
+        $nombre_ticket = "TICKET NO.".$ticket->id."_".Carbon::now()->format('Ymd').".pdf";
+
+        $pdfPath = "tickets/".$nombre_ticket;
+        Storage::disk('public')->put($pdfPath, $pdf->output());
+
+        $ticket->ticket_pdf = $nombre_ticket;
+        $ticket->save();
+
+        return $pdf->download($nombre_ticket);
     }
 
     function obtenerArreglo($numero) {

@@ -248,7 +248,7 @@ class NuevaVenta extends Component
 
     public function advertencia_venta(){
         if($this->compradorSeleccionado != null && $this->avalSeleccionado != null && $this->vendedorSeleccionado != null && $this->zonaSeleccionada != null && $this->loteSeleccionado != null){
-            if($this->monto_mes != null || $this->cambio_efectivo != null || $this->referencia_credito != null  || $this->referencia_debito){
+            if($this->monto_mes != null || $this->cambio_efectivo >= 0 || $this->referencia_credito != null  || $this->referencia_debito){
                 $this->dispatch('advertencia_venta');
             }else{
                 $this->error = true;
@@ -282,7 +282,15 @@ class NuevaVenta extends Component
             $venta->referencia = $this->referencia_debito;
         }
 
+        if($this->metodo_pago == "CONTADO"){
+            $venta->proximo_cobro = null;
+        }else{
+            $venta->proximo_cobro = Carbon::now()->addMonths(1);
+        }
+
         $venta->save();
+
+    
 
         //CREAR LOS IMPORTES
         for($i = 1 ; $i <= $venta->meses_pagar ; $i ++){
@@ -293,6 +301,7 @@ class NuevaVenta extends Component
             $importe->venta = $venta->id;
             $importe->save();
         }
+
 
         return redirect(route('index_resumen_venta',['venta_id'=>$venta->id]));
     }

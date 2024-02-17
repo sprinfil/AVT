@@ -33,19 +33,19 @@
             <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Clave Catastral
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Comprador
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Zona
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Proximo cobro
+                        Contrato
                     </th>
                     <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                         Monto
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        PROXIMO COBRO
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        EXPIRO LA FECHA
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        CONTACTAR CON EL COMPRADOR
                     </th>
                 </tr>
             </thead>
@@ -53,19 +53,43 @@
                 @foreach($ventas as $venta)
                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer" wire:click="detalle_venta({{ $venta->id }})">
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        {{$venta->Lote->catastral}}
+                        {{$venta->id}}
                     </th>
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        {{$venta->Comprador->nombreCompleto()}}
+                        {{ $venta->proximo_cobro() == null ? '$ 0' : '$ '. number_format($venta->proximo_cobro()->monto, 2, ',', '.')}}
                     </th>
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        {{$venta->Lote->nombre_zona()}}
+                        @if($venta->proximo_cobro())
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->proximo_cobro()->vencimiento )->format('d') }}
+                        de
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->proximo_cobro()->vencimiento )->monthName }}
+                        del
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->proximo_cobro()->vencimiento )->format('Y') }}
+                        @else
+                        Sin proximo cobro
+                        @endif
                     </th>
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        {{ $venta->proximo_cobro() == null ? 'Sin proximo cobro' : Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->proximo_cobro()->vencimiento)->format('d/m/Y') }}
+                        @if($venta->proximo_cobro())
+                            @if($venta->proximo_cobro() != null && $venta->proximo_cobro()->vencimiento < Carbon\Carbon::now())
+                                <div class="px-2 py-2 bg-red-500">
+                                    EXPIRO
+                                </div>
+                              
+                            @else
+                            <div class="px-2 py-2 bg-green-700">
+                                A TIEMPO
+                            </div>
+                            @endif
+                        @else
+                        <div class="px-2 py-2 bg-blue-700">
+                            PAGADO
+                        </div>
+                        @endif
                     </th>
+
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        {{ $venta->proximo_cobro() == null ? 'Sin proximo cobro' : '$ '. number_format($venta->proximo_cobro()->monto, 2, ',', '.')}}
+                        
                     </th>
                 </tr>
                 @endforeach

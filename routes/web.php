@@ -95,6 +95,8 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
         Route::get('/ventas/nueva/generar_contrato/{venta_id}','generar_contrato')->name('generar_contrato');
         Route::get('/ver_contrato/{venta_id}','ver_contrato')->name('ver_contrato');
+        Route::post('/guardar_contrato/{venta_id}','guardar_contrato')->name('guardar_contrato');
+        Route::get('/generar_ticket/{ticket_id}','generar_ticket')->name('generar_ticket');
     });
 
       //VENTAS

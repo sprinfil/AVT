@@ -9,7 +9,7 @@
     <!--CONTENEDOR PRINCIPAL-->
     <div class="grid grid-cols-1 md:grid-cols-2 w-full my-7 gap-x-7 gap-y-7">
         <!--RESUMEN-->
-        <div class="col-span-1">
+        <div class="col-span-1 mb-[40px]">
             <div
                 class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]">
                 <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px] ">

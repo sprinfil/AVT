@@ -10,7 +10,9 @@ class Index extends Component
 
     public function render()
     {
-        $ventas = Venta::All();
+        $index_venta = 0;
+        $ventas = Venta::orderByRaw('CASE WHEN proximo_cobro IS NULL THEN 1 ELSE 0 END, proximo_cobro ASC')->get();
+
         return view('livewire.ventas.index', compact('ventas'));
     }
 

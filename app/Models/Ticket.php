@@ -9,4 +9,8 @@ class Ticket extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public function venta(){
+        return $this->hasOne(Venta::class,'id','venta_id');
+    }
 }
