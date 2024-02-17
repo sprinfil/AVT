@@ -41,6 +41,7 @@ class DetalleVenta extends Component
     public function render()
     {
         $importes = Importe::where('venta',$this->venta->id)->paginate(12);
+        $this->tickets = Ticket::where('venta_id', $this->venta->id)->orderby('id','desc')->get();
         return view('livewire.ventas.detalle-venta',compact('importes'));
     }
 
@@ -53,7 +54,7 @@ class DetalleVenta extends Component
         $this->loteMostrar = $this->venta->Lote->lote;
         $this->metodo_pago = $this->venta->metodo_pago;
         $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
-        $this->tickets = Ticket::where('venta_id', $this->venta->id)->get();
+        $this->tickets = Ticket::where('venta_id', $this->venta->id)->orderby('id','desc')->get();
     }
 
     public function cambio_forma_de_pago(){
@@ -95,7 +96,7 @@ class DetalleVenta extends Component
         $this->refrescar_pago();
         $this->forma_de_pago = null;
 
-        return redirect(route('generar_ticket',['ticket_id' => $ticket->id]));
+        //return redirect(route('generar_ticket',['ticket_id' => $ticket->id]));
 
     }
 
@@ -133,7 +134,7 @@ class DetalleVenta extends Component
             }
         }
         $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
-        $this->tickets = Ticket::where('venta_id', $this->venta->id)->get();
+        $this->tickets = Ticket::where('venta_id', $this->venta->id)->orderby('id','desc')->get();
 
         $venta = Venta::find($this->venta->id);
 

@@ -6,7 +6,8 @@
     }
 
     body{
-        background-image:  url('{{ public_path() }}/storage/imagenes/girasoles.png');
+        /*background-image:  url('{{ public_path() }}/storage/imagenes/girasoles.png');*/
+        background-image:  url('{{ public_path() }}/imagenes_contratos/girasoles.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
@@ -146,22 +147,22 @@
         </div>
         @if ($venta->Lote->norte != null)
             <div class="parrafo centrar">
-                <p><span class="negrita">Al Norte:</span> {{ number_format($venta->Lote->norte, 2) }} Mts. Con Lote C.C.</p>
-                <p><span class="negrita">Al Sur:</span> {{ number_format($venta->Lote->sur, 2) }} Mts. Con Lote C.C.</p>
-                <p><span class="negrita">Al Este:</span> {{ number_format($venta->Lote->este, 2) }} Mts. Con Lote C.C.</p>
-                <p><span class="negrita">Al Oeste:</span> {{ number_format($venta->Lote->oeste, 2) }} Mts. Con Lote C.C.</p>
+                <p><span class="negrita">Al Norte:</span> {{ number_format($venta->Lote->norte, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_norte->catastral }}</p>
+                <p><span class="negrita">Al Sur:</span> {{ number_format($venta->Lote->sur, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_sur->catastral }}</p>
+                <p><span class="negrita">Al Este:</span> {{ number_format($venta->Lote->este, 2) }} Mts. Con Lote C.C. {{$venta->Lote->colindancia_este->catastral }}</p>
+                <p><span class="negrita">Al Oeste:</span> {{ number_format($venta->Lote->oeste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_oeste->catastral }}</p>
             </div>
         @endif
     
         @if ($venta->Lote->noreste != null)
             <div class="parrafo centrar">
-                <p><span class="negrita">Al Noreste:</span> {{ number_format($venta->Lote->noreste, 2) }} Mts. Con Lote C.C.
+                <p><span class="negrita">Al Noreste:</span> {{ number_format($venta->Lote->noreste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_noreste->catastral }}
                 </p>
-                <p><span class="negrita">Al Sureste:</span> {{ number_format($venta->Lote->sureste, 2) }} Mts. Con Lote C.C.
+                <p><span class="negrita">Al Sureste:</span> {{ number_format($venta->Lote->sureste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_sureste->catastral }}
                 </p>
-                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. Con Lote
+                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. Con Lote {{ $venta->Lote->colindancia_suroeste->catastral}}
                     C.C.</p>
-                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. Con Lote
+                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. Con Lote {{ $venta->Lote->colindancia_noroeste->catastral }}
                     C.C.</p>
             </div>
         @endif

@@ -103,9 +103,10 @@ class NuevaVenta extends Component
 
         if($this->zonaSeleccionada!=null){
             $lotes = Lote::where('zona',$this->zonaSeleccionada->id)
-            ->whereNull('baja')->get();
+            ->whereNull('baja')
+            ->whereNull('estado')->get();
         }else{
-            $lotes = Lote::all();
+            $lotes = Lote::whereNull('estado')->get();
         }
     
 
@@ -284,13 +285,16 @@ class NuevaVenta extends Component
 
         if($this->metodo_pago == "CONTADO"){
             $venta->proximo_cobro = null;
+            $lote = Lote::find($this->loteSeleccionado->id);
+            $lote->estado = "VENDIDO";
+            $lote->save();
         }else{
             $venta->proximo_cobro = Carbon::now()->addMonths(1);
+            $lote = Lote::find($this->loteSeleccionado->id);
+            $lote->estado = "EN PROCESO DE VENTA";
+            $lote->save();
         }
-
-        $venta->save();
-
-    
+        $venta->save();   
 
         //CREAR LOS IMPORTES
         for($i = 1 ; $i <= $venta->meses_pagar ; $i ++){

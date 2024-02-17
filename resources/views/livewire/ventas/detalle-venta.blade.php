@@ -177,7 +177,7 @@
                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->fecha)->format('Y') }}
                                         </td>
                                         <td class="px-6 py-4 dark:text-fuente">
-                                            <button class="btn-primary w-full h-[35px]" wire:click="descargar_ticket({{ $ticket->id }})">REGENERAR TICKET</button>
+                                            <button class="btn-primary w-full h-[35px]" wire:click="descargar_ticket({{ $ticket->id }})">GENERAR TICKET</button>
                                     </tr>
                                 @endforeach
                             </tbody>

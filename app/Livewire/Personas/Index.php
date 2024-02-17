@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     public $filtroNombre;
+    use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
     public function render()

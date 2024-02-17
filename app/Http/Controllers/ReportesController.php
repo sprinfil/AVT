@@ -125,6 +125,7 @@ class ReportesController extends Controller
         $ticket->save();
 
         return $pdf->download($nombre_ticket);
+        //return $pdf->stream();
     }
 
     function obtenerArreglo($numero) {

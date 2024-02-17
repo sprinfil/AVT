@@ -110,7 +110,7 @@
         <thead>
             <tr>
                 <th>Descripcion</th>
-                <th>Cantidad</th>
+                <th>Monto</th>
             </tr>
         </thead>
         <tbody>
@@ -122,7 +122,14 @@
     </table>
 
     <div class="contenedor-total">
-
+        <p>METODO DE PAGO: {{ $ticket->metodo_pago }}</p>
+        @if($ticket->metodo_pago != "EFECTIVO")
+        <p>REFERENCIA: {{ $ticket->referencia }}</p>
+        @else
+        <p>TOTAL: ${{number_format($ticket->cantidad_abonar,2)  }}</p>
+        <p>PAGO CON: ${{number_format($ticket->pago_con,2)  }}</p>
+        <p>CAMBIO: ${{number_format($ticket->cambio,2)  }}</p>
+        @endif
     </div>
 
     <!--FIN-->

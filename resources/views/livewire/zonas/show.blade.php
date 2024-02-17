@@ -53,9 +53,11 @@
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                             Estado
                         </th>
+                        @if(auth()->user()->tipo == "ADMIN")
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                             Acciones
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -84,16 +86,36 @@
                             </td>
                             <td class="px-6 py-4 dark:text-fuente cursor-pointer"
                                 wire:click="edit({{ $lote->id }})">
-                                {{ $lote->superficie ?? 'PENDIENTE' }}
+                              
+                                {{ $lote->superficie ? $lote->superficie." m2" : 'PENDIENTE' }} 
                             </td>
                             <td class="px-6 py-4 dark:text-fuente cursor-pointer"
                                 wire:click="edit({{ $lote->id }})">
-                                {{ 'PENDIENTE' }}
+                                @if($lote->estado)
+                                    @if($lote->estado == "EN PROCESO DE VENTA")
+                                        <div class="px-2 py-2 bg-amber-800">
+                                            {{ $lote->estado }}
+                                        </div>
+                                    @endif
+                                    @if($lote->estado == "VENDIDO")
+                                    <div class="px-2 py-2 bg-blue-700">
+                                        {{ $lote->estado }}
+                                    </div>
+                                @endif
+                                @else
+                                <div class="px-2 py-2 bg-green-700">
+                                    DISPONIBLE
+                                </div>
+                                @endif
                             </td>
+                            @if(auth()->user()->tipo == "ADMIN")
                             <td class="px-6 py-4 dark:text-fuente cursor-pointer">
+                          
                                 <button class="btn-primary font-400 bg-rojo h-full"
                                     wire:click="show_eliminar({{ $lote->id }})">Baja</button>
+                                  
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

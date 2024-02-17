@@ -1,4 +1,4 @@
-<div class="mx-2 md:mx-[60px] mt-[20px]">
+<div class="mx-2 md:mx-[60px] mt-[20px] mb-[70px]">
     <!-- Cabecera -->
     <div class="w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
         <div class="mx-[10px] md:mx-[50px] justify-between">
@@ -12,7 +12,7 @@
         <h3 class="text-lg font-semibold text-fuente mb-4">Información General</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <!-- Campos de información general -->
-            @foreach (['lote', 'manzana', 'catastral', 'superficie', 'precio'] as $field)
+            @foreach (['lote', 'manzana', 'catastral', 'superficie'] as $field)
                 <div class="mb-4">
 
                     <label class="block text-gray-300 text-sm font-bold mb-2" for="{{ $field }}">
