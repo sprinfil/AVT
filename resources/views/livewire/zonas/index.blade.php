@@ -24,7 +24,7 @@
                             Lotes
                         </th>
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                            Opciones
+                           
                         </th>
                     </tr>
                 </thead>
@@ -41,8 +41,10 @@
                             {{ $zona->lotes->whereNull('baja')->count() }}
                         </td>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                            <button class="btn-primary font-400 bg-green h-full" wire:click="edit({{$zona->id}})">Editar</button>
-                            <button class="btn-primary font-400 bg-rojo h-full" wire:click="show_eliminar({{ $zona->id }})">Baja</button>
+                            <div class="w-full justify-end flex items-center">
+                                <button class="btn-primary font-400 bg-green h-full mr-[10px] px-10 py-3" wire:click="edit({{$zona->id}})">Editar</button>
+                                <button class="btn-primary font-400 bg-rojo h-full px-10 py-3"  wire:click="show_eliminar({{ $zona->id }})">Baja</button>
+                            </div>
                           
                         </td>
                     </tr>

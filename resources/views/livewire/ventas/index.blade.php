@@ -30,9 +30,9 @@
     
        <!-- Tabla de datos -->
        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
             <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-[20px]">
-                <tr>
+                <tr class="text-[15px]">
                     <th scope="col" class="px-6 py-3 text-fuente ">
                         Contrato
                     </th>
@@ -52,7 +52,7 @@
             </thead>
             <tbody>
                 @foreach($ventas as $venta)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer" >
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer text-[18px]" >
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
                         NO. {{$venta->id}}
                     </th>
@@ -73,17 +73,17 @@
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
                         @if($venta->proximo_cobro())
                             @if($venta->proximo_cobro() != null && $venta->proximo_cobro()->vencimiento < Carbon\Carbon::now())
-                                <div class="px-2 py-5 bg-red-500 ">
+                                <div class="px-2 py-3 bg-red-500 ">
                                     EXPIRO
                                 </div>
                               
                             @else
-                            <div class="px-2 py-5 bg-green-700 ">
+                            <div class="px-2 py-3 bg-green-700 ">
                                 A TIEMPO
                             </div>
                             @endif
                         @else
-                        <div class="px-2 py-5 bg-blue-700 ">
+                        <div class="px-2 py-3 bg-blue-700 ">
                             PAGADO
                         </div>
                         @endif

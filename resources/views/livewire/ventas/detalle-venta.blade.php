@@ -104,9 +104,13 @@
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('Y') }}
                                                 </td>
                                                 <td
-                                                    class="px-6 py-4 dark:text-fuente @if ($importe->monto == 0) bg-[#013809]  @else bg-gray-900 @endif">
+                                                    class="px-6 py-4 dark:text-fuente @if ($importe->monto == 0) bg-[#013809]  @else bg-gray-900 @endif    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @endif">
                                                     @if ($importe->monto == 0)
                                                         <p>PAGADO</p>
+                                                    @endif
+                                              
+                                                    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0)
+                                                    <p>EXPIRADO</p>
                                                     @endif
                                                 </td>
                                             </tr>

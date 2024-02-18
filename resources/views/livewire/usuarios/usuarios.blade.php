@@ -33,7 +33,7 @@
                         Tipo
                     </th>
                     <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                        Opciones
+                       
                     </th>
                 </tr>
             </thead>
@@ -50,7 +50,9 @@
                         {{$usuario->tipo}}
                     </td>
                     <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                        <button class="btn-primary font-400 bg-rojo h-full" wire:click="eliminarUsuario({{ $usuario->id }})">Eliminar</button>
+                        <div class="w-full flex items-end justify-end">
+                            <button class="btn-primary font-400 bg-rojo h-full px-10 py-3" wire:click="eliminarUsuario({{ $usuario->id }})">ELIMINAR</button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

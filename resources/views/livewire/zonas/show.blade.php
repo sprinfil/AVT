@@ -55,7 +55,7 @@
                         </th>
                         @if(auth()->user()->tipo == "ADMIN")
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                            Acciones
+                        
                         </th>
                         @endif
                     </tr>
@@ -110,9 +110,10 @@
                             </td>
                             @if(auth()->user()->tipo == "ADMIN")
                             <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                          
-                                <button class="btn-primary font-400 bg-rojo h-full"
-                                    wire:click="show_eliminar({{ $lote->id }})">Baja</button>
+                                    <div class="w-full justify-end flex items-center">
+                                        <button class="btn-primary font-400 bg-rojo h-full px-10 py-3"
+                                        wire:click="show_eliminar({{ $lote->id }})">Baja</button>
+                                    </div>
                                   
                             </td>
                             @endif
