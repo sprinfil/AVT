@@ -95,10 +95,10 @@ class NuevaVenta extends Component
         }
 
         if(!empty($this->filtroZona)){
-            $queryZona->where('nombre', 'like', '%' . $this->filtroZona . '%');
+            $queryZona->whereNull('baja')->where('nombre', 'like', '%' . $this->filtroZona . '%');
             $zonas = $queryZona->get();
         }else{
-            $zonas =  Zona::All();
+            $zonas =  Zona::whereNull('baja')->get();
         }
 
         if($this->zonaSeleccionada!=null){
@@ -106,7 +106,7 @@ class NuevaVenta extends Component
             ->whereNull('baja')
             ->whereNull('estado')->get();
         }else{
-            $lotes = Lote::whereNull('estado')->get();
+            $lotes = Lote::whereNull('estado')->whereNull('baja')->get();
         }
     
 
