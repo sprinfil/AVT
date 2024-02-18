@@ -62,10 +62,12 @@ class DetalleVenta extends Component
     }
 
     public function calcular_cambio(){
-        if($this->pago_con!=null && $this->forma_de_pago == "EFECTIVO"){
-            $this->cambio = $this->pago_con - $this->cantidad_abonar;
-        }else{
-            $this->cambio = 0;
+        if(is_numeric($this->pago_con) && is_numeric($this->cantidad_abonar)){
+            if($this->pago_con!=null && $this->forma_de_pago == "EFECTIVO"){
+                $this->cambio = $this->pago_con - $this->cantidad_abonar;
+            }else{
+                $this->cambio = 0;
+            }
         }
     }
 
