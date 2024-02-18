@@ -126,7 +126,7 @@ class NuevaVenta extends Component
         }
 
         if(count($zonas) == 1){
-            $this->zonaSeleccionada = $queryZona->first();
+            $this->zonaSeleccionada = $queryZona->whereNull('baja')->first();
             $this->zonaMostrar = $this->zonaSeleccionada->nombre;
         }
 
