@@ -160,10 +160,10 @@
                 </p>
                 <p><span class="negrita">Al Sureste:</span> {{ number_format($venta->Lote->sureste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_sureste->catastral }}
                 </p>
-                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. Con Lote {{ $venta->Lote->colindancia_suroeste->catastral}}
-                    C.C.</p>
-                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. Con Lote {{ $venta->Lote->colindancia_noroeste->catastral }}
-                    C.C.</p>
+                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_suroeste->catastral}}
+                    </p>
+                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. Con Lote  C.C. {{ $venta->Lote->colindancia_noroeste->catastral }}
+                   </p>
             </div>
         @endif
     
