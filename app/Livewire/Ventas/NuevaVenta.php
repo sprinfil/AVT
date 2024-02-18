@@ -102,9 +102,9 @@ class NuevaVenta extends Component
         }
 
         if($this->zonaSeleccionada!=null){
-            $lotes = Lote::where('zona',$this->zonaSeleccionada->id)
-            ->whereNull('baja')
-            ->whereNull('estado')->get();
+            $lotes = Lote::whereNull('baja')
+            ->whereNull('estado')
+            ->where('zona',$this->zonaSeleccionada->id)->get();
         }else{
             $lotes = Lote::whereNull('estado')->whereNull('baja')->get();
         }
