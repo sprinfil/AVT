@@ -17,7 +17,6 @@
                         <option value="{{ $venta->id }}">Lote:{{ $venta->lote }} Zona:{{ $venta->Zona->nombre }} Comprador: {{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</option>
                     @endforeach
                 </select>
-                <p>no mames</p>
             </div>
 
             <div class="sm:block md:flex md:justify-between md:items-center">
