@@ -13,6 +13,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ArchivosController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\PagosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,4 +108,9 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/ventas/detalle/{venta_id}','index_detalle_venta')->name('index_detalle_venta'); 
     });
 
+    //PAGOS A DUEÑOS
+    Route::controller(PagosController::class)->group(function () {
+        Route::get('/pagos', 'index')->name('pagos');
+        Route::get('/pagos/nuevo','create')->name('nuevo_pago'); 
+    });
 });
