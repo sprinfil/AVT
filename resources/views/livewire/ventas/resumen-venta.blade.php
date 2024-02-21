@@ -80,7 +80,9 @@
                         @endif
                         <button class="btn-primary w-full mt-[20px]" wire:click="generar_contrato"> Generar
                             Contrato</button>
-
+                            <a href="{{ route('ventas') }}">
+                                <button class="btn-primary-red w-full mt-[20px]">Volver a ventas</button>
+                            </a>
                     </div>
                 </div>
             </div>

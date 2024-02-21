@@ -116,3 +116,17 @@
 
 </div>
 @endsection
+
+@section('js')
+    <script>
+        window.addEventListener('actualizacion_completada', event => {
+            Swal.fire({
+                position: 'center-middle',
+                icon: 'success',
+                title: 'Sitema Actualizado',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        });
+    </script>
+@endsection
