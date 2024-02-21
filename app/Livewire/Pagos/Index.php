@@ -4,17 +4,26 @@ namespace App\Livewire\Pagos;
 
 use App\Models\ImporteDueno;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $pagos;
-
-    public function mount(){
-        $pagos = ImporteDueno::all();
-    }
-
+    use WithPagination;
+    
     public function render()
     {
-        return view('livewire.pagos.index');
+        $query = ImporteDueno::query();
+
+        $pagos = $query->orderBy('id', 'DESC')->paginate(10);
+
+        return view('livewire.pagos.index', ['pagos' => $pagos]);
+    }
+
+    public function detalle_pagos($id){
+        return redirect(route('pagos'));
+    }
+
+    public function pdf($pago_id){
+        return redirect(route('generar_recibo_pago',['pago_id' => $pago_id]));
     }
 }
