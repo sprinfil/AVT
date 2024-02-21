@@ -117,7 +117,7 @@
                                             {{ $importe->numero }}
                                         </th>
                                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                                            $ {{ $importe->monto }}
+                                            $ {{ number_format( $importe->monto ,2)}}
                                         </td>
                                         <td class="px-6 py-4 dark:text-fuente cursor-pointer">
                                             {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $importe->vencimiento)->format('d') }} de 
