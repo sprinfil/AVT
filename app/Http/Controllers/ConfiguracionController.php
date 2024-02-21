@@ -85,7 +85,7 @@ class ConfiguracionController extends Controller
             Artisan::call('db:seed');
     
             $result = $actualizar_sistema ." ".$npm_build." ". Artisan::output();
-            $this->dispacth('actualizacion_completada');
+
             return redirect(route('configuracion'));
     
         }catch(Exception $e){

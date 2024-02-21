@@ -62,7 +62,13 @@
             <!--Primera fila-->
                 <div class="max-h-[300px] overflow-y-auto no-scrollbar">
                     <p>
-                        Versión actual (v 2.0.1)
+                        Versión actual (v 3.0.0)
+                        <br>
+                        <br>
+                        <br>
+                        <-- Actualización v 3.0.0. -->
+                        <br>
+                        - Modulo de ventas agregado
                         <br>
                         <br>
                         <br>
