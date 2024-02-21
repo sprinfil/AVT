@@ -8,6 +8,7 @@ use Dompdf\Options;
 use App\Models\Venta;
 use App\Models\Ticket;
 use App\Models\Importe;
+use App\Models\ImporteDueno;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -126,6 +127,19 @@ class ReportesController extends Controller
 
         return $pdf->download($nombre_ticket);
         //return $pdf->stream();
+    }
+
+    public function generar_recibo_pago(Request $request){
+        $pago = ImporteDueno::Find($request->pago_id);
+        $pagos = Importe::where('venta', $pago->venta)->get();
+        
+        $pdf = Pdf::loadView('docs.contratos.recibo_pago_dueno',compact('pago', 'pagos'));
+        $nombre_recibo_pago = "RECIBO PAGO.".$pago->id."_".\Carbon\Carbon::parse($pago->fecha)->format('d-m-Y').".pdf";
+
+        $pdfPath = "recibos_pagos_duenos/".$nombre_recibo_pago;
+        Storage::disk('public')->put($pdfPath, $pdf->output());
+
+        return $pdf->download($nombre_recibo_pago);
     }
 
     function obtenerArreglo($numero) {

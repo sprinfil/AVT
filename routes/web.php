@@ -13,6 +13,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ArchivosController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\PagosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/ver_contrato/{venta_id}','ver_contrato')->name('ver_contrato');
         Route::post('/guardar_contrato/{venta_id}','guardar_contrato')->name('guardar_contrato');
         Route::get('/generar_ticket/{ticket_id}','generar_ticket')->name('generar_ticket');
+        Route::get('/generar_recibo_pago/{pago_id}','generar_recibo_pago')->name('generar_recibo_pago');
     });
 
       //VENTAS
@@ -107,4 +109,9 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/ventas/detalle/{venta_id}','index_detalle_venta')->name('index_detalle_venta'); 
     });
 
+    //PAGOS A DUEÑOS
+    Route::controller(PagosController::class)->group(function () {
+        Route::get('/pagos', 'index')->name('pagos');
+        Route::get('/pagos/nuevo','create')->name('nuevo_pago'); 
+    });
 });
