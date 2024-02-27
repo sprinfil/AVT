@@ -65,7 +65,7 @@ class ReportesController extends Controller
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista'));
         //return $pdf->stream();
 
-        $nombreArchivo = 'CONTRATO NO.' . $venta->id ."_" .date('dmYhi') . '.pdf';
+        $nombreArchivo = 'CONTRATO_NO.' . $venta->no_contrato . '.pdf';
 
         return $pdf->download($nombreArchivo);
         

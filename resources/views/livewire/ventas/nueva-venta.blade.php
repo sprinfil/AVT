@@ -74,33 +74,6 @@
                     </select>
                 </div>
 
-                <!--VENDEDOR-->
-                <div>
-                    <p class="text-fuente text-[25px] mt-[30px]">Vendedor</p>
-
-                    <!--Input de busqueda-->
-                    <div class="relative mt-[10px]">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="text" class="input-pdv pl-10 w-full" placeholder="Buscar persona..."
-                            wire:model="filtroVendedores" wire:input="actualizarFiltroVendedor">
-                    </div>
-
-                    <!--SELECT VENDEDOR-->
-                    <select name="vendedor" id="vendedor" class="input-pdv mt-[10px] w-full"
-                        wire:change = "SeleccionarVendedor" wire:model = "vendedorLista">
-                        <option value="" selected>--SELECCIONAR--</option>
-                        @foreach ($vendedores as $vendedor)
-                            <option value="{{ $vendedor->id }}">{{ $vendedor->nombreCompleto() }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
                 <div>
                     <p class="text-fuente text-[25px] mt-[30px]">Zona</p>
 
@@ -129,17 +102,34 @@
 
                 <div>
                     <p class="text-fuente text-[25px] mt-[30px]">Lote</p>
-
+                    <!--Input de busqueda-->
+                    <div class="relative mt-[10px]">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="text" class="input-pdv pl-10 w-full" placeholder="Buscar Lote (C.C.)"
+                            wire:model="filtroLote" wire:input="actualizarFiltroLote">
+                    </div>
                     <!--SELECT LOTE-->
                     <select name="lote" id="lote" class="input-pdv mt-[10px] w-full"
                         wire:change = "SeleccionarLote" wire:model = "loteLista"
                         @if ($desactivarLotes) disabled @endif>
                         <option value="" selected>--SELECCIONAR--</option>
                         @foreach ($lotes as $lote)
-                            <option value="{{ $lote->id }}">{{ $lote->lote }} </option>
+                            <option value="{{ $lote->id }}">{{ $lote->lote }} .- {{ $lote->catastral }} </option>
                         @endforeach
                     </select>
                 </div>
+
+                <div>
+                    <p class="text-fuente text-[25px] mt-[30px]">Contrato</p>
+                    <input type="text" class="input-pdv w-full" placeholder="Contrato" wire:model="no_contrato">
+                </div>
+
                 <div class="mb-[80px]">
                     <!--SELECT METODO PAGO-->
                     <p class="text-fuente text-[25px] mt-[30px]">Metodo de pago</p>
@@ -171,6 +161,10 @@
                             <p class="text-fuente text-[15px]">Monto por mes</p>
                             <input type="number" class="input-pdv w-full" placeholder="Monto por mes"
                                 wire:model="monto_mes" wire:input="calcular_monto_por_mes" disabled>
+                        </div>
+                        <div class="md:w-[50%] w-full  mt-[10px]">
+                            <p class="text-fuente text-[15px]">Fecha del primer Abono</p>
+                            <input type="date" class="input-pdv w-full" wire:model = "fecha_primer_abono_mostrar" wire:change = "actualizarFechaPrimerAbono">
                         </div>
                     @endif
 
@@ -228,15 +222,18 @@
                             <p class="text-fuente">Aval</p>
                             <input wire:model = "avalMostrar" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Aval">
+                                <p class="text-fuente">Zona</p>
+                                <input wire:model = "zonaMostrar" type="text" class="input-pdv mb-[20px] w-full"
+                                    disabled placeholder="Zona">
                             <p class="text-fuente">Vendedor</p>
                             <input wire:model = "vendedorMostrar" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Vendedor">
-                            <p class="text-fuente">Zona</p>
-                            <input wire:model = "zonaMostrar" type="text" class="input-pdv mb-[20px] w-full"
-                                disabled placeholder="Zona">
                             <p class="text-fuente">Lote</p>
                             <input wire:model = "loteMostrar" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="lote">
+                            <p class="text-fuente">Contrato</p>
+                            <input wire:model = "no_contrato" type="text" class="input-pdv mb-[20px] w-full"
+                                disabled placeholder="Contrato">
                             <p class="text-fuente">Metodo de pago</p>
                             <input wire:model = "metodo_pago" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Metodo de pago">
@@ -251,14 +248,19 @@
                                         {{ number_format($enganche_meses, 2) }}
                                     @endif
                                 </p>
-                                <p class="text-fuente">Meses a pagar</p>
-                                <p class="text-fuente  mb-[20px]">{{ $meses_pagar }}</p>
+                                <div class="h-[60px]">
+                                    <p class="text-fuente">Meses a pagar</p>
+                                    <p class="text-fuente">{{ $meses_pagar }}</p>
+                                </div>
+      
 
                                 <p class="text-fuente">Monto por mes</p>
                                 <p class="text-fuente  mb-[20px]">$ @if ($monto_mes != null)
                                         {{ number_format($monto_mes, 2) }}
                                     @endif
                                 </p>
+                                <p class="text-fuente">Primer Abono</p>
+                                <p class="text-fuente  mb-[20px]">{{ $fecha_primer_abono->format('d') }} de {{ $fecha_primer_abono->monthName}} del {{ $fecha_primer_abono->format('Y') }}</p>
                             @endif
                             @if ($metodo_pago == 'CONTADO')
                                 <p class="text-fuente">Forma de pago</p>

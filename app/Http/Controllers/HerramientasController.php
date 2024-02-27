@@ -14,7 +14,7 @@ class HerramientasController extends Controller
     }
 
     static public function convertirNumeroAPalabras2($numero) {
-        $formatter = new NumeroALetras();
-        return ucfirst($formatter->toMoney($numero));
+       $formatter = new NumeroALetras();
+       return ucfirst($formatter->toMoney($numero));
     }
 }

@@ -114,7 +114,7 @@
         </div>
     
         <div class="contendor-texto-contrato">
-            <h1>CONTRATO No. {{ $venta->id }}</h1>
+            <h1>CONTRATO No. {{ $venta->no_contrato }}</h1>
         </div>
     
         <div class="parrafo">

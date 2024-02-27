@@ -59,6 +59,9 @@ class NuevaVenta extends Component
     public $vendedorMostrar;
     public $vendedorLista;
     public $error =false;
+    public $fecha_primer_abono_mostrar;
+    public $fecha_primer_abono;
+    public $no_contrato;
 
 
 
@@ -102,9 +105,18 @@ class NuevaVenta extends Component
         }
 
         if($this->zonaSeleccionada!=null){
-            $lotes = Lote::whereNull('baja')
-            ->whereNull('estado')
-            ->where('zona',$this->zonaSeleccionada->id)->get();
+            if(!empty($this->filtroLote)){
+                $lotes = Lote::whereNull('baja')
+                ->whereNull('estado')
+                ->where('zona',$this->zonaSeleccionada->id)
+                ->where('catastral','like', $this->filtroLote.'%')
+                ->get();
+            }else{
+                $lotes = Lote::whereNull('baja')
+                ->whereNull('estado')
+                ->where('zona',$this->zonaSeleccionada->id)
+                ->get();
+            }
         }else{
             $lotes = Lote::whereNull('estado')->whereNull('baja')->get();
         }
@@ -130,11 +142,13 @@ class NuevaVenta extends Component
             $this->zonaMostrar = $this->zonaSeleccionada->nombre;
         }
 
+
         return view('livewire.ventas.nueva-venta', compact('compradores','avales','zonas','lotes','vendedores'));
     }
 
     public function mount(){
-
+        $this->fecha_primer_abono_mostrar = Carbon::now()->addMonths(1)->format('Y-m-d');
+        $this->fecha_primer_abono = Carbon::now()->addMonths(1);
     }
 
     public function actualizarFiltroComprador(){
@@ -147,6 +161,10 @@ class NuevaVenta extends Component
 
     public function actualizarFiltroVendedor(){
         $this->render();
+    }
+
+    public function actualizarFechaPrimerAbono(){
+        $this->fecha_primer_abono = Carbon::createFromFormat('Y-m-d', $this->fecha_primer_abono_mostrar);
     }
 
     public function SeleccionarComprador(){
@@ -178,6 +196,8 @@ class NuevaVenta extends Component
         if($this->zonaLista != null){
             $this->zonaSeleccionada = Zona::find($this->zonaLista);
             $this->zonaMostrar = $this->zonaSeleccionada->nombre;
+            $this->vendedorSeleccionado = $this->zonaSeleccionada->dueno;
+            $this->vendedorMostrar = $this->zonaSeleccionada->dueno->nombreCompleto();
         }
     }
 
@@ -188,7 +208,7 @@ class NuevaVenta extends Component
     public function SeleccionarLote(){
         if($this->loteLista != null){
             $this->loteSeleccionado = Lote::find($this->loteLista);
-            $this->loteMostrar = $this->loteSeleccionado->lote;
+            $this->loteMostrar =  $this->loteSeleccionado->lote.".- ".$this->loteSeleccionado->catastral;
         }
     }
 
@@ -248,7 +268,7 @@ class NuevaVenta extends Component
     
 
     public function advertencia_venta(){
-        if($this->compradorSeleccionado != null && $this->avalSeleccionado != null && $this->vendedorSeleccionado != null && $this->zonaSeleccionada != null && $this->loteSeleccionado != null){
+        if($this->compradorSeleccionado != null && $this->avalSeleccionado != null && $this->vendedorSeleccionado != null && $this->zonaSeleccionada != null && $this->loteSeleccionado != null && $this->no_contrato != null){
             if($this->monto_mes != null || $this->cambio_efectivo >= 0 || $this->referencia_credito != null  || $this->referencia_debito){
                 $this->dispatch('advertencia_venta');
             }else{
@@ -276,6 +296,7 @@ class NuevaVenta extends Component
         $venta->forma_de_pago = $this->forma_de_pago != null ? $this->forma_de_pago : null;
         $venta->pago_con = $this->pago_con_efectivo != null ? $this->pago_con_efectivo : null;
         $venta->cambio = $this->cambio_efectivo != null ? $this->cambio_efectivo : null;
+        $venta->no_contrato = $this->no_contrato;
         if($this->referencia_credito != null){
             $venta->referencia = $this->referencia_credito;
         }
@@ -289,7 +310,7 @@ class NuevaVenta extends Component
             $lote->estado = "VENDIDO";
             $lote->save();
         }else{
-            $venta->proximo_cobro = Carbon::now()->addMonths(1);
+            $venta->proximo_cobro = $this->fecha_primer_abono;
             $lote = Lote::find($this->loteSeleccionado->id);
             $lote->estado = "EN PROCESO DE VENTA";
             $lote->save();
@@ -297,11 +318,14 @@ class NuevaVenta extends Component
         $venta->save();   
 
         //CREAR LOS IMPORTES
-        for($i = 1 ; $i <= $venta->meses_pagar ; $i ++){
+        for($i = 0 ; $i < $venta->meses_pagar ; $i ++){
             $importe = new Importe();
-            $importe->numero = $i;
+            $importe->numero = $i + 1;
             $importe->monto = $venta->monto_mes;
-            $importe->vencimiento = Carbon::now()->addMonths($i);
+            if($i != 0){
+                $this->fecha_primer_abono->addMonths(1);
+            }
+            $importe->vencimiento = $this->fecha_primer_abono;
             $importe->venta = $venta->id;
             $importe->save();
         }
