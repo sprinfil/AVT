@@ -69,7 +69,7 @@
                             <div
                                 class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
 
-                                <table class="w-full text-sm text-left text-gray-400 ">
+                                <table class="w-full text-sm text-left">
                                     <thead class="text-xs text-fuente uppercase bg-gray-700 ">
                                         <tr>
                                             <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
@@ -88,9 +88,9 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($importes as $importe)
-                                            <tr class=" border-b   bg-gray-900  dark:border-gray-700  transition-all">
+                                            <tr class=" border-b   bg-gray-900  border-gray-700  transition-all">
                                                 <th scope="row"
-                                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
+                                                    class="px-6 py-4 font-medium  whitespace-nowrap text-fuente">
                                                    
                                                     @if($importe->numero == 0)
                                                     Anticipo

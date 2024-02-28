@@ -41,7 +41,7 @@
                                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input type="text" class="input-pdv pl-10" placeholder="Clave Catastral" wire:model="filtroCatastral"
+                    <input type="text" class="input-pdv pl-10 mascara-catastral" placeholder="Clave Catastral" wire:model="filtroCatastral"
                         wire:input="actualizarFiltroCatastral">
                 </div>
             </div>
@@ -171,5 +171,18 @@
             {{ $ventas->links('vendor.pagination.tailwind')}}
         </div>
     </div>
-</div>    
+</div>
+@section('js')
+    <script>
+        $(document).ready(function() {
+            console.log("jQuery cargado correctamente");
+            $('.mascara-dinero').mask('000,000,000,000,000', {
+                reverse: true
+            });
+            $('.mascara-catastral').mask('0000-0000-0000-0000-0000', {
+            });
+        });
+    </script>
+
+@endsection
 
