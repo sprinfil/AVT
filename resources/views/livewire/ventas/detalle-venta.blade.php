@@ -91,7 +91,12 @@
                                             <tr class=" border-b   bg-gray-900  dark:border-gray-700  transition-all">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
+                                                   
+                                                    @if($importe->numero == 0)
+                                                    Anticipo
+                                                    @else
                                                     {{ $importe->numero }}
+                                                    @endif
                                                 </th>
                                                 <td class="px-6 py-4 dark:text-fuente">
                                                     $ {{ number_format($importe->monto ,2) }}
@@ -104,9 +109,22 @@
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('Y') }}
                                                 </td>
                                                 <td
-                                                    class="px-6 py-4 dark:text-fuente @if ($importe->monto == 0) bg-[#013809]  @else bg-gray-900 @endif    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @endif">
+                                                    class="px-6 py-4 dark:text-fuente @if ($importe->monto == 0 || $importe->numero == 0) bg-[#013809]  @elseif($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @else bg-gray-900 @endif">
                                                     @if ($importe->monto == 0)
-                                                        <p>PAGADO</p>
+                                                        <p>PAGADO EL       
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('d') }}
+                                                            de
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->monthName }}
+                                                            del
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('Y') }}</p>
+                                                    @endif
+                                                    @if($importe->numero == 0)
+                                                        <p>PAGADO EL         
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('d') }}
+                                                            de
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->monthName }}
+                                                            del
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}</p>
                                                     @endif
                                               
                                                     @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0)

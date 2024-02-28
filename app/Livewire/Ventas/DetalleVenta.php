@@ -114,6 +114,7 @@ class DetalleVenta extends Component
 
         $importes = Importe::where('venta',$this->venta->id)
         ->where('monto','>','0')
+        ->where('numero','!=',0)
         ->get();
         $id_importe = 0;
 
@@ -124,6 +125,7 @@ class DetalleVenta extends Component
                 if($total_abonos >= $importes[$id_importe]->monto){
                     $total_abonos = $total_abonos - $importes[$id_importe]->monto;
                     $importes[$id_importe]->monto = 0;
+                    $importes[$id_importe]->fecha_liquidacion = Carbon::now()->format('Y-m-d h:i:s');
                     $importes[$id_importe]->save();
                 }else{
                     $importes[$id_importe]->monto = $importes[$id_importe]->monto - $total_abonos;
