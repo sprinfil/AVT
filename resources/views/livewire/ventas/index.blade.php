@@ -14,19 +14,55 @@
             </div>
         </div>
     
-        <!--Input de busqueda-->
-  
-        <div class="relative mt-[40px]">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
+        <!--Inputs de busqueda-->
+        <div class="flex gap-4 mt-[40px] flex-wrap">
+            <div class="">
+                <p class="text-fuente mb-[10px]">Comprador</p>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" class="input-pdv pl-10" placeholder="Comprador" wire:model="filtroComprador"
+                        wire:input="actualizarFiltroComprador">
+                </div>
             </div>
-            <input type="text" class="input-pdv pl-10" placeholder="No. Contrato" wire:model="filtroVenta"
-                wire:input="actualizarFiltroVenta">
+
+            <div class="">
+                <p class="text-fuente mb-[10px]">Clave Catastral</p>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" class="input-pdv pl-10" placeholder="Clave Catastral" wire:model="filtroCatastral"
+                        wire:input="actualizarFiltroCatastral">
+                </div>
+            </div>
+
+            <div class="">
+                <p class="text-fuente mb-[10px]">Numero de contrato</p>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="text" class="input-pdv pl-10 w-[180px]" placeholder="No Contrato" wire:model="filtroContrato"
+                        wire:input="actualizarFiltroContrato">
+                </div>
+            </div>
+
         </div>
+
     
        <!-- Tabla de datos -->
        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
@@ -35,6 +71,12 @@
                 <tr class="text-[15px]">
                     <th scope="col" class="px-6 py-3 text-fuente ">
                         Contrato
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-fuente ">
+                        Comprador
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-fuente ">
+                        Clave Catastral
                     </th>
                     <th scope="col" class="px-6 py-3 text-fuente">
                         PROXIMO COBRO
@@ -54,7 +96,13 @@
                 @foreach($ventas as $venta)
                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all  cursor-pointer text-[18px]" >
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
-                        NO. {{$venta->id}}
+                        {{$venta->no_contrato}}
+                    </th>
+                    <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
+                        {{$venta->Comprador->nombreCompleto()}}
+                    </th>
+                    <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
+                        {{$venta->Lote->catastral}}
                     </th>
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="detalle_venta({{ $venta->id }})">
                         @if($venta->proximo_cobro())
@@ -90,7 +138,6 @@
                     </th>
 
                     <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" >
-                        <p class="mb-[20px]">{{ $venta->Comprador->nombreCompleto() }}</p>
                         <div class="flex h-[50px]">
                             <a href="https://wa.me/52{{$venta->Comprador->celular}}?text=Hola%20{{ $venta->Comprador->nombre }}%20Nos%20comunicamos%20con%20usted%20por%20parte%20de%20Empresa%20para%20Informarle%20que%20su%20fecha%20de%20pago%20del%20{{$venta->proximo_cobro()!=null  ? Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->proximo_cobro()->vencimiento )->format('d/m/Y') : 'Sin proximo cobro'}}%20con un monto total de%20$%20{{ $venta->proximo_cobro() != null ? number_format($venta->proximo_cobro()->monto,2)  : 'sin monto'}}%20para el lote%20{{ $venta->Lote->lote }} %20de%20{{$venta->Zona->nombre}} %20a%20expirado%20le%20pedimos%20de%20la%20manera%20mas%20atenta%20que%20realice%20su%20pago,%20gracias%20buen%20día." target="_blank" class="flex items-center">
                                 <div class="py-0 px-3 bg-principal rounded-md flex items-center h-[50px]">
