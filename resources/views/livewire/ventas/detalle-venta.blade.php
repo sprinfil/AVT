@@ -3,7 +3,7 @@
         <!--Cabecera-->
         <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
             <div class="mx-[10px] md:mx-[50px]  justify-between">
-                <p class="text-fuente text-[40px] mb-[20px]">Contrato No. {{ $venta->id }}</p>
+                <p class="text-fuente text-[40px] mb-[20px]">Contrato No. {{ $venta->no_contrato }}</p>
             </div>
         </div>
 
