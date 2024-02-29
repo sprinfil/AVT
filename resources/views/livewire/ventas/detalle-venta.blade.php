@@ -127,7 +127,7 @@
                                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}</p>
                                                     @endif
                                               
-                                                    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0)
+                                                    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0 && $importe->numero != 0)
                                                     <p>EXPIRADO</p>
                                                     @endif
                                                 </td>
