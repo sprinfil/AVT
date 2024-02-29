@@ -102,7 +102,7 @@ class NuevoPagoForm extends Component
                     $importe_pago_a_dueno->numero = 1;                
                 }
                 
-                $importe_pago_a_dueno->monto = $this->setMonto($ticket->venta_id);
+                $importe_pago_a_dueno->monto = $ticket->cantidad_abonar;
                 $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
                 $importe_pago_a_dueno->venta = $ticket->venta_id;
                 $importe_pago_a_dueno->metodo = $this->metodo;
