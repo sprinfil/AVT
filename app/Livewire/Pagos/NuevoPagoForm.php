@@ -5,31 +5,35 @@ namespace App\Livewire\Pagos;
 use App\Models\ImporteDueno;
 use App\Models\Ticket;
 use App\Models\Venta;
+use App\Models\Zona;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Carbon\Carbon;
+use COM;
 
 class NuevoPagoForm extends Component
 {
-    public $ventas;
-    public $numero_contrato;
-    public $contrato;
+    public $zonas;
+    public $nombre_zona;
+    public $zona;
+    public $zona_seleccionada;
     public $contrato_venta;
-    public $monto_maximo;
-    public $monto;
     public $metodo = 'selecciona';
+
+    public $desde;
+    public $hasta;
 
     public function render()
     {
-        $query = Venta::query();
+        $query = Zona::query();
     
-        if ($this->numero_contrato != null && $this->numero_contrato != 0) {
-            $query->where('id', 'LIKE', '%' . $this->numero_contrato . '%');
-            $this->ventas = $query->get();
+        if ($this->nombre_zona != null && $this->nombre_zona != '') {
+            $query->where('nombre', 'LIKE', '%' . $this->nombre_zona . '%');
+            $this->zonas = $query->get();
         } else {
-            if ($this->contrato_venta == null){
-                $this->contrato = 'selecciona';
-                $this->ventas = $query->get();
+            if ($this->zona_seleccionada == null){
+                $this->zona = 'selecciona';
+                $this->zonas = $query->get();
             }
         }
     
@@ -40,25 +44,17 @@ class NuevoPagoForm extends Component
         $this->render();
     }
 
-    public function actualizar_contrato(){
-        $this->contrato_venta = Venta::find($this->contrato);
-
-        $this->setMonto();
+    public function actualizar_zona(){
+        $this->zona_seleccionada = Zona::find($this->zona);
     }
 
-    public function actualizar_monto(){
-        if ($this->monto > $this->monto_maximo){
-            $this->monto = $this->monto_maximo;
-        }
-    }
-
-    public function setMonto(){
-        $tickets = Ticket::where('venta_id', $this->contrato_venta->id)->get();
+    public function setMonto($id){
+        $tickets = Ticket::where('venta_id', $id)->where('fecha', '>=', $this->desde)->where('fecha', '<=', $this->hasta)->get();
         $monto_tickets = 0;
         foreach ($tickets as $ticket){
             $monto_tickets += $ticket->cantidad_abonar;
         }
-        $pagos = ImporteDueno::where('venta', $this->contrato_venta->id)->get();
+        $pagos = ImporteDueno::where('venta', $id)->get();
         $monto_pagos = 0;
         if ($pagos) {
             foreach ($pagos as $pago){
@@ -66,7 +62,7 @@ class NuevoPagoForm extends Component
             }
         }
 
-        $this->monto_maximo = floatval($monto_tickets - $monto_pagos);
+        return $monto_tickets - $monto_pagos;
     }
 
     public function submit(){
@@ -82,28 +78,38 @@ class NuevoPagoForm extends Component
     
     #[On('aceptar_pago')]
     public function aceptar_pago(){
-        if ($this->monto == 0){        
-            $this->dispatch('error_monto');
-            return;
-        } else if ($this->metodo == 'selecciona') {
+        if ($this->metodo == 'selecciona') {
             $this->dispatch('error_metodo');
             return;
+        } else if ($this->desde == null || $this->hasta == null) {
+            $this->dispatch('error_periodo');
+            return;
         } else {
-            $pago = ImporteDueno::where('venta', $this->contrato_venta->id)->orderBy('id', 'DESC')->first();
+            $ventaIds = Venta::where('zona_id', $this->zona_seleccionada->id)
+                            ->orderBy('id', 'DESC')
+                            ->pluck('id');
 
-            $importe_pago_a_dueno = new ImporteDueno();
-            
-            if ($pago){
-                $importe_pago_a_dueno->numero = $pago->numero + 1;
-            } else {
-                $importe_pago_a_dueno->numero = 1;                
+            $tickets = Ticket::whereIn('venta_id', $ventaIds)->get();
+
+            foreach($tickets as $ticket){
+                $pago = ImporteDueno::where('venta', $ticket->venta_id)->orderBy('id', 'DESC')->first();
+
+                $importe_pago_a_dueno = new ImporteDueno();
+                
+                if ($pago){
+                    $importe_pago_a_dueno->numero = $pago->numero + 1;
+                } else {
+                    $importe_pago_a_dueno->numero = 1;                
+                }
+                
+                $importe_pago_a_dueno->monto = $this->setMonto($ticket->venta_id);
+                $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
+                $importe_pago_a_dueno->venta = $ticket->venta_id;
+                $importe_pago_a_dueno->metodo = $this->metodo;
+                $importe_pago_a_dueno->periodo = $this->desde . ' - ' . $this->hasta;
+                                
+                $importe_pago_a_dueno->save();
             }
-            
-            $importe_pago_a_dueno->monto = $this->monto;
-            $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
-            $importe_pago_a_dueno->venta = $this->contrato_venta->id;
-            $importe_pago_a_dueno->metodo = $this->metodo;
-            $importe_pago_a_dueno->save();
             
             $this->dispatch('pago_realizado');
         }

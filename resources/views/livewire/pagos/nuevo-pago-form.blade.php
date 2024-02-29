@@ -1,56 +1,66 @@
 <div>
     <div class="p-5 w-[90%] m-auto mt-5 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde mb-12">
-        <p class="text-white text-xl">Buscar Contrato</p>
+        <p class="text-white text-xl">Buscar Zona</p>
         <form wire:submit.prevent="submit" class="mt-5">
 
             <div class="my-5">
-                <label for="numero_contrato" class="text-white">No. de Contrato:</label>
+                <label for="nombre_zona" class="text-white">Nombre de Zona:</label>
                 <br>
-                <input type="text" wire:model='numero_contrato' wire:input='actualizar_filtro' placeholder="No. de Contrato" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" wire:model='nombre_zona' wire:input='actualizar_filtro' placeholder="Nombre de Zona" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="my-5">
-                <label for="contrato_seleccionado" class="text-white">Contrato:</label>
+                <label for="zona_seleccionado" class="text-white">Zona:</label>
                 <br>
-                <select name="contrato" id="contrato" wire:model='contrato' wire:change='actualizar_contrato' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="selecciona" disabled selected>--Selecciona un Contrato--</option>
-                    @foreach ($ventas as $venta)
-                        <option value="{{ $venta->id }}">Lote:{{ $venta->lote }} Zona:{{ $venta->Zona->nombre }} Comprador: {{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</option>
+                <select name="zona" id="zona" wire:model='zona' wire:change='actualizar_zona' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="selecciona" disabled selected>--Selecciona una Zona--</option>
+                    @foreach ($zonas as $zona)
+                        <option value="{{ $zona->id }}"> ID: {{ $zona->id }} - Zona: {{ $zona->nombre }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="sm:block md:flex md:justify-between py-5 px-10">
                 <div class="mb-4 text-white">
-                    <p class="text-xl">Información del Contrato</p>
+                    <p class="text-xl">Información de la Zona</p>
                     <div class="p-2">
-                        <p class="font-bold">No. Contrato: <span class=" font-normal">{{ $contrato_venta->id ?? 'Sin Seleccionar' }}</span></p>
-                        <p class="font-bold">Contrato: <span class=" font-normal">{{ $contrato_venta->contrato ?? 'Sin Seleccionar' }}</span></p>
-                        <p class="font-bold">Comprador: <span class=" font-normal">{{ $contrato_venta ? $contrato_venta->CompradorNombre() : 'Sin Seleccionar' }}</span></p>
-                        <p class="font-bold">Vendedor: <span class=" font-normal">{{ $contrato_venta ? $contrato_venta->VendedorNombre() : 'Sin Seleccionar' }}</span></p>
-                        <p class="font-bold">Zona: <span class=" font-normal">{{ $contrato_venta->Zona->nombre ?? 'Sin Seleccionar' }}</span></p>
-                        <p class="font-bold">Lote: <span class=" font-normal">{{ $contrato_venta->Lote->lote ?? 'Sin Seleccionar' }}</span></p>
+                        <p class="font-bold">ID: <span class=" font-normal">{{ $zona_seleccionada->id ?? 'Sin Seleccionar' }}</span></p>
+                        <p class="font-bold">Zona: <span class=" font-normal">{{ $zona_seleccionada->nombre ?? 'Sin Seleccionar' }}</span></p>
+                        <p class="font-bold">Dueño: <span class=" font-normal">{{ $zona_seleccionada ? $zona_seleccionada->dueno->nombreCompleto() : 'Sin Seleccionar' }}</span></p>
+                        <p class="font-bold">Contratos: <span class=" font-normal">{{ $zona_seleccionada ? count($zona_seleccionada->contratos) : 'Sin Seleccionar' }}</span></p>
                     </div>
-                </div>                
-                <div class="mb-4 text-white">
-                    <p class="text-xl">Información del Pago</p>
+                </div>
+                @if($zona_seleccionada)
+                    <div class="mb-4 text-white">
+                        <p class="text-xl">Información del Pago</p>
 
-                    <div class="p-2">
-                        <p class="font-bold">Pago Maximo: <span class=" font-normal">{{ $monto_maximo ? '$ ' . $monto_maximo . ' MXN' : 'Sin Monto' }}</span></p>
-                        <br>
-                        <label for="monto" class="block text-gray-200 text-sm font-bold mb-2">Monto del Pago a Aplicar:</label>
-                        <input wire:model="monto" wire:input='actualizar_monto' type="number" id="monto" name="monto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Monto" value="0">
+                        <div class="p-2">                    
+                            <label for="zona_seleccionado" class="text-white">Metodo de Pago:</label>
+                            <br>
+                            <select name="metodo" id="metodo" wire:model='metodo' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value='selecciona' disabled selected>--Selecciona un Metodo de Pago--</option>
+                                <option value="EFECTIVO">EFECTIVO</option>
+                                <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                                <option value="CHEQUE">CHEQUE</option>
+                                <option value="DEPOSITO">DEPOSITO</option>
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="mb-4 text-white">
+                        <p class="text-xl">Periodo</p>
 
-                        <label for="contrato_seleccionado" class="text-white">Metodo de Pago:</label>
-                        <br>
-                        <select name="metodo" id="metodo" wire:model='metodo' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value='selecciona' disabled selected>--Selecciona un Metodo de Pago--</option>
-                            <option value="EFECTIVO">EFECTIVO</option>
-                            <option value="TRANSFERENCIA">TRANSFERENCIA</option>
-                            <option value="CHEQUE">CHEQUE</option>
-                            <option value="DEPOSITO">DEPOSITO</option>
-                        </select>
-                    </div>
-                </div>                
+                        <div class="p-2">                    
+                            <label for="zona_seleccionado" class="text-white">Desde:</label>
+                            <br>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" name="desde" id="desde" wire:model='desde'>
+                            <br>
+                            <label for="zona_seleccionado" class="text-white">Hasta:</label>
+                            <br>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" name="hasta" id="hasta" wire:model='hasta'>
+                        </div>
+                    </div>     
+                @else
+                    
+                @endif                           
             </div>
             
             <div class="flex items-center justify-end">
@@ -84,19 +94,18 @@
             });
         });
 
-        window.addEventListener('error_monto', event => {
-            Swal.fire({
-                icon: "error",
-                title: "Error en Monto",
-                text: "El monto debe ser mayor a 0",
-            });
-        });
-
         window.addEventListener('error_metodo', event => {
             Swal.fire({
                 icon: "error",
                 title: "Error en Metodo de Pago",
                 text: "Selecciona un Metodo de Pago",
+            });
+        });
+        window.addEventListener('error_periodo', event => {
+            Swal.fire({
+                icon: "error",
+                title: "Error en el Periodo de Pago",
+                text: "Selecciona un Periodo correcto de Pago",
             });
         });
 
