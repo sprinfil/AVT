@@ -75,7 +75,7 @@ class ConfiguracionController extends Controller
 
             //pull
             $actualizar_sistema = exec('git pull origin main --no-edit 2>&1');
-            $npm_build = exec('npm run build 2>&1');
+            $npm_build = exec('npm run build');
     
             //actualizar composer
             exec('/usr/local/bin/composer update');
