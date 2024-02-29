@@ -18,6 +18,9 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                            Numero
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
                             Dueño
                         </th>
                         <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
@@ -33,6 +36,9 @@
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $zona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
                         <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="ver({{ $zona }}) ">
                             {{$zona->nombre}}
+                        </th>
+                        <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="ver({{ $zona }}) ">
+                            {{$zona->numero ?? 'Sin Asignar'}}
                         </th>
                         <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
                             {{$zona->dueno->nombreCompleto()}}
@@ -84,6 +90,12 @@
                                             <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
                                             <input wire:model="nombre" type="text" id="nombre" name="nombre" placeholder="Nombre de la Zona" class="input-pdv">
                                             @error('nombre') <span class="text-red-500">{{ $message }}</span> @enderror
+                                        </div>
+                                        <!-- Campos del formulario -->
+                                        <div class="mb-4">
+                                            <label for="numero" class="block text-gray-700 text-sm font-bold mb-2">Numero</label>
+                                            <input wire:model="numero" type="number" id="numero" name="numero" placeholder="Numero de la Zona" class="input-pdv">
+                                            @error('numero') <span class="text-red-500">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="mb-4">

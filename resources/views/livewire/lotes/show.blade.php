@@ -54,21 +54,11 @@
                 ] as $field => $label)
                     <div class="mb-4">
                         <label class="block text-gray-300 text-sm font-bold mb-2" for="{{ $field }}">
-                            {{ ucfirst($label) }}:
+                            {{ $label }}:
                         </label>
-                        @if (strpos($field, 'colindancia_') !== false)
-                            <select wire:model.lazy="{{ $field }}" 
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="0" disabled selected>Selecciona un lote</option>
-                                @foreach ($lotes as $lote)
-                                    <option value="{{ $lote->id }}">{{ $lote->lote }} - {{ $lote->catastral }}</option>
-                                @endforeach
-                            </select>
-                        @else
-                            <input wire:model.lazy="{{ $field }}" type="text"
-                                placeholder="{{ ucfirst($label) }}"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        @endif
+                        <input wire:model.lazy="{{ $field }}" type="text"
+                            placeholder="{{ $label }}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         @error($field)
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror

@@ -16,7 +16,8 @@ class ImporteDueno extends Model
         'monto',
         'fecha',
         'venta',
-        'metodo'
+        'metodo',
+        'periodo',
     ];
 
     public $timestamps = false;

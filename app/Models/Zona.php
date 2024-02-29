@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Lote;
+use App\Models\Venta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,6 +16,7 @@ class Zona extends Model
 
     protected $fillable = [
         'nombre',
+        'numero',
         'dueno_id',
         'antecedentes'
     ];
@@ -25,5 +27,9 @@ class Zona extends Model
 
     public function lotes(){
         return $this->hasMany(Lote::class, 'zona');
+    }
+    
+    public function contratos(){
+        return $this->hasMany(Venta::class, 'zona_id');
     }
 }

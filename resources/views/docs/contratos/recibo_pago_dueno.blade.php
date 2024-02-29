@@ -66,14 +66,17 @@
 <div class="contendor-contenido">
     <h1 class=" text-5xl">PAGO A DUEÑO</h1>
 
-    <h1>
+    <h1> Fecha de Pago Registrado: 
         {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->format('d') }}
         de
         {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->monthName }}
         del
         {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->format('Y') }}
     </h1>
-    <h1>Venta:{{ $pago->venta }} Pago No. {{ $pago->numero }} de {{ count($pagos) }} Pagos</h1>
+
+    <h1> Periodo de Abonos: 
+        {{ $pago->periodo }}
+    </h1>
 
     <h1 class="" style="margin-top: 40px;">DUEÑO</h1>
     <table>

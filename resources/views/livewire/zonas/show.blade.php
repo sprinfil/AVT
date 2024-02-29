@@ -4,7 +4,8 @@
 
     <div class="w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
         <div class="mx-[10px] md:mx-[50px] justify-between">
-            <p class="text-fuente text-[40px] mb-[20px]">{{ $zona->nombre }}</p>
+            <p class="text-fuente text-[40px] mb-[2px]">{{ $zona->nombre }}</p>
+            <p class="text-fuente text-[16px] mb-[20px]"><span class="font-bold"> Zona número: </span> {{ $zona->numero }}</p>
             <p class="text-fuente ml-[4px] mb-[10px]">Opciones</p>
             <button class="btn-primary" wire:click="nuevo">Nuevo Lote</button>
         </div>

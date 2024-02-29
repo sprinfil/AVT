@@ -15,6 +15,7 @@ class Index extends Component
     public $dueno_id = 0;
     public $zona;
     public $nombre;
+    public $numero;
     public $numero_lotes = 0;
     public $showModal = false;
     public $editando = false;
@@ -29,6 +30,7 @@ class Index extends Component
 
     protected $rules = [
         'nombre' => 'required|min:5',
+        'numero' => 'required|numeric|min:1',
         'dueno_id' => 'required|not_in:0',
         'numero_lotes' => 'required|min:1',
         'antecedentes' => 'nullable',
@@ -68,6 +70,7 @@ class Index extends Component
 
         $zona = Zona::create([
             'nombre' => $this->nombre,
+            'numero' => $this->numero,
             'dueno_id' => $this->dueno_id,
             'antecedentes' => $this->antecedentes,
         ]);
@@ -90,6 +93,7 @@ class Index extends Component
         $this->zona = Zona::find($id);
         $this->zona_id = $id;
         $this->nombre = $this->zona->nombre;
+        $this->numero = $this->zona->numero;
         $this->nombre_dueno_zona = $this->zona->dueno->nombreCompleto();
         $this->antecedentes = $this->zona->antecedentes;
 
@@ -99,6 +103,7 @@ class Index extends Component
     {
         $zona = Zona::find($id);
         $zona->nombre = $this->nombre;
+        $zona->numero = $this->numero;
         $zona->antecedentes = $this->antecedentes;
         if ($this->dueno_id == 0)
             $zona->dueno_id = $zona->dueno_id;

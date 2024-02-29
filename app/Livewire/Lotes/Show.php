@@ -17,8 +17,8 @@ class Show extends Component
     public $suroeste, $noroeste;
     public $norte, $sur, $este, $oeste;
 
-    public $colindancia_noreste_id = 0, $colindancia_noroeste_id = 0, $colindancia_sureste_id = 0, $colindancia_suroeste_id = 0,
-    $colindancia_norte_id = 0, $colindancia_sur_id = 0, $colindancia_este_id = 0, $colindancia_oeste_id = 0;
+    public $colindancia_noreste_id = '', $colindancia_noroeste_id = '', $colindancia_sureste_id = '', $colindancia_suroeste_id = '',
+    $colindancia_norte_id = '', $colindancia_sur_id = '', $colindancia_este_id = '', $colindancia_oeste_id = '';
 
     public function mount()
     {
@@ -50,14 +50,14 @@ class Show extends Component
             $this->este = $this->Instance->este;
             $this->oeste = $this->Instance->oeste;
 
-            $this->colindancia_noreste_id = $this->Instance->colindancia_noreste_id ?? 0;
-            $this->colindancia_sureste_id = $this->Instance->colindancia_sureste_id ?? 0;
-            $this->colindancia_suroeste_id = $this->Instance->colindancia_suroeste_id ?? 0;
-            $this->colindancia_noroeste_id = $this->Instance->colindancia_noroeste_id ?? 0;
-            $this->colindancia_norte_id = $this->Instance->colindancia_norte_id ?? 0;
-            $this->colindancia_sur_id = $this->Instance->colindancia_sur_id ?? 0;
-            $this->colindancia_este_id = $this->Instance->colindancia_este_id ?? 0;
-            $this->colindancia_oeste_id = $this->Instance->colindancia_oeste_id ?? 0;
+            $this->colindancia_noreste_id = $this->Instance->colindancia_noreste_id ?? '';
+            $this->colindancia_sureste_id = $this->Instance->colindancia_sureste_id ?? '';
+            $this->colindancia_suroeste_id = $this->Instance->colindancia_suroeste_id ?? '';
+            $this->colindancia_noroeste_id = $this->Instance->colindancia_noroeste_id ?? '';
+            $this->colindancia_norte_id = $this->Instance->colindancia_norte_id ?? '';
+            $this->colindancia_sur_id = $this->Instance->colindancia_sur_id ?? '';
+            $this->colindancia_este_id = $this->Instance->colindancia_este_id ?? '';
+            $this->colindancia_oeste_id = $this->Instance->colindancia_oeste_id ?? '';
         }
     }
 
@@ -79,14 +79,14 @@ class Show extends Component
             'este' => $this->este,
             'oeste' => $this->oeste,
 
-            'colindancia_noreste_id' => $this->colindancia_noreste_id !== 0 ? $this->colindancia_noreste_id : null,
-            'colindancia_sureste_id' => $this->colindancia_sureste_id !== 0 ? $this->colindancia_sureste_id : null,
-            'colindancia_suroeste_id' => $this->colindancia_suroeste_id !== 0 ? $this->colindancia_suroeste_id : null,
-            'colindancia_noroeste_id' => $this->colindancia_noroeste_id !== 0 ? $this->colindancia_noroeste_id : null,
-            'colindancia_norte_id' => $this->colindancia_norte_id !== 0 ? $this->colindancia_norte_id : null,
-            'colindancia_sur_id' => $this->colindancia_sur_id !== 0 ? $this->colindancia_sur_id : null,
-            'colindancia_este_id' => $this->colindancia_este_id !== 0 ? $this->colindancia_este_id : null,
-            'colindancia_oeste_id' => $this->colindancia_oeste_id !== 0 ? $this->colindancia_oeste_id : null,
+            'colindancia_noreste_id' => $this->colindancia_noreste_id !== '' ? $this->colindancia_noreste_id : null,
+            'colindancia_sureste_id' => $this->colindancia_sureste_id !== '' ? $this->colindancia_sureste_id : null,
+            'colindancia_suroeste_id' => $this->colindancia_suroeste_id !== '' ? $this->colindancia_suroeste_id : null,
+            'colindancia_noroeste_id' => $this->colindancia_noroeste_id !== '' ? $this->colindancia_noroeste_id : null,
+            'colindancia_norte_id' => $this->colindancia_norte_id !== '' ? $this->colindancia_norte_id : null,
+            'colindancia_sur_id' => $this->colindancia_sur_id !== '' ? $this->colindancia_sur_id : null,
+            'colindancia_este_id' => $this->colindancia_este_id !== '' ? $this->colindancia_este_id : null,
+            'colindancia_oeste_id' => $this->colindancia_oeste_id !== '' ? $this->colindancia_oeste_id : null,
         ]);
 
         return redirect()->route('zonas.show' , ['id' => $this->Instance->zona]);
@@ -107,14 +107,14 @@ class Show extends Component
         'este' => 'nullable|numeric',
         'oeste' => 'nullable|numeric',
 
-        'colindancia_noreste_id' => 'nullable|numeric',
-        'colindancia_sureste_id' => 'nullable|numeric',
-        'colindancia_noroeste_id' => 'nullable|numeric',
-        'colindancia_suroeste_id' => 'nullable|numeric',
-        'colindancia_norte_id' => 'nullable|numeric',
-        'colindancia_sur_id' => 'nullable|numeric',
-        'colindancia_este_id' => 'nullable|numeric',
-        'colindancia_oeste_id' => 'nullable|numeric',
+        'colindancia_noreste_id' => 'nullable',
+        'colindancia_sureste_id' => 'nullable',
+        'colindancia_noroeste_id' => 'nullable',
+        'colindancia_suroeste_id' => 'nullable',
+        'colindancia_norte_id' => 'nullable',
+        'colindancia_sur_id' => 'nullable',
+        'colindancia_este_id' => 'nullable',
+        'colindancia_oeste_id' => 'nullable',
     ];
 
 
