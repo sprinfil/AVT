@@ -145,27 +145,41 @@
                 de <span class="negrita">{{ number_format($venta->Lote->superficie, 2) }} m2</span>., con las siguientes
                 medidas y colindancias: </p>
         </div>
-        @if ($venta->Lote->norte != null)
+      
             <div class="parrafo centrar">
-                <p><span class="negrita">Al Norte:</span> {{ number_format($venta->Lote->norte, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_norte->catastral }}</p>
-                <p><span class="negrita">Al Sur:</span> {{ number_format($venta->Lote->sur, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_sur->catastral }}</p>
-                <p><span class="negrita">Al Este:</span> {{ number_format($venta->Lote->este, 2) }} Mts. Con Lote C.C. {{$venta->Lote->colindancia_este->catastral }}</p>
-                <p><span class="negrita">Al Oeste:</span> {{ number_format($venta->Lote->oeste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_oeste->catastral }}</p>
+                @if ($venta->Lote->norte != null)
+                <p><span class="negrita">Al Norte:</span> {{ number_format($venta->Lote->norte, 2) }} Mts.  {{ $venta->Lote->colindancia_norte_id }}</p>
+                @endif
+                @if ($venta->Lote->sur != null)
+                <p><span class="negrita">Al Sur:</span> {{ number_format($venta->Lote->sur, 2) }} Mts. {{ $venta->Lote->colindancia_sur_id  }}</p>
+                @endif
+                @if ($venta->Lote->este != null)
+                <p><span class="negrita">Al Este:</span> {{ number_format($venta->Lote->este, 2) }} Mts. {{$venta->Lote->colindancia_este_id  }}</p>
+                @endif
+                @if ($venta->Lote->oeste != null)
+                <p><span class="negrita">Al Oeste:</span> {{ number_format($venta->Lote->oeste, 2) }} Mts. {{ $venta->Lote->colindancia_oeste_id  }}</p>
+                @endif
             </div>
-        @endif
-    
-        @if ($venta->Lote->noreste != null)
+       
             <div class="parrafo centrar">
-                <p><span class="negrita">Al Noreste:</span> {{ number_format($venta->Lote->noreste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_noreste->catastral }}
+                @if ($venta->Lote->noreste != null)
+                <p><span class="negrita">Al Noreste:</span> {{ number_format($venta->Lote->noreste, 2) }} Mts. {{ $venta->Lote->colindancia_noreste_id }}
                 </p>
-                <p><span class="negrita">Al Sureste:</span> {{ number_format($venta->Lote->sureste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_sureste->catastral }}
+                @endif
+                @if ($venta->Lote->sureste != null)
+                <p><span class="negrita">Al Sureste:</span> {{ number_format($venta->Lote->sureste, 2) }} Mts. {{ $venta->Lote->colindancia_sureste_id  }}
                 </p>
-                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. Con Lote C.C. {{ $venta->Lote->colindancia_suroeste->catastral}}
+                @endif
+                @if ($venta->Lote->suroeste != null)
+                <p><span class="negrita">Al Suroeste:</span> {{ number_format($venta->Lote->suroeste, 2) }} Mts. {{ $venta->Lote->colindancia_suroeste_id }}
                     </p>
-                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. Con Lote  C.C. {{ $venta->Lote->colindancia_noroeste->catastral }}
+                @endif
+                @if ($venta->Lote->noroeste != null)
+                <p><span class="negrita">Al Noroeste:</span> {{ number_format($venta->Lote->noroeste, 2) }} Mts. {{ $venta->Lote->colindancia_noroeste_id  }}
                    </p>
+                @endif
             </div>
-        @endif
+    
     
         <div class="parrafo">
             <p>b).- Antecedentes de la propiedad. - {{ $venta->Zona->antecedentes }} <br>

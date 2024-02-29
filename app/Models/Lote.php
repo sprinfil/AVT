@@ -45,7 +45,9 @@ class Lote extends Model
         $zona = Zona::where('id',$this->zona)->first();
         return $zona->nombre;
     }
-    public function colindancia_norte(){
+
+    /*
+        public function colindancia_norte(){
         return $this->hasOne(Lote::class,'id','colindancia_norte_id');
     }
     public function colindancia_sur(){
@@ -69,4 +71,6 @@ class Lote extends Model
     public function colindancia_noroeste(){
         return $this->hasOne(Lote::class,'id','colindancia_noroeste_id');
     }
+    */
+
 }

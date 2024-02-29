@@ -30,7 +30,9 @@ class ReportesController extends Controller
 
     public function generar_contrato(Request $request){
         $venta = Venta::find($request->venta_id);
-        $importes = Importe::where('venta',$venta->id)->get();
+        $importes = Importe::where('venta',$venta->id)
+        ->where('numero','!=',0)
+        ->get();
         $numero_tablas = 0;
         $gestor_tablas = array();
         $arreglo_importes = array();
