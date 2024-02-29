@@ -108,6 +108,13 @@
                 text: "Selecciona un Periodo correcto de Pago",
             });
         });
+        window.addEventListener('no_tickets', event => {
+            Swal.fire({
+                icon: "error",
+                title: "No hay Pagos por realizar",
+                text: "No hay abonos para realizar pagos",
+            });
+        });
 
         window.addEventListener('pago_realizado', event => {
             Swal.fire({

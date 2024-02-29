@@ -89,29 +89,37 @@ class NuevoPagoForm extends Component
                             ->orderBy('id', 'DESC')
                             ->pluck('id');
 
-            $tickets = Ticket::whereIn('venta_id', $ventaIds)->get();
+            $pagos_a_duenos = ImporteDueno::all()->pluck('ticket_id');
+            
+            $tickets = Ticket::whereIn('venta_id', $ventaIds)->whereNotIn('id', $pagos_a_duenos)->get();
 
-            foreach($tickets as $ticket){
-                $pago = ImporteDueno::where('venta', $ticket->venta_id)->orderBy('id', 'DESC')->first();
-
-                $importe_pago_a_dueno = new ImporteDueno();
-                
-                if ($pago){
-                    $importe_pago_a_dueno->numero = $pago->numero + 1;
-                } else {
-                    $importe_pago_a_dueno->numero = 1;                
+            if (count($tickets) > 0){
+                foreach($tickets as $ticket){
+                    $pago = ImporteDueno::where('venta', $ticket->venta_id)->orderBy('id', 'DESC')->first();
+    
+                    $importe_pago_a_dueno = new ImporteDueno();
+                    
+                    if ($pago){
+                        $importe_pago_a_dueno->numero = $pago->numero + 1;
+                    } else {
+                        $importe_pago_a_dueno->numero = 1;                
+                    }
+                    
+                    $importe_pago_a_dueno->monto = $ticket->cantidad_abonar;
+                    $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
+                    $importe_pago_a_dueno->venta = $ticket->venta_id;
+                    $importe_pago_a_dueno->metodo = $this->metodo;
+                    $importe_pago_a_dueno->periodo = $this->desde . ' - ' . $this->hasta;
+                    $importe_pago_a_dueno->ticket_id = $ticket->id;
+                                    
+                    $importe_pago_a_dueno->save();
                 }
                 
-                $importe_pago_a_dueno->monto = $ticket->cantidad_abonar;
-                $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
-                $importe_pago_a_dueno->venta = $ticket->venta_id;
-                $importe_pago_a_dueno->metodo = $this->metodo;
-                $importe_pago_a_dueno->periodo = $this->desde . ' - ' . $this->hasta;
-                                
-                $importe_pago_a_dueno->save();
+                $this->dispatch('pago_realizado');
+            } else {
+                $this->dispatch('no_tickets');
+                return;
             }
-            
-            $this->dispatch('pago_realizado');
         }
     }
 
