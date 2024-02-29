@@ -297,6 +297,7 @@ class NuevaVenta extends Component
         $venta->pago_con = $this->pago_con_efectivo != null ? $this->pago_con_efectivo : null;
         $venta->cambio = $this->cambio_efectivo != null ? $this->cambio_efectivo : null;
         $venta->no_contrato = $this->no_contrato;
+        $venta->fecha = Carbon::now()->format('Y-m-d h:i:s');
         if($this->referencia_credito != null){
             $venta->referencia = $this->referencia_credito;
         }
@@ -318,6 +319,16 @@ class NuevaVenta extends Component
         $venta->save();   
 
         //CREAR LOS IMPORTES
+
+        //ANTICIPO
+        if($venta->enganche!=null){
+            $importe = new Importe();
+            $importe->numero = 0;
+            $importe->monto = $venta->enganche;
+            $importe->vencimiento = $venta->fecha;
+            $importe->venta = $venta->id;
+            $importe->save();
+        }
         for($i = 0 ; $i < $venta->meses_pagar ; $i ++){
             $importe = new Importe();
             $importe->numero = $i + 1;
@@ -331,6 +342,6 @@ class NuevaVenta extends Component
         }
 
 
-        return redirect(route('index_resumen_venta',['venta_id'=>$venta->id]));
+        return redirect(route('index_detalle_venta',['venta_id'=>$venta->id]));
     }
 }

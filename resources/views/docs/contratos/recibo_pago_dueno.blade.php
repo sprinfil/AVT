@@ -67,11 +67,11 @@
     <h1 class=" text-5xl">PAGO A DUEÑO</h1>
 
     <h1> Fecha de Pago Registrado: 
-        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->format('d') }}
+        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->format('d') }}
         de
-        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->monthName }}
+        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->monthName }}
         del
-        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->subDay()->format('Y') }}
+        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->fecha)->format('Y') }}
     </h1>
 
     <h1> Periodo de Abonos: 

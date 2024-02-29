@@ -45,6 +45,7 @@ class Venta extends Model
 
     public function proximo_cobro(){
         return Importe::where('venta',$this->id)
+        ->where('numero','!=',0)
         ->where('monto','>',0)->first();
     }
 
