@@ -1,6 +1,6 @@
 <div>
 
-    <div class="mx-2 md:mx-[60px] mt-[20px]">
+    <div class="mx-2 md:mx-[60px] mt-[20px] mb-[200px]">
         <!--Cabecera-->
         <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden">
 
@@ -13,23 +13,23 @@
                     <!--opciones-->
                     <div class="mb-[20px]">
                         <button class="btn-primary" type="submit">Aceptar</button>
-                        <a href="{{ route('personas') }}" class="btn-primary bg-rojo py-4">Cancelar</a>
+                        <a href="{{ route('personas') }}" class="btn-primary-red py-4">Cancelar</a>
                     </div>
 
             </div>
         </div>
 
         <!--Formulario-->
-        <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+        <div class="h-full  bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
             <div
-                class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                <p class="text-fuente text-[20px]">INFORMACIÓN PERSONAL</p>
+                class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+                <p class="text-fuente-secundario text-[20px]">INFORMACIÓN PERSONAL</p>
             </div>
             @csrf
-            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
+            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2 text-fuente-secundaria">
                 <!--Primera Columna-->
                 <div>
-                    <p class="text-fuente">Nombre(s):</p>
+                    <p class="">Nombre(s):</p>
                     <input wire:model="nombre" type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre"
                         placeholder="nombre(s)" value="{{ old('nombre') }}">
                     @error('nombre')
@@ -37,7 +37,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Apellido Paterno:</p>
+                    <p class="">Apellido Paterno:</p>
                     <input wire:model="apellido_1" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="apellido_1" placeholder="Apellido Paterno" value="{{ old('apellido_1') }}">
                     @error('apellido_1')
@@ -45,7 +45,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Apellido Materno:</p>
+                    <p class="">Apellido Materno:</p>
                     <input wire:model="apellido_2" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="apellido_2" placeholder="Apellido Materno" value="{{ old('apellido_2') }}">
                     @error('apellido_2')
@@ -53,7 +53,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Sexo:</p>
+                    <p class="">Sexo:</p>
                     <select wire:model="sexo" name="sexo" id="sexo" class="input-pdv w-full mb-3">
                         <option value="" selected>-- SELECCIONAR --</option>
                         <option value="MASCULINO" @if (old('sexo') === 'MASCULINO') selected @endif>MASCULINO</option>
@@ -64,7 +64,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Fecha de nacimineto:</p>
+                    <p class="">Fecha de nacimineto:</p>
                     <input wire:model="fecha_nac" type="date" class="input-pdv w-full mb-3 text-[15px]"
                         name="fecha_nac" placeholder="Fecha de nacimiento" value="{{ old('fecha_nac') }}">
                     @error('fecha_nac')
@@ -73,7 +73,7 @@
                     @enderror
 
 
-                    <p class="text-fuente">Nacionalidad:</p>
+                    <p class="">Nacionalidad:</p>
                     <select wire:model="nacionalidad" name="nacionalidad" id="nacionalidad"
                         class="input-pdv w-full mb-3">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -89,7 +89,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Estado Civil:</p>
+                    <p class="">Estado Civil:</p>
                     <select wire:model="estado_civil" class="input-pdv w-full mb-3" name="estado_civil"
                         id="" value="{{ old('estado_civil') }}">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -105,7 +105,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">CURP:</p>
+                    <p class="">CURP:</p>
                     <input wire:model="curp" type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp"
                         placeholder="CURP" value="{{ old('curp') }}">
                     @error('curp')
@@ -113,7 +113,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">RFC:</p>
+                    <p class="">RFC:</p>
                     <input wire:model="rfc" type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc"
                         placeholder="RFC" value="{{ old('rfc') }}">
                     @error('rfc')
@@ -121,7 +121,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">INE:</p>
+                    <p class="">INE:</p>
                     <input wire:model="ine" type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine"
                         placeholder="INE" value="{{ old('ine') }}">
                     @error('ine')
@@ -129,7 +129,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Ocupación o Profesión:</p>
+                    <p class="">Ocupación o Profesión:</p>
                     <input wire:model="ocupacion" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="ocupacion" placeholder="Ocupación" value="{{ old('ocupacion') }}">
                     @error('ocupacion')
@@ -140,8 +140,8 @@
                 <!--Segunda Columna-->
                 <div>
 
-                    <p class="text-fuente text-[24px] mb-[10px]">Lugar de nacimiento</p>
-                    <p class="text-fuente">Estado:</p>
+                    <p class=" text-[24px] mb-[10px]">Lugar de nacimiento</p>
+                    <p class="">Estado:</p>
                     <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]"
                         wire:model="estado" wire:change="ActualizarEstadoNac">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -156,7 +156,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Municipio:</p>
+                    <p class="">Municipio:</p>
                     <select wire:model="municipio" name="municipio" id="municipio"
                         class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -171,7 +171,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Ciudad o localidad:</p>
+                    <p class="">Ciudad o localidad:</p>
                     <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="ciudad_nac" placeholder="Ciudad" value="{{ old('ciudad_nac') }}">
                     @error('ciudad_nac')
@@ -179,7 +179,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">País:</p>
+                    <p class="">País:</p>
                     <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3">
                         <option value="" selected>-- SELECCIONAR --</option>
                         <option value="Mexico" @if (old('pais') === 'Mexico') selected @endif>México</option>
@@ -198,15 +198,15 @@
         </div>
 
         <!--DIRECCION-->
-        <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+        <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
             <div
-                class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                <p class="text-fuente text-[20px]">DIRECCIÓN</p>
+                class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+                <p class="text-fuente-secundario text-[20px]">DIRECCIÓN</p>
             </div>
-            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
+            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2 text-fuente-secundario">
                 <!--Primera Columna-->
                 <div>
-                    <p class="text-fuente">Calle:</p>
+                    <p class="">Calle:</p>
                     <input wire:model="calle" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="calle" placeholder="Calle" value="{{ old('calle') }}">
                     @error('calle')
@@ -214,7 +214,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Número Interior:</p>
+                    <p class="">Número Interior:</p>
                     <input wire:model="numero_interior" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="numero_interior" placeholder="Número interior" value="{{ old('numero_interior') }}">
                     @error('numero_interior')
@@ -222,7 +222,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Número Exterior:</p>
+                    <p class="">Número Exterior:</p>
                     <input wire:model="numero_exterior" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="numero_exterior" placeholder="Número exterior" value="{{ old('numero_exterior') }}">
                     @error('numero_exterior')
@@ -230,7 +230,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Colonia:</p>
+                    <p class="">Colonia:</p>
                     <input wire:model="colonia_direccion" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="colonia_direccion" placeholder="Colonia" value="{{ old('colonia_direccion') }}">
                     @error('colonia_direccion')
@@ -241,7 +241,7 @@
                 </div>
                 <!--Segunda Columna-->
                 <div>
-                    <p class="text-fuente">Código Postal:</p>
+                    <p class="">Código Postal:</p>
                     <input wire:model="codigo_postal" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="codigo_postal" placeholder="Código Postal" value="{{ old('codigo_postal') }}">
                     @error('codigo_postal')
@@ -249,7 +249,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Estado:</p>
+                    <p class="">Estado:</p>
                     <select wire:model="estado_direccion" name="estado_direccion" id="estado_direccion"
                         class="input-pdv w-full mb-3 text-[15px]" wire:model="estado_direccion"
                         wire:change="ActualizarEstadoDireccion">
@@ -265,7 +265,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Municipio:</p>
+                    <p class="">Municipio:</p>
                     <select wire:model="municipio_direccion" name="municipio_direccion" id="municipio_direccion"
                         class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio_direccion">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -280,7 +280,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Ciudad o Localidad:</p>
+                    <p class="">Ciudad o Localidad:</p>
                     <input wire:model="ciudad" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="ciudad" placeholder="Ciudad o Localidad" value="{{ old('ciudad') }}">
                     @error('ciudad')
@@ -288,7 +288,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">País:</p>
+                    <p class="">País:</p>
                     <select wire:model="pais_direccion" name="pais_direccion" id="pais_direccion"
                         class="input-pdv w-full mb-3">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -309,15 +309,15 @@
         </div>
 
         <!--CONTACTO-->
-        <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+        <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
             <div
-                class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                <p class="text-fuente text-[20px]">CONTACTO</p>
+                class="w-full h-[50px] bg-gray-100l rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+                <p class="text-fuente-secundario text-[20px]">CONTACTO</p>
             </div>
-            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
+            <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2 text-fuente-secundario">
                 <!--Primera Columna-->
                 <div>
-                    <p class="text-fuente">Celular:</p>
+                    <p class="">Celular:</p>
                     <input wire:model="celular" type="number" class="input-pdv w-full mb-3 text-[15px]"
                         name="celular" placeholder="celular" value="{{ old('celular') }}">
                     @error('celular')
@@ -325,7 +325,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Teléfono:</p>
+                    <p class="">Teléfono:</p>
                     <input wire:model="telefono" type="number" class="input-pdv w-full mb-3 text-[15px]"
                         name="telefono" placeholder="telefono" value="{{ old('telefono') }}">
                     @error('telefono')
@@ -336,7 +336,7 @@
                 </div>
                 <!--Segunda Columna-->
                 <div>
-                    <p class="text-fuente">Correo Electrónico:</p>
+                    <p class="">Correo Electrónico:</p>
                     <input wire:model="correo" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="correo" placeholder="nombre(s)" value="{{ old('correo') }}">
                     @error('correo')
@@ -351,16 +351,16 @@
 
 
         <!--REFERENCIAS-->
-        <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+        <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] text-fuente-secundario">
             <div
-                class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-                <p class="text-fuente text-[20px]">REFERENCIAS</p>
+                class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+                <p class="text-[20px]">REFERENCIAS</p>
             </div>
             <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
                 <!--Primera Columna-->
                 <div>
-                    <p class="text-fuente text-[20px] mb-[10px]">Referencia 1</p>
-                    <p class="text-fuente">Nombre(s):</p>
+                    <p class="text-[20px] mb-[10px]">Referencia 1</p>
+                    <p class="">Nombre(s):</p>
                     <input wire:model="referencia1_nombre" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia1_nombre" placeholder="nombre(s)" value="{{ old('referencia1_nombre') }}">
                     @error('referencia1_nombre')
@@ -368,7 +368,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Celular:</p>
+                    <p class="">Celular:</p>
                     <input wire:model="referencia1_cel" type="number" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia1_cel" placeholder="Celular" value="{{ old('referencia1_cel') }}">
                     @error('referencia1_cel')
@@ -376,7 +376,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Prentesco:</p>
+                    <p class="">Prentesco:</p>
                     <select wire:model="referencia1_parentesco" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia1_parentesco" value="{{ old('referencia1_parentesco') }}">
                         <option value="" selected>-- SELECCIONAR --</option>
@@ -390,8 +390,8 @@
                 </div>
                 <!--Segunda Columna-->
                 <div>
-                    <p class="text-fuente text-[20px] mb-[10px]">Referencia 2</p>
-                    <p class="text-fuente">Nombre(s):</p>
+                    <p class=" text-[20px] mb-[10px]">Referencia 2</p>
+                    <p class="">Nombre(s):</p>
                     <input wire:model="referencia2_nombre" type="text" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia2_nombre" placeholder="nombre(s)" value="{{ old('referencia2_nombre') }}">
                     @error('referencia2_nombre')
@@ -399,7 +399,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Celular:</p>
+                    <p class="">Celular:</p>
                     <input wire:model="referencia2_cel" type="number" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia2_cel" placeholder="Celular" value="{{ old('referencia2_cel') }}">
                     @error('referencia2_cel')
@@ -407,7 +407,7 @@
                         </div>
                     @enderror
 
-                    <p class="text-fuente">Prentesco:</p>
+                    <p class="">Prentesco:</p>
                     <select wire:model="referencia2_parentesco" class="input-pdv w-full mb-3 text-[15px]"
                         name="referencia2_parentesco">
                         <option value="" selected>-- SELECCIONAR --</option>

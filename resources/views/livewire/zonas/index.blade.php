@@ -11,45 +11,46 @@
     <!-- Tabla de datos -->
     @if (count($zonas) > 0)
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table>
+                <thead>
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col">
                             Nombre
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col">
                             Numero
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col">
                             Dueño
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col">
                             Lotes
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col" >
                            
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($zonas as $zona)
-                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $zona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
-                        <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="ver({{ $zona }}) ">
+                    <tr class="">
+                        <td>
                             {{$zona->nombre}}
-                        </th>
-                        <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="ver({{ $zona }}) ">
+                        </td>
+                        <td >
                             {{$zona->numero ?? 'Sin Asignar'}}
-                        </th>
-                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
+                        </td>
+                        <td>
                             {{$zona->dueno->nombreCompleto()}}
                         </td>
-                        <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="ver({{ $zona }}) ">
+                        <td >
                             {{ $zona->lotes->whereNull('baja')->count() }}
                         </td>
-                        <td class="px-6 py-4 dark:text-fuente cursor-pointer">
+                        <td >
                             <div class="w-full justify-end flex items-center">
+                                <button class="btn-primary font-400 bg-green h-full mr-[10px] px-10 py-3" wire:click="ver({{ $zona }}) ">Ver Lotes</button>
                                 <button class="btn-primary font-400 bg-green h-full mr-[10px] px-10 py-3" wire:click="edit({{$zona->id}})">Editar</button>
-                                <button class="btn-primary font-400 bg-rojo h-full px-10 py-3"  wire:click="show_eliminar({{ $zona->id }})">Baja</button>
+                                <button class="btn-primary-red font-400  h-full px-10 py-3"  wire:click="show_eliminar({{ $zona->id }})">Baja</button>
                             </div>
                           
                         </td>

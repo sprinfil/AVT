@@ -5,7 +5,7 @@
 
 <div class="mx-2 md:mx-[60px] mt-[20px]">
     <!--Cabecera-->
-    <div class=" w-full h-full bg-terciario shadow-lg rounded-md overflow-x-hidden no-scrollbar">
+    <div class=" w-full h-full bg-gray-100 shadow-lg rounded-md overflow-x-hidden no-scrollbar">
 
         <div class="md:flex grid-cols-1">
             <!--Imagen de la persona-->
@@ -14,7 +14,7 @@
                     <div class="flex md:justify-start justify-center items-center mx-4 py-4">
                         <div
                             class="w-[300px] h-[300px] rounded-md shadow-md border-2 border-dashed border-blue-500  flex items-center justify-center">
-                            <p class="text-fuente">Sin datos</p>
+                            <p class="text-fuente-secundario">Sin datos</p>
                         </div>
                     </div>
                 @endif
@@ -43,18 +43,18 @@
             <div class="mx-[10px] md:mx-[50px] justify-center mt-[20px] grid grid-rows-2 md:justify-normal w-full">
                 <!--Titulo-->
                 <div>
-                    <p class="text-fuente text-[40px]">{{ $persona->nombreCompleto() }}</p>
-                    <a href="#infopersonal" class=" underline text-blue-500">INFORMACION PERSONAL</a><span class="text-fuente"> |</span>
-                    <a href="#direccion" class=" underline text-blue-500">DIRECCION</a>  <span class="text-fuente"> |</span>
-                    <a href="#contacto" class=" underline text-blue-500">CONTACTO</a><span class="text-fuente"> |</span>
-                    <a href="#referencias" class=" underline text-blue-500">REFERENCIAS</a><span class="text-fuente"> |</span>
+                    <p class="text-fuente-secundario text-[40px]">{{ $persona->nombreCompleto() }}</p>
+                    <a href="#infopersonal" class=" underline text-blue-500">INFORMACION PERSONAL</a><span class="text-fuente-secundario"> |</span>
+                    <a href="#direccion" class=" underline text-blue-500">DIRECCION</a>  <span class="text-fuente-secundario"> |</span>
+                    <a href="#contacto" class=" underline text-blue-500">CONTACTO</a><span class="text-fuente-secundario"> |</span>
+                    <a href="#referencias" class=" underline text-blue-500">REFERENCIAS</a><span class="text-fuente-secundario"> |</span>
                     <a href="#documentacion" class=" underline text-blue-500">DOCUMENTACION</a>
                 </div>
                 <!--Opciones-->
                 <div class="mb-[20px] flex gap-x-1 justify-start items-end">
                     <form wire:submit="save" class="mb-[20px] flex gap-x-1 justify-start">
                         <button id="btnEditar"
-                            class="btn-primary {{ $toggleEditar == true ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}"
+                            class="btn-primary {{ $toggleEditar == true ? 'bg-green-500 text-gray-900' : 'bg-principal' }}"
                             wire:click = "editar"
                             type="{{ $toggleEditar == true ? 'submit' : 'button' }}">{{ $lblboton }}</button>
                         <div wire:click = "persona_pdf" class="flex btn-primary gap-x-2 items-center justify-center  mb-[10px] cursor-pointer"><svg
@@ -65,7 +65,7 @@
                             </svg>
                             PDF
                         </div>
-                        <div class="btn-primary flex items-center justify-center bg-rojo" wire:click="bajaPersona">Baja
+                        <div class="btn-primary-red flex items-center justify-center " wire:click="bajaPersona">Baja
                             Persona</div>
                 </div>
             </div>
@@ -76,16 +76,16 @@
     </div>
 
     <!--INFORMACION PERSONAL-->
-    <div class="h-full  bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+    <div class="h-full  bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] text-fuente-secundario-secundario">
         <div
-            class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-            <p class="text-fuente text-[20px]" id="infopersonal">INFORMACIÓN PERSONAL</p>
+            class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+            <p class="text-fuente-secundario text-[20px]" id="infopersonal">INFORMACIÓN PERSONAL</p>
         </div>
         @csrf
         <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
             <!--Primera Columna-->
             <div>
-                <p class="text-fuente">Nombre(s):</p>
+                <p class="text-fuente-secundario">Nombre(s):</p>
                 <input wire:model="nombre" type="text" class="input-pdv w-full mb-3 text-[15px]" name="nombre"
                     placeholder="nombre(s)" value="{{ old('nombre') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -93,7 +93,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Apellido Paterno:</p>
+                <p class="text-fuente-secundario">Apellido Paterno:</p>
                 <input wire:model="apellido_1" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="apellido_1" placeholder="Apellido Paterno" value="{{ old('apellido_1') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -101,7 +101,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Apellido Materno:</p>
+                <p class="text-fuente-secundario">Apellido Materno:</p>
                 <input wire:model="apellido_2" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="apellido_2" placeholder="Apellido Materno" value="{{ old('apellido_2') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -109,7 +109,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Sexo:</p>
+                <p class="text-fuente-secundario">Sexo:</p>
                 <select wire:model="sexo" name="sexo" id="sexo" class="input-pdv w-full mb-3"
                     @if ($toggleEditar == false) disabled @endif>
                     <option value="" selected>-- SELECCIONAR --</option>
@@ -120,7 +120,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Fecha de nacimineto:</p>
+                <p class="text-fuente-secundario">Fecha de nacimineto:</p>
                 <input wire:model="fecha_nac" type="date" class="input-pdv w-full mb-3 text-[15px]" name="fecha_nac"
                     placeholder="Fecha de nacimiento" value="{{ old('fecha_nac') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -128,14 +128,14 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Edad:</p>
+                <p class="text-fuente-secundario">Edad:</p>
                 <input wire:model="edad" type="number" class="input-pdv w-full mb-3 text-[15px]" name="edad"
                     placeholder="Edad" value="{{ old('edad') }}" disabled>
                 @error('edad')
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Nacionalidad:</p>
+                <p class="text-fuente-secundario">Nacionalidad:</p>
                 <select wire:model="nacionalidad" name="nacionalidad" id="nacionalidad"
                     class="input-pdv w-full mb-3" @if ($toggleEditar == false) disabled @endif>
                     <option value="" selected>-- SELECCIONAR --</option>
@@ -149,7 +149,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Estado Civil:</p>
+                <p class="text-fuente-secundario">Estado Civil:</p>
                 <select wire:model="estado_civil" class="input-pdv w-full mb-3" name="estado_civil" id=""
                     value="{{ old('estado_civil') }}" @if ($toggleEditar == false) disabled @endif>
                     <option value="" selected>-- SELECCIONAR --</option>
@@ -163,7 +163,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">CURP:</p>
+                <p class="text-fuente-secundario">CURP:</p>
                 <input wire:model="curp" type="text" class="input-pdv w-full mb-3 text-[15px]" name="curp"
                     placeholder="CURP" value="{{ old('curp') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -171,21 +171,21 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">RFC:</p>
+                <p class="text-fuente-secundario">RFC:</p>
                 <input wire:model="rfc" type="text" class="input-pdv w-full mb-3 text-[15px]" name="rfc"
                     placeholder="RFC" value="{{ old('rfc') }}"@if ($toggleEditar == false) disabled @endif>
                 @error('rfc')
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">INE:</p>
+                <p class="text-fuente-secundario">INE:</p>
                 <input wire:model="ine" type="number" class="input-pdv w-full mb-3 text-[15px]" name="ine"
                     placeholder="INE" value="{{ old('ine') }}"@if ($toggleEditar == false) disabled @endif>
                 @error('ine')
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Ocupación o Profesión:</p>
+                <p class="text-fuente-secundario">Ocupación o Profesión:</p>
                 <input wire:model="ocupacion" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="ocupacion" placeholder="Ocupación"
                     value="{{ old('ocupacion') }}"@if ($toggleEditar == false) disabled @endif>
@@ -195,8 +195,8 @@
             </div>
             <!--Segunda Columna-->
             <div>
-                <p class="text-fuente text-[24px] mb-[10px]">Lugar de nacimiento</p>
-                <p class="text-fuente">Estado:</p>
+                <p class="text-fuente-secundario text-[24px] mb-[10px]">Lugar de nacimiento</p>
+                <p class="text-fuente-secundario">Estado:</p>
                 <select wire:model="estado" name="estado" id="estado" class="input-pdv w-full mb-3 text-[15px]"
                     wire:model="estado" wire:change="ActualizarEstadoNac"
                     @if ($toggleEditar == false) disabled @endif>
@@ -211,7 +211,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Municipio:</p>
+                <p class="text-fuente-secundario">Municipio:</p>
                 <select wire:model="municipio" name="municipio" id="municipio"
                     class="input-pdv w-full mb-3 text-[15px]" wire:model="municipio"
                     @if ($toggleEditar == false) disabled @endif>
@@ -226,7 +226,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Ciudad o localidad:</p>
+                <p class="text-fuente-secundario">Ciudad o localidad:</p>
                 <input wire:model="ciudad_nac" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="ciudad_nac" placeholder="Ciudad" value="{{ old('ciudad_nac') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -234,7 +234,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">País:</p>
+                <p class="text-fuente-secundario">País:</p>
                 <select wire:model="pais" name="pais" id="pais" class="input-pdv w-full mb-3"
                     @if ($toggleEditar == false) disabled @endif>
                     <option value="" selected>-- SELECCIONAR --</option>
@@ -257,15 +257,15 @@
 
 
     <!--DIRECCION-->
-    <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+    <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
         <div
-            class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-            <p class="text-fuente text-[20px]" id="direccion">DIRECCIÓN</p>
+            class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+            <p class="text-fuente-secundario text-[20px]" id="direccion">DIRECCIÓN</p>
         </div>
         <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
             <!--Primera Columna-->
             <div>
-                <p class="text-fuente">Calle:</p>
+                <p class="text-fuente-secundario">Calle:</p>
                 <input wire:model="calle" type="text" class="input-pdv w-full mb-3 text-[15px]" name="calle"
                     placeholder="Calle" value="{{ old('calle') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -273,7 +273,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Número Interior:</p>
+                <p class="text-fuente-secundario">Número Interior:</p>
                 <input wire:model="numero_interior" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="numero_interior" placeholder="Número interior" value="{{ old('numero_interior') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -281,7 +281,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Número Exterior:</p>
+                <p class="text-fuente-secundario">Número Exterior:</p>
                 <input wire:model="numero_exterior" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="numero_exterior" placeholder="Número exterior"
                     value="{{ old('numero_exterior') }}"@if ($toggleEditar == false) disabled @endif>
@@ -289,7 +289,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Colonia:</p>
+                <p class="text-fuente-secundario">Colonia:</p>
                 <input wire:model="colonia_direccion" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="colonia_direccion" placeholder="Colonia"
                     value="{{ old('colonia_direccion') }}"@if ($toggleEditar == false) disabled @endif>
@@ -300,7 +300,7 @@
             </div>
             <!--Segunda Columna-->
             <div>
-                <p class="text-fuente">Código Postal:</p>
+                <p class="text-fuente-secundario">Código Postal:</p>
                 <input wire:model="codigo_postal" type="text" class="input-pdv w-full mb-3 text-[15px]"
                     name="codigo_postal" placeholder="Código Postal"
                     value="{{ old('codigo_postal') }}"@if ($toggleEditar == false) disabled @endif>
@@ -308,7 +308,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Estado:</p>
+                <p class="text-fuente-secundario">Estado:</p>
                 <select wire:model="estado_direccion" name="estado_direccion" id="estado_direccion"
                     class="input-pdv w-full mb-3 text-[15px]" wire:model="estado_direccion"
                     wire:change="ActualizarEstadoDireccion"@if ($toggleEditar == false) disabled @endif>
@@ -323,7 +323,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Municipio:</p>
+                <p class="text-fuente-secundario">Municipio:</p>
                 <select wire:model="municipio_direccion" name="municipio_direccion" id="municipio_direccion"
                     class="input-pdv w-full mb-3 text-[15px]"
                     wire:model="municipio_direccion"@if ($toggleEditar == false) disabled @endif>
@@ -338,7 +338,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Ciudad o Localidad:</p>
+                <p class="text-fuente-secundario">Ciudad o Localidad:</p>
                 <input wire:model="ciudad" type="text" class="input-pdv w-full mb-3 text-[15px]" name="ciudad"
                     placeholder="Ciudad o Localidad"
                     value="{{ old('ciudad') }}"@if ($toggleEditar == false) disabled @endif>
@@ -346,7 +346,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">País:</p>
+                <p class="text-fuente-secundario">País:</p>
                 <select wire:model="pais_direccion" name="pais_direccion" id="pais_direccion"
                     class="input-pdv w-full mb-3"@if ($toggleEditar == false) disabled @endif>
                     <option value="" selected>-- SELECCIONAR --</option>
@@ -366,21 +366,21 @@
     </div>
 
     <!--CONTACTO-->
-    <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
+    <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px]">
         <div
-            class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-            <p class="text-fuente text-[20px]" id="contacto">CONTACTO</p>
+            class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+            <p class="text-fuente-secundario text-[20px]" id="contacto">CONTACTO</p>
         </div>
         <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
             <!--Primera Columna-->
             <div>
-                <p class="text-fuente">Celular:</p>
+                <p class="text-fuente-secundario">Celular:</p>
                 <div class="flex">
                     <input wire:model="celular" type="number" class="input-pdv w-full mb-3 text-[15px]" name="celular"
                     placeholder="celular" value="{{ old('celular') }}"
                     @if ($toggleEditar == false) disabled @endif>
                     @if($toggleEditar == false)
-                    <a href="tel:{{ $persona->celular }}" class=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9  text-green-500 bg-principal rounded-md p-1 h-9 ml-5 cursor-pointer">
+                    <a href="tel:{{ $persona->celular }}" class=""><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9  text-green-500 bg-gray-100 rounded-md p-1 h-9 ml-5 cursor-pointer">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                       </svg>
                       </a>
@@ -390,7 +390,7 @@
                     @enderror
                 </div>
 
-                <p class="text-fuente">Teléfono:</p>
+                <p class="text-fuente-secundario">Teléfono:</p>
                 <input wire:model="telefono" type="number" class="input-pdv w-full mb-3 text-[15px]"
                     name="telefono" placeholder="telefono" value="{{ old('telefono') }}"
                     @if ($toggleEditar == false) disabled @endif>
@@ -401,7 +401,7 @@
             </div>
             <!--Segunda Columna-->
             <div>
-                <p class="text-fuente">Correo Electrónico:</p>
+                <p class="text-fuente-secundario">Correo Electrónico:</p>
                 <input wire:model="correo" type="text" class="input-pdv w-full mb-3 text-[15px]" name="correo"
                     placeholder="nombre(s)"
                     value="{{ old('correo') }}"@if ($toggleEditar == false) disabled @endif>
@@ -416,16 +416,16 @@
 
 
     <!--REFERENCIAS-->
-    <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
+    <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[20px] ">
         <div
-            class="w-full h-[50px] bg-principal rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
-            <p class="text-fuente text-[20px]" id="referencias">REFERENCIAS</p>
+            class="w-full h-[50px] bg-gray-100 rounded-md  px-7 flex justify-center items-center mt-0  border-b border-fuente">
+            <p class="text-fuente-secundario text-[20px]" id="referencias">REFERENCIAS</p>
         </div>
         <div class=" px-7 py-7 gap-x-20 grid grid-cols-1 md:grid-cols-2">
             <!--Primera Columna-->
             <div>
-                <p class="text-fuente text-[20px] mb-[10px]">Referencia 1</p>
-                <p class="text-fuente">Nombre(s):</p>
+                <p class="text-fuente-secundario text-[20px] mb-[10px]">Referencia 1</p>
+                <p class="text-fuente-secundario">Nombre(s):</p>
                 <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_nombre"
                     placeholder="nombre(s)" value="{{ old('referencia1_nombre') }}" wire:model="referencia1_nombre"
                     @if (!$toggleEditar) disabled @endif>
@@ -433,7 +433,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Celular:</p>
+                <p class="text-fuente-secundario">Celular:</p>
                 <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia1_cel"
                     placeholder="Celular" value="{{ old('referencia1_cel') }}" wire:model="referencia1_cel"
                     @if (!$toggleEditar) disabled @endif>
@@ -441,7 +441,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Prentesco:</p>
+                <p class="text-fuente-secundario">Prentesco:</p>
                 <select class="input-pdv w-full mb-3 text-[15px]" name="referencia1_parentesco"
                     wire:model="referencia1_parentesco" @if (!$toggleEditar) disabled @endif>
                     <option value="" disabled selected>-- SELECCIONAR --</option>
@@ -455,8 +455,8 @@
             </div>
             <!--Segunda Columna-->
             <div>
-                <p class="text-fuente text-[20px] mb-[10px]">Referencia 2</p>
-                <p class="text-fuente">Nombre(s):</p>
+                <p class="text-fuente-secundario text-[20px] mb-[10px]">Referencia 2</p>
+                <p class="text-fuente-secundario">Nombre(s):</p>
                 <input type="text" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_nombre"
                     placeholder="nombre(s)" value="{{ old('referencia2_nombre') }}" wire:model="referencia2_nombre"
                     @if (!$toggleEditar) disabled @endif>
@@ -464,7 +464,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Celular:</p>
+                <p class="text-fuente-secundario">Celular:</p>
                 <input type="number" class="input-pdv w-full mb-3 text-[15px]" name="referencia2_cel"
                     placeholder="Celular" value="{{ old('referencia2_cel') }}" wire:model="referencia2_cel"
                     @if (!$toggleEditar) disabled @endif>
@@ -472,7 +472,7 @@
                     <div class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center"> {{ $message }} </div>
                 @enderror
 
-                <p class="text-fuente">Prentesco:</p>
+                <p class="text-fuente-secundario">Prentesco:</p>
                 <select class="input-pdv w-full mb-3 text-[15px]" name="referencia2_parentesco"
                     wire:model="referencia2_parentesco" @if (!$toggleEditar) disabled @endif>
                     <option value="" disabled selected>-- SELECCIONAR --</option>
@@ -490,13 +490,13 @@
     </form>
 
     <!--DOCUMENTACION-->
-    <div class="h-full bg-terciario shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[120px] ">
+    <div class="h-full bg-gray-100 shadow-lg pb-[20px] mt-[20px] rounded-lg mb-[120px] ">
         <div
-            class="w-full h-[50px] bg-principal rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
-            <p class="text-fuente text-[20px]" id="documentacion">Documentación</p>
+            class="w-full h-[50px] bg-gray-100 rounded-md mt-0 flex justify-center items-center  border-b border-fuente">
+            <p class="text-fuente-secundario text-[20px]" id="documentacion">Documentación</p>
         </div>
         <button
-            class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == '' ? 'dark:bg-green-500 text-black' : 'dark:bg-principal' }}"
+            class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == '' ? 'dark:bg-green-500 text-black' : 'dark:bg-gray-100' }}"
             wire:click="toggleArchivos" id="btnDocumentacionAceptar">{{ $boton_documentacion }}</button>
         <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] overflow-hidden transition-transform"
             style="{{ $estilo_dropzone }} {{ $toggle_animacion_dropzone }}">
@@ -506,12 +506,12 @@
         </div>
         <div class=" mt-[1px] overflow-x-auto no-scrollbar mb-[50px]">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-md">
-                <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs text-fuente-secundario uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th scope="col" class="px-6 py-3 text-fuente-secundario text-[13px]">
                             Nombre del archivo
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente min-w-[200px] ">
+                        <th scope="col" class="px-6 py-3 text-fuente-secundario min-w-[200px] ">
 
                         </th>
                     </tr>
@@ -519,15 +519,15 @@
                 <tbody>
                     @foreach ($archivos as $archivo)
                         <tr
-                            class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} w-full">
-                            <th scope="row"
-                                class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap hover:bg-gray-500 dark:text-fuente border border-solid border-gray-700"
+                            class="bg-white dark:bg-gray-900 w-full">
+                            <td scope="row"
+                                class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap  dark:text-fuente-secundario"
                                 wire:click="verArchivo({{ '"' . $archivo->url . '"' }})">
                                 {{ $archivo->nombre }}
-                            </th>
+                            </td>
 
                             <td
-                                class="py-4 px-6 dark:text-fuente cursor-pointer text-left grid grid-cols-1 md:grid-cols-2 text-[16px] ">
+                                class="py-4 px-6 dark:text-fuente-secundario  text-left grid grid-cols-1 md:grid-cols-2 text-[16px] hover:bg-white">
                                 <button class="font-medium dark:text-rojo hover:underline"
                                     wire:click="eliminar_alert({{ '"' . $archivo->url . '"' }},{{ $archivo->id }})">Eliminar</button>
                                 <button class="font-medium dark:text-blue-600 hover:underline"

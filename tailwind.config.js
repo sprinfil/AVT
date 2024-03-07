@@ -13,18 +13,19 @@ module.exports = {
       colors:{
         //'negro-menu': '#5C5470',
         //'negro-menu': '#0882C4',
-        'login-fondo': '#3882F2',
-        'negro-menu': '#0C4069',
+        'login-fondo': '#133B2F',
+        'negro-menu': '#133B2F',//este
          'negro-fondo': '#0D4572',
          'secundario': '#29bcb2',
          'fuente-botones': '#D1D5DB',
-         'active':'#2CC9BF',
-         'principal':'#0F2C40',
+         'active':'#0F2E25',
+         'principal':'#1A4F40',
          'fuente':'#D1D5DB',
+         'fuente-secundaria': '#242424',
          'rojo':'#EF4444',
          'menu':'#141414',
-         'terciario':"#0B3B61",
-         "color-borde":"#0B3B61",
+         'terciario':"#133B2F",//este
+         "color-borde":"#133B2F",
          //"color-borde":"#113147",
       }
     },

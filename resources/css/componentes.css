@@ -4,13 +4,31 @@
 
 @layer components {
     .btn-primary {
-      @apply py-2 px-4 bg-principal text-fuente-botones rounded-lg shadow-md  active:bg-secundario focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 ease-out duration-500 text-[15px] h-[55px];
+      @apply py-2 px-4 bg-principal text-fuente-botones rounded-lg shadow-md  active:bg-active focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 ease-out duration-500 text-[15px] h-[55px] hover:bg-[#174739];
     }
     .input-pdv{
-      @apply bg-fuente border border-fuente text-gray-900 text-sm rounded-lg hover:ring-2 focus:ring-blue-500 block p-2 text-[15px] w-[250px]  md:w-[400px] focus:outline-none ;
+      @apply bg-gray-100 border  text-gray-900 text-sm rounded-lg hover:ring-2 border-blue-400 focus:ring-blue-500 block p-2 text-[15px] w-[250px]  md:w-[400px] focus:outline-none placeholder-gray-500;
     }
     .btn-primary-red {
       @apply py-2 px-4 cursor-pointer bg-red-500 hover:bg-red-600 text-red-200 rounded-lg shadow-md  active:bg-secundario focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 ease-out duration-500 text-[15px] h-[55px];
+    }
+    table{
+      @apply w-full text-sm text-left text-gray-700 ;
+    }
+    thead{
+      @apply text-xs uppercase bg-principal;
+    }
+    th{
+      @apply px-6 py-3 text-[13px] ;
+    }
+    tr{
+      @apply bg-white border-b  ;
+    }
+    td{
+      @apply px-6 py-4 font-medium whitespace-nowrap ;
+    }
+    .links{
+      @apply px-[10px] py-[10px] bg-white;
     }
   }
 

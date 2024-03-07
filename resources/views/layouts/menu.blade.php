@@ -40,7 +40,7 @@
 
                     <!--///////Home//////-->
                     <a href="{{ route('home') }}">
-                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                        <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                             onclick="">
                             <!--Icono-->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -58,7 +58,7 @@
 
                     <!--///////Zonas//////-->
                     <a href="{{ route('zonas.index') }}">
-                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                        <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                             onclick="">
                             <!--Icono-->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -79,7 +79,7 @@
 
                     <!--///////Personas//////-->
                     <a href="{{ route('personas') }}">
-                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                        <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                             onclick="">
                             <!--Icono-->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -97,7 +97,7 @@
 
                      <!--///////Ventas//////-->
                      <a href="{{ route('ventas') }}">
-                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                        <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                             onclick="">
                             <!--Icono-->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
@@ -114,7 +114,7 @@
 
                     <!--///////Pagos//////-->
                      <a href="{{ route('pagos') }}">
-                        <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                        <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                             onclick="">
                             <!--Icono-->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9 text-fuente-botones">
@@ -134,7 +134,7 @@
                     @admin
                         <!--///////Usuarios//////-->
                         <a href="{{ route('usuarios') }}">
-                            <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                            <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                                 onclick="">
                                 <!--Icono-->
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -152,7 +152,7 @@
 
                         <!--///////Configuracion//////-->
                         <a href="{{ route('configuracion') }}">
-                            <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px] shadow-md"
+                            <div class=" my-1 p-3 rounded-md flex btn-primary h-[65px]"
                                 onclick="">
                                 <!--Icono-->
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
