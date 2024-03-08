@@ -496,7 +496,7 @@
             <p class="text-fuente-secundario text-[20px]" id="documentacion">Documentación</p>
         </div>
         <button
-            class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == '' ? 'dark:bg-green-500 text-black' : 'dark:bg-gray-100' }}"
+            class="btn-primary mt-[20px] cursor-pointer ml-[30px] mb-[30px] {{ $esconder_dropzone == '' ? 'bg-green-500 text-black' : 'bg-principal' }}"
             wire:click="toggleArchivos" id="btnDocumentacionAceptar">{{ $boton_documentacion }}</button>
         <div class="border-2 border-sky-500 border-dashed rounded-[30px] my-[20px] mx-[30px] overflow-hidden transition-transform"
             style="{{ $estilo_dropzone }} {{ $toggle_animacion_dropzone }}">
@@ -505,23 +505,22 @@
             </form>
         </div>
         <div class=" mt-[1px] overflow-x-auto no-scrollbar mb-[50px]">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-md">
-                <thead class="text-xs text-fuente-secundario uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table>
+                <thead>
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-fuente-secundario text-[13px]">
+                        <th>
                             Nombre del archivo
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente-secundario min-w-[200px] ">
+                        <th>
 
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($archivos as $archivo)
-                        <tr
-                            class="bg-white dark:bg-gray-900 w-full">
+                        <tr>
                             <td scope="row"
-                                class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap  dark:text-fuente-secundario"
+                                class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap  dark:text-fuente-secundario hover:bg-gray-200 "
                                 wire:click="verArchivo({{ '"' . $archivo->url . '"' }})">
                                 {{ $archivo->nombre }}
                             </td>

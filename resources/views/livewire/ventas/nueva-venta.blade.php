@@ -23,7 +23,7 @@
             <div class="col-span-2 gap-x-10 ">
 
                 <div class="">
-                    <p class="text-fuente text-[25px]">Comprador</p>
+                    <p class="text-fuente-secundario text-[25px]">Comprador</p>
 
                     <!--Input de busqueda-->
                     <div class="relative mt-[10px]">
@@ -49,7 +49,7 @@
                 </div>
 
                 <div>
-                    <p class="text-fuente text-[25px] mt-[30px]">Aval</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Aval</p>
 
                     <!--Input de busqueda-->
                     <div class="relative mt-[10px]">
@@ -75,7 +75,7 @@
                 </div>
 
                 <div>
-                    <p class="text-fuente text-[25px] mt-[30px]">Zona</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Zona</p>
 
                     <!--Input de busqueda-->
                     <div class="relative mt-[10px]">
@@ -101,7 +101,7 @@
                 </div>
 
                 <div>
-                    <p class="text-fuente text-[25px] mt-[30px]">Lote</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Lote</p>
                     <!--Input de busqueda-->
                     <div class="relative mt-[10px]">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -126,13 +126,13 @@
                 </div>
 
                 <div>
-                    <p class="text-fuente text-[25px] mt-[30px]">Contrato</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Contrato</p>
                     <input type="text" class="input-pdv w-full" placeholder="Contrato" wire:model="no_contrato">
                 </div>
 
-                <div class="mb-[80px]">
+                <div class="mb-[80px] text-fuente-secundario">
                     <!--SELECT METODO PAGO-->
-                    <p class="text-fuente text-[25px] mt-[30px]">Metodo de pago</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Metodo de pago</p>
                     <select name="metodo_pago" id="metodo_pago" class="input-pdv mt-[10px] w-full"
                         wire:change = "SeleccionarMetodoPago" wire:model = "metodo_pago">
                         <option value="" selected>--SELECCIONAR--</option>
@@ -141,36 +141,36 @@
                     </select>
                     @if ($metodo_pago != '')
                         <div class="md:w-[50%] w-full mt-[10px] ">
-                            <p class="text-fuente text-[15px] ">Costo del lote</p>
+                            <p class=" text-[15px] ">Costo del lote</p>
                             <input type="text" class="input-pdv w-full" placeholder="costo del lote"
                                 id="costo_lote" wire:model="costo_lote" wire:input="calcular_monto_por_mes">
                         </div>
                     @endif
                     @if ($metodo_pago == 'A MESES')
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Enganche</p>
+                            <p class=" text-[15px]">Enganche</p>
                             <input type="number" class="input-pdv w-full" placeholder="Enganche"
                                 wire:model="enganche_meses" wire:input="calcular_monto_por_mes">
                         </div>
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Meses a pagar</p>
+                            <p class=" text-[15px]">Meses a pagar</p>
                             <input type="number" class="input-pdv w-full" placeholder="Meses a pagar"
                                 wire:model="meses_pagar" wire:input="calcular_monto_por_mes">
                         </div>
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Monto por mes</p>
+                            <p class=" text-[15px]">Monto por mes</p>
                             <input type="number" class="input-pdv w-full" placeholder="Monto por mes"
                                 wire:model="monto_mes" wire:input="calcular_monto_por_mes" disabled>
                         </div>
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Fecha del primer Abono</p>
+                            <p class=" text-[15px]">Fecha del primer Abono</p>
                             <input type="date" class="input-pdv w-full" wire:model = "fecha_primer_abono_mostrar" wire:change = "actualizarFechaPrimerAbono">
                         </div>
                     @endif
 
                     @if ($metodo_pago == 'CONTADO')
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Forma de pago</p>
+                            <p class="text-[15px]">Forma de pago</p>
                             <select name="metodo_pago" id="metodo_pago" class="input-pdv mt-[10px] w-full"
                                 wire:model="forma_de_pago" wire:change="cambio_forma_de_pago">
                                 <option value="" selected>--SELECCIONAR--</option>
@@ -182,26 +182,26 @@
                     @endif
                     @if ($forma_de_pago == 'EFECTIVO')
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Pago con ...</p>
+                            <p class=" text-[15px]">Pago con ...</p>
                             <input type="number" class="input-pdv w-full" placeholder="Pago con ..."
                                 wire:model="pago_con_efectivo" wire:input="calcular_cambio_efectivo">
                         </div>
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Cambio</p>
+                            <p class=" text-[15px]">Cambio</p>
                             <input type="number" class="input-pdv w-full" placeholder="Cambio"
                                 wire:model="cambio_efectivo" disabled>
                         </div>
                     @endif
                     @if ($forma_de_pago == 'TARJETA CREDITO')
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Referencia</p>
+                            <p class=" text-[15px]">Referencia</p>
                             <input type="number" class="input-pdv w-full" placeholder="Referencia"
                                 wire:model="referencia_credito" wire:input="calcular_cambio_efectivo">
                         </div>
                     @endif
                     @if ($forma_de_pago == 'TARJETA DEBITO')
                         <div class="md:w-[50%] w-full  mt-[10px]">
-                            <p class="text-fuente text-[15px]">Referencia</p>
+                            <p class=" text-[15px]">Referencia</p>
                             <input type="number" class="input-pdv w-full" placeholder="Referencia"
                                 wire:model="referencia_debito" wire:input="calcular_cambio_efectivo">
                         </div>
