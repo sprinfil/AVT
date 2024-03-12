@@ -13,7 +13,7 @@
                 @if (count($importes) > 0)
                     <div class="mt-[30px] md:mt-[0px]">
                         <!--ABONAR-->
-                        <div class="bg-negro-menu py-10 rounded-md mb-[50px] px-[10px] md:px-[50px]">
+                        <div class="bg-gray-100 py-10 rounded-md mb-[50px] px-[10px] md:px-[50px]  text-fuente-secundario">
                             @if ($error == true)
                                 <div
                                     class="h-[20px] w-full bg-red-500 text-fuente py-4 px-4 flex justify-center items-center rounded-lg">
@@ -22,8 +22,8 @@
                                     </div>
                                 </div>
                             @endif
-                            <p class="text-fuente text-[25px]">Abonar</p>
-                            <p class="text-fuente text-[15px] mt-[20px]">Forma de pago</p>
+                            <p class=" text-[25px]">Abonar</p>
+                            <p class=" text-[15px] mt-[20px]">Forma de pago</p>
                             <select name="metodo_pago" id="metodo_pago" class="input-pdv mt-[10px] w-full"
                                 wire:model="forma_de_pago" wire:change="cambio_forma_de_pago">
                                 <option value="" selected>--SELECCIONAR--</option>
@@ -32,21 +32,21 @@
                                 <option value="TARJETA DEBITO">TARJETA DEBITO</option>
                             </select>
                             @if ($forma_de_pago != '')
-                                <p class="text-fuente text-[15px] mt-[20px]">Cantidad que abonara</p>
+                                <p class=" text-[15px] mt-[20px]">Cantidad que abonara</p>
                                 <input type="number" class="input-pdv w-full" placeholder="Cantidad que abonara"
                                     wire:model="cantidad_abonar" wire:input="calcular_cambio">
                             @endif
 
                             @if ($forma_de_pago == 'EFECTIVO')
-                                <p class="text-fuente text-[15px] mt-[20px]">Pago Con...</p>
+                                <p class=" text-[15px] mt-[20px]">Pago Con...</p>
                                 <input type="number" class="input-pdv w-full" wire:model="pago_con"
                                     wire:input="calcular_cambio" placeholder="Pago Con...">
-                                <p class="text-fuente text-[40px] mt-[20px]" wire:model="cambio">Cambio $
+                                <p class=" text-[40px] mt-[20px]" wire:model="cambio">Cambio $
                                     {{ number_format($this->cambio, 2) }}</p>
                             @endif
 
                             @if ($forma_de_pago == 'TARJETA DEBITO' || $forma_de_pago == 'TARJETA CREDITO')
-                                <p class="text-fuente text-[15px] mt-[20px]">REFERENCIA</p>
+                                <p class=" text-[15px] mt-[20px]">REFERENCIA</p>
                                 <input type="number" class="input-pdv w-full" wire:model="referencia"
                                     placeholder="REFERENCIA">
                             @endif
@@ -58,10 +58,10 @@
                         <!--IMPORTES-->
 
                         <div class="">
-                            <p class="text-fuente text-[25px] ">IMPORTES Y VENCIMINETOS</p>
+                            <p class="text-fuente-secundario text-[25px] ">IMPORTES Y VENCIMINETOS</p>
                             <div>
                                 @if ($total_pagar > 0)
-                                    <p class="text-fuente text-[20px] mt-[20px]">Monto Restante: $
+                                    <p class="text-fuente-secundario text-[20px] mt-[20px]">Monto Restante: $
                                         {{ number_format($total_pagar, 2) }}</p>
                                 @endif
                             </div>
@@ -69,17 +69,20 @@
                             <div
                                 class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
 
-                                <table class="w-full text-sm text-left">
-                                    <thead class="text-xs text-fuente uppercase bg-gray-700 ">
+                                <table >
+                                    <thead >
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                            <th >
                                                 Numero
                                             </th>
-                                            <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                            <th >
                                                 Monto
                                             </th>
-                                            <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                            <th >
                                                 Vencimineto
+                                            </th>
+                                            <th >
+                                                Fecha de liquidacion
                                             </th>
                                             <th>
                                                 
@@ -88,9 +91,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($importes as $importe)
-                                            <tr class=" border-b   bg-gray-900  border-gray-700  transition-all">
-                                                <th scope="row"
-                                                    class="px-6 py-4 font-medium  whitespace-nowrap text-fuente">
+                                            <tr >
+                                                <th>
                                                    
                                                     @if($importe->numero == 0)
                                                     Anticipo
@@ -98,33 +100,41 @@
                                                     {{ $importe->numero }}
                                                     @endif
                                                 </th>
-                                                <td class="px-6 py-4 dark:text-fuente">
+                                                <td >
                                                     $ {{ number_format($importe->monto ,2) }}
                                                 </td>
-                                                <td class="px-6 py-4 dark:text-fuente">
+                                                <td >
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('d') }}
                                                     de
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->monthName }}
                                                     del
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('Y') }}
                                                 </td>
-                                                <td
-                                                    class="px-6 py-4 dark:text-fuente @if ($importe->monto == 0 || $importe->numero == 0) bg-[#013809]  @elseif($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @else bg-gray-900 @endif">
+                                                <td>
                                                     @if ($importe->monto == 0)
-                                                        <p>PAGADO EL       
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('d') }}
-                                                            de
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->monthName }}
-                                                            del
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('Y') }}</p>
+                                                    <p>      
+                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('d') }}
+                                                        de
+                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->monthName }}
+                                                        del
+                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('Y') }}</p>
+                                                @endif
+                                                @if($importe->numero == 0)
+                                                <p>         
+                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('d') }}
+                                                    de
+                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->monthName }}
+                                                    del
+                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}</p>
+                                            @endif
+                                                </td>
+                                                <td
+                                                    class="text-fuente @if ($importe->monto == 0 || $importe->numero == 0) bg-[#013809]  @elseif($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @else bg-white @endif">
+                                                    @if ($importe->monto == 0)
+                                                        <p>PAGADO</p>
                                                     @endif
                                                     @if($importe->numero == 0)
-                                                        <p>PAGADO EL         
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('d') }}
-                                                            de
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->monthName }}
-                                                            del
-                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}</p>
+                                                        <p>PAGADO</p>
                                                     @endif
                                               
                                                     @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0 && $importe->numero != 0)
@@ -135,7 +145,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="px-[10px] py-[10px] bg-gray-700">
+                                <div class="links">
                                     {{ $importes->links() }}
                                 </div>
 
@@ -159,46 +169,44 @@
 
             @if (count($tickets) > 0)
                 <div class="">
-                    <p class="text-fuente text-[25px] ">TICKETS</p>
+                    <p class="text-fuente-secundario text-[25px] ">TICKETS</p>
                     <!-- Tabla de datos -->
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px] max-h-[800px] ">
 
-                        <table class="w-full text-sm text-left text-gray-400">
-                            <thead class="text-xs text-fuente uppercase bg-gray-700 sticky top-0">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         NUMERO TICKET
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         Abono
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         fecha
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
 
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($tickets as $ticket)
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700  transition-all">
-                                        <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
-                                        # {{ $ticket->id }}
-                                    </th>
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
+                                    <tr>
+                                        <td>
+                                            # {{ $ticket->id }}
+                                        </td>
+                                        <td>
                                             $ {{ number_format($ticket->cantidad_abonar, 2) }}
-                                        </th>
-                                        <td class="px-6 py-4 dark:text-fuente">
+                                        </td>
+                                        <td>
                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->fecha)->format('d') }}
                                             de
                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->fecha)->monthName }}
                                             del
                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->fecha)->format('Y') }}
                                         </td>
-                                        <td class="px-6 py-4 dark:text-fuente">
+                                        <td>
                                             <button class="btn-primary w-full h-[35px]" wire:click="descargar_ticket({{ $ticket->id }})">GENERAR TICKET</button>
                                     </tr>
                                 @endforeach
@@ -217,71 +225,71 @@
     <!--RESUMEN-->
     <div class="col-span-1 mb-[40px]">
         <div
-            class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde md:mt-[0px] mt-[30px]  relative">
+            class=" w-full h-full py-4 bg-gray-100 shadow-lg rounded-md overflow-x-hidden border-2  md:mt-[0px] mt-[30px]  relative">
             <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
-                <p class="text-fuente text-[25px] mb-[20px]">RESUMEN</p>
-                <div class="w-full">
-                    <p class="text-fuente">Comprador</p>
+                <p class="text-fuente-secundario text-[25px] mb-[20px]">RESUMEN</p>
+                <div class="w-full text-fuente-secundario">
+                    <p class="">Comprador</p>
                     <input wire:model = "compradorMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Comprador">
-                    <p class="text-fuente">Aval</p>
+                    <p class="">Aval</p>
                     <input wire:model = "avalMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Aval">
-                    <p class="text-fuente">Vendedor</p>
+                    <p class="">Vendedor</p>
                     <input wire:model = "vendedorMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Vendedor">
-                    <p class="text-fuente">Zona</p>
+                    <p class="">Zona</p>
                     <input wire:model = "zonaMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Zona">
-                    <p class="text-fuente">Lote</p>
+                    <p class="">Lote</p>
                     <input wire:model = "loteMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="lote">
-                    <p class="text-fuente">Metodo de pago</p>
+                    <p class="">Metodo de pago</p>
                     <input wire:model = "metodo_pago" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Metodo de pago">
-                    <p class="text-fuente">Costo del Lote</p>
-                    <p class="text-fuente mb-[20px]">$ @if ($venta->costo_lote != null)
+                    <p class="">Costo del Lote</p>
+                    <p class=" mb-[20px]">$ @if ($venta->costo_lote != null)
                             {{ number_format($venta->costo_lote, 2) }}
                         @endif
                     </p>
                     @if ($venta->metodo_pago == 'A MESES')
-                        <p class="text-fuente">Enganche</p>
-                        <p class="text-fuente  mb-[20px]">$ @if ($venta->enganche != null)
+                        <p class="">Enganche</p>
+                        <p class="  mb-[20px]">$ @if ($venta->enganche != null)
                                 {{ number_format($venta->enganche, 2) }}
                             @endif
                         </p>
-                        <p class="text-fuente">Meses a pagar</p>
-                        <p class="text-fuente  mb-[20px]">{{ $venta->meses_pagar }}</p>
+                        <p class="">Meses a pagar</p>
+                        <p class=" mb-[20px]">{{ $venta->meses_pagar }}</p>
 
-                        <p class="text-fuente">Monto por mes</p>
-                        <p class="text-fuente  mb-[100px]">$ @if ($venta->monto_mes != null)
+                        <p class="">Monto por mes</p>
+                        <p class="  mb-[100px]">$ @if ($venta->monto_mes != null)
                                 {{ number_format($venta->monto_mes, 2) }}
                             @endif
                         </p>
                     @endif
                     @if ($venta->metodo_pago == 'CONTADO')
-                        <p class="text-fuente">Forma de pago</p>
-                        <p class="text-fuente mb-[20px]">{{ $venta->forma_de_pago }}</p>
+                        <p class="">Forma de pago</p>
+                        <p class=" mb-[20px]">{{ $venta->forma_de_pago }}</p>
                         @if ($venta->forma_de_pago == 'EFECTIVO')
-                            <p class="text-fuente">Pago con ...</p>
-                            <p class="text-fuente  mb-[20px]">$ @if ($venta->pago_con != null)
+                            <p class="">Pago con ...</p>
+                            <p class="  mb-[20px]">$ @if ($venta->pago_con != null)
                                     {{ number_format($venta->pago_con, 2) }}
                                 @endif
                             </p>
-                            <p class="text-fuente">Cambio</p>
-                            <p class="text-fuente  mb-[20px]">$ @if ($venta->cambio != 0)
+                            <p class="">Cambio</p>
+                            <p class="  mb-[20px]">$ @if ($venta->cambio != 0)
                                     {{ number_format($venta->cambio, 2) }}@else{{ number_format(0, 2) }}
                                 @endif
                             </p>
 
                         @endif
                         @if ($venta->forma_de_pago == 'TARJETA CREDITO')
-                            <p class="text-fuente">Referencia</p>
-                            <p class="text-fuente">{{ $venta->referencia }}</p>
+                            <p class="">Referencia</p>
+                            <p class="">{{ $venta->referencia }}</p>
                         @endif
                         @if ($venta->forma_de_pago == 'TARJETA DEBITO')
-                            <p class="text-fuente">Referencia</p>
-                            <p class="text-fuente">{{ $venta->referencia }}</p>
+                            <p class="">Referencia</p>
+                            <p class="">{{ $venta->referencia }}</p>
                         @endif
                     @endif
 
@@ -299,11 +307,11 @@
 
     </div>
 
-    <div class="mt-[20px] w-full rounded-md bg-negro-menu h-full mb-[80px] px-[40px] py-[40px]">
+    <div class="mt-[20px] w-full rounded-md bg-gray-100 h-full mb-[80px] px-[40px] py-[40px]">
         <form wire:submit.prevent="guardar_contrato">
             @csrf
-            <p class="text-fuente text-[25px]">Subir Contrato</p>
-            <input type="file" wire:model="contrato" class="text-fuente mt-[20px] text-[20px]">
+            <p class="text-fuente-secundario text-[25px]">Subir Contrato</p>
+            <input type="file" wire:model="contrato" class="text-fuente-secundario mt-[20px] text-[20px]">
             <br>
             <button class="btn-primary mt-[20px]" type="submit">Subir</button>
         </form>

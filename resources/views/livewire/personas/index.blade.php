@@ -20,18 +20,18 @@
 
   <!--Tabla de datos-->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table>
+          <thead>
               <tr>
-                  <th scope="col" class="px-6 py-3 text-fuente text-[13px] text-center">
+                  <th scope="col" class="text-center">
                     Personas
                   </th>
               </tr>
           </thead>
           <tbody>
             @foreach($personas as $persona)
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 {{ $persona->id % 2 == 0 ? 'dark:bg-gray-800' : '' }}">
-                <td class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente " wire:click="edit({{$persona->id}})">
+            <tr class="hover:bg-gray-200 ease-out duration-100 cursor-pointer ">
+                <td class="td" wire:click="edit({{$persona->id}})">
                     <div class="flex items-center gap-x-7">
                         <div class="min-w-[50px]">
                             <img src="{{ $persona->foto }}" alt="" class="w-[70px] rounded-md">    
@@ -58,7 +58,7 @@
 
           </tbody>
       </table>
-      <div class="px-[10px] py-[10px] bg-gray-700">
+      <div class="links">
         {{ $personas->links('vendor.pagination.tailwind')}}
     </div>
   </div>

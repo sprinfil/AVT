@@ -20,45 +20,46 @@
 
     <!-- Tabla de datos -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table>
+            <thead>
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                    <th>
                         Nombre
                     </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                    <th>
                         Usuario
                     </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                    <th>
                         Tipo
                     </th>
-                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
-                       
+                    <th>
+
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($usuarios as $usuario)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $usuario->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
-                    <th scope="row" class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente" wire:click="edit({{$usuario->id}})">
+                <tr>
+                    <td>
                         {{$usuario->name}}
-                    </th>
-                    <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$usuario->id}})">
+                    </td>
+                    <td >
                         {{$usuario->username}}
                     </td>
-                    <td class="px-6 py-4 dark:text-fuente cursor-pointer"  wire:click="edit({{$usuario->id}})">
+                    <td >
                         {{$usuario->tipo}}
                     </td>
-                    <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                        <div class="w-full flex items-end justify-end">
-                            <button class="btn-primary font-400 bg-rojo h-full px-10 py-3" wire:click="eliminarUsuario({{ $usuario->id }})">ELIMINAR</button>
+                    <td >
+                        <div class="w-full flex items-end justify-end gap-3">
+                            <button class="btn-primary font-400 h-full px-10 py-3" wire:click="edit({{$usuario->id}})">Editar</button>
+                            <button class="btn-primary-red font-400 h-full px-10 py-3" wire:click="eliminarUsuario({{ $usuario->id }})">ELIMINAR</button>
                         </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <div class="px-[10px] py-[10px] bg-gray-700">
+        <div class="links">
             {{ $usuarios->links() }}
         </div>
     </div>

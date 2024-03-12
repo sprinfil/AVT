@@ -36,37 +36,36 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[20px]">
             <div class="mb-6">
             </div>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-fuente uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table>
+                <thead>
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th>
                             Lote
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th>
                             Manzana
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th>
                             Clave Catastral
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th>
                             Superficie
                         </th>
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                        <th>
                             Estado
                         </th>
-                        @if(auth()->user()->tipo == "ADMIN")
-                        <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                
+                        <th>
                         
                         </th>
-                        @endif
+                   
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($lotes as $lote)
                         <tr
-                            class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all {{ $lote->id % 2 == 0 ? 'dark:bg-gray-800' : '' }} cursor-pointer">
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
+                            >
+                            <td >
                                 @if ($lote->lote < 10)
                                     {{ '00' . $lote->lote }}
                                 @endif
@@ -77,21 +76,18 @@
                                     {{ $lote->lote }}
                                 @endif
                             </td>
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
+                            <td >
                                 {{ $lote->manzana ?? 'PENDIENTE' }}
                             </td>
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
+                            <td >
                                 {{ $lote->catastral ?? 'PENDIENTE' }}
                             </td>
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
+                            <td >
                               
                                 {{ $lote->superficie ? $lote->superficie." m2" : 'PENDIENTE' }} 
                             </td>
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer"
-                                wire:click="edit({{ $lote->id }})">
+                            <td 
+                                class="text-fuente">
                                 @if($lote->estado)
                                     @if($lote->estado == "EN PROCESO DE VENTA")
                                         <div class="px-2 py-2 bg-amber-800">
@@ -109,15 +105,25 @@
                                 </div>
                                 @endif
                             </td>
-                            @if(auth()->user()->tipo == "ADMIN")
-                            <td class="px-6 py-4 dark:text-fuente cursor-pointer">
+                     
+                            <td >
+                                <div class="flex">
+                                    
                                     <div class="w-full justify-end flex items-center">
-                                        <button class="btn-primary font-400 bg-rojo h-full px-10 py-3"
+                                        <button class="btn-primary font-400 h-full px-10 py-3"
+                                        wire:click="edit({{ $lote->id }})">Ver</button>
+                                    </div>
+                                    @if(auth()->user()->tipo == "ADMIN")
+                                    <div class="w-full justify-end flex items-center">
+                                        <button class="btn-primary-red font-400  h-full px-10 py-3"
                                         wire:click="show_eliminar({{ $lote->id }})">Baja</button>
                                     </div>
-                                  
+                                    @endif
+
+                                </div>
+
                             </td>
-                            @endif
+                          
                         </tr>
                     @endforeach
                 </tbody>
@@ -128,7 +134,7 @@
             </div>
         </div>
     @else
-        <p class="text-white mt-5 p-2">Sin datos.</p>
+        <p class="text-fuente-secundario mt-5 p-2">Sin datos.</p>
     @endif
 
 
