@@ -68,7 +68,7 @@ class ReportesController extends Controller
         //return $pdf->stream();
 
         $nombreArchivo = 'CONTRATO_NO.' . $venta->no_contrato . '.pdf';
-
+   
         return $pdf->download($nombreArchivo);
         
         /* 
@@ -82,6 +82,21 @@ class ReportesController extends Controller
             }
         }
         */
+    }
+
+    public function generar_pagares(){
+        $pdf = Pdf::loadView('docs.contratos.pagares');
+
+        //$nombreArchivo = 'PAGARES.' . $this->venta->no_contrato . '.pdf';
+        //return $pdf->download($nombreArchivo);
+        return $pdf->stream();
+    }
+    public function generar_anticipo(){
+        $pdf = Pdf::loadView('docs.contratos.anticipo');
+
+        //$nombreArchivo = 'PAGARES.' . $this->venta->no_contrato . '.pdf';
+        //return $pdf->download($nombreArchivo);
+        return $pdf->stream();
     }
 
     public function guardar_contrato(Request $request){
@@ -105,6 +120,21 @@ class ReportesController extends Controller
         $venta = Venta::find($request->venta_id);
 
         $pdfPath = 'ventas/'.$venta->contrato;
+
+
+        // Asegúrate de que el archivo exista antes de intentar mostrarlo
+        if (Storage::disk('public')->exists($pdfPath)) {
+            return response()->file(Storage::disk('public')->path($pdfPath));
+        }
+
+        // Manejo de errores si el archivo no existe
+        abort(404, 'El archivo PDF no se encontró.');
+    }
+
+    public function ver_escritura(Request $request){
+        $venta = Venta::find($request->venta_id);
+
+        $pdfPath = 'escrituras/'.$venta->escritura_pdf;
 
 
         // Asegúrate de que el archivo exista antes de intentar mostrarlo

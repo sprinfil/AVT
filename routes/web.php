@@ -95,7 +95,10 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(ReportesController::class)->group(function () {
         Route::get('/personas/pdf/{persona_id}','informacion_persona_pdf')->name('persona_pdf');
         Route::get('/ventas/nueva/generar_contrato/{venta_id}','generar_contrato')->name('generar_contrato');
+        Route::get('/ventas/nueva/generar_pagares/{venta_id}','generar_pagares')->name('generar_pagares');
+        Route::get('/ventas/nueva/generar_anticipo/{venta_id}','generar_anticipo')->name('generar_anticipo');
         Route::get('/ver_contrato/{venta_id}','ver_contrato')->name('ver_contrato');
+        Route::get('/ver_escritura/{venta_id}','ver_escritura')->name('ver_escritura');
         Route::post('/guardar_contrato/{venta_id}','guardar_contrato')->name('guardar_contrato');
         Route::get('/generar_ticket/{ticket_id}','generar_ticket')->name('generar_ticket');
         Route::get('/generar_recibo_pago/{pago_id}','generar_recibo_pago')->name('generar_recibo_pago');

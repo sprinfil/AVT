@@ -9,7 +9,7 @@
 
         <div class="md:flex grid-cols-1">
             <!--Imagen de la persona-->
-            <div>
+            <div class="hidden">
                 @if ($persona->foto == null && $toggleEditar == false)
                     <div class="flex md:justify-start justify-center items-center mx-4 py-4">
                         <div
@@ -65,7 +65,7 @@
                             </svg>
                             PDF
                         </div>
-                        <div class="btn-primary-red flex items-center justify-center " wire:click="bajaPersona">Baja
+                        <div class="btn-primary-red flex items-center justify-center hidden" wire:click="bajaPersona">Baja
                             Persona</div>
                 </div>
             </div>

@@ -2,7 +2,6 @@
     @page {
         size: 8.5in 14in;
         margin: 20mm 15mm;
-
     }
 
     body{

@@ -101,7 +101,7 @@
                 </div>
 
                 <div>
-                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Lote</p>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Clave Catastral</p>
                     <!--Input de busqueda-->
                     <div class="relative mt-[10px]">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -128,6 +128,11 @@
                 <div>
                     <p class="text-fuente-secundario text-[25px] mt-[30px]">Contrato</p>
                     <input type="text" class="input-pdv w-full" placeholder="Contrato" wire:model="no_contrato">
+                </div>
+
+                <div>
+                    <p class="text-fuente-secundario text-[25px] mt-[30px]">Fecha de Contrato</p>
+                    <input type="date" class="input-pdv w-full" placeholder="Contrato" wire:model="fecha_contrato">
                 </div>
 
                 <div class="mb-[80px] text-fuente-secundario">
@@ -228,9 +233,9 @@
                             <p class="text-fuente">Vendedor</p>
                             <input wire:model = "vendedorMostrar" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Vendedor">
-                            <p class="text-fuente">Lote</p>
+                            <p class="text-fuente">Clave Catastral</p>
                             <input wire:model = "loteMostrar" type="text" class="input-pdv mb-[20px] w-full"
-                                disabled placeholder="lote">
+                                disabled placeholder="Clave Catastral">
                             <p class="text-fuente">Contrato</p>
                             <input wire:model = "no_contrato" type="text" class="input-pdv mb-[20px] w-full"
                                 disabled placeholder="Contrato">

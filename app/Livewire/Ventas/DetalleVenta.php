@@ -11,7 +11,9 @@ use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ReportesController;
 
 class DetalleVenta extends Component
 {
@@ -33,9 +35,12 @@ class DetalleVenta extends Component
     public $error = false;
     public $tickets;
     public $contrato;
-    
-
+    public $fecha_escrituracion;
+    public $numero_escrituracion;
+    public $notaria;
+    public $editar_escrituracion = false;
     public $contrato_generado = false;
+    public $escritura_pdf;
 
     #[On('render')] 
     public function render()
@@ -51,10 +56,15 @@ class DetalleVenta extends Component
         $this->avalMostrar = $this->venta->Aval->nombreCompleto();
         $this->vendedorMostrar = $this->venta->Vendedor->nombreCompleto();
         $this->zonaMostrar = $this->venta->Zona->nombre;
-        $this->loteMostrar = $this->venta->Lote->lote;
+        $this->loteMostrar = $this->venta->Lote->catastral;
         $this->metodo_pago = $this->venta->metodo_pago;
-        $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
+        $this->total_pagar =  Importe::where('venta',$this->venta->id)
+        ->where('numero',"!=",0)
+        ->sum('monto');
         $this->tickets = Ticket::where('venta_id', $this->venta->id)->orderby('id','desc')->get();
+        $this->notaria = $this->venta->notaria;
+        $this->fecha_escrituracion = $this->fecha_escrituracion != NULL ? Carbon::createFromFormat('Y-m-d H:i:s', $this->venta->fecha_escrituracion)->format('Y-m-d') : null ;
+        $this->numero_escrituracion = $this->venta->numero_escritura;
     }
 
     public function cambio_forma_de_pago(){
@@ -135,6 +145,7 @@ class DetalleVenta extends Component
                 $id_importe = $id_importe + 1;
             }else{
                 //montos pagados
+
             }
         }
         $this->total_pagar =  Importe::where('venta',$this->venta->id)->sum('monto');
@@ -144,46 +155,86 @@ class DetalleVenta extends Component
 
         if($venta->proximo_cobro() == null){
             $venta->proximo_cobro = null;
+            $venta->Lote->estado = "PAGADO";
+            $venta->Lote->save();
         }else{
             $venta->proximo_cobro = $venta->proximo_cobro()->vencimiento;
         }
-        
+
+        $this->total_pagar =  Importe::where('venta',$this->venta->id)
+        ->where('numero',"!=",0)
+        ->sum('monto');
         $venta->save();
         $this->render();
+        $this->dispatch('generar_ticket_abono');
     }
 
     public function regenerar_contrato(){
-        return redirect(route('generar_contrato',['venta_id'=>$this->venta->id]));
+        redirect(route('generar_contrato',['venta_id'=>$this->venta->id]));
+    }
+
+    public function generar_pagares(){
+        redirect(route('generar_pagares',['venta_id'=>$this->venta->id]));
+    }
+
+    public function generar_anticipo(){
+        redirect(route('generar_anticipo',['venta_id'=>$this->venta->id]));
     }
 
     public function guardar_contrato(){
 
-         // Validar que se haya subido un archivo
-    $this->validate([
-        'contrato' => 'required|file', // 10 MB máximo
-    ]);
+        $this->validate([
+            'contrato' => 'required|file',
+        ]);
 
         $nombreOriginal = $this->contrato->getClientOriginalName();
 
-        // Guardar el archivo con el nombre específico y obtener la ruta
         $archivo = $this->contrato->storeAs('public/ventas/'.$nombreOriginal);
 
-        //convertir la ruta en vez de public a storage
-        //$url_archivo = Storage::url($archivo);
-
-           //crear los archivos
         $venta = Venta::find($this->venta->id);
         $venta->contrato =  $nombreOriginal;
         $venta->save();
 
         $this->contrato = null;
         $this->dispatch('contrato_subido', ['venta_id' => json_encode($this->venta->id)]);
-        //$this->dispatch('contrato_subido');
         $this->render();
     }
 
+    public function guardar_escritura(){
+
+    $this->validate([
+        'escritura_pdf' => 'required|file',
+    ]);
+
+    $nombreOriginal = $this->escritura_pdf->getClientOriginalName();
+    $archivo = $this->escritura_pdf->storeAs('public/escrituras/'.$nombreOriginal);
+
+    $venta = Venta::find($this->venta->id);
+    $venta->escritura_pdf = $nombreOriginal;
+    $venta->save();
+
+    $this->escritura_pdf = null;
+    $this->dispatch('escritura_subida', ['venta_id' => json_encode($this->venta->id)]);
+    $this->render();
+
+}
+
     public function descargar_ticket($ticket_id){
         return redirect(route('generar_ticket',['ticket_id' => $ticket_id]));
+    }
+
+    public function toggle_editar_escrituracion(){
+        if($this->editar_escrituracion){
+            $this->editar_escrituracion = false;
+            $venta = $this->venta;
+            $venta->numero_escritura = $this->numero_escrituracion;
+            $venta->notaria = $this->notaria;
+            $venta->fecha_escrituracion = $this->fecha_escrituracion;
+            $venta->save();
+            $this->dispatch('escritura_success');
+        }else{
+            $this->editar_escrituracion = true;
+        }
     }
 
 }

@@ -13,7 +13,8 @@
                 @if (count($importes) > 0)
                     <div class="mt-[30px] md:mt-[0px]">
                         <!--ABONAR-->
-                        <div class="bg-gray-100 py-10 rounded-md mb-[50px] px-[10px] md:px-[50px]  text-fuente-secundario">
+                        <div
+                            class="bg-gray-100 py-10 rounded-md mb-[50px] px-[10px] md:px-[50px]  text-fuente-secundario">
                             @if ($error == true)
                                 <div
                                     class="h-[20px] w-full bg-red-500 text-fuente py-4 px-4 flex justify-center items-center rounded-lg">
@@ -60,50 +61,50 @@
                         <div class="">
                             <p class="text-fuente-secundario text-[25px] ">IMPORTES Y VENCIMINETOS</p>
                             <div>
-                                @if ($total_pagar > 0)
-                                    <p class="text-fuente-secundario text-[20px] mt-[20px]">Monto Restante: $
-                                        {{ number_format($total_pagar, 2) }}</p>
-                                @endif
+
+                                <p class="text-fuente-secundario text-[20px] mt-[20px]">Monto Restante: $
+                                    {{ number_format($total_pagar, 2) }}</p>
+
                             </div>
                             <!-- Tabla de datos -->
                             <div
                                 class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
 
-                                <table >
-                                    <thead >
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <th >
+                                            <th>
                                                 Numero
                                             </th>
-                                            <th >
+                                            <th>
                                                 Monto
                                             </th>
-                                            <th >
+                                            <th>
                                                 Vencimineto
                                             </th>
-                                            <th >
+                                            <th>
                                                 Fecha de liquidacion
                                             </th>
                                             <th>
-                                                
+
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($importes as $importe)
-                                            <tr >
+                                            <tr>
                                                 <th>
-                                                   
-                                                    @if($importe->numero == 0)
-                                                    Anticipo
+
+                                                    @if ($importe->numero == 0)
+                                                        Anticipo
                                                     @else
-                                                    {{ $importe->numero }}
+                                                        {{ $importe->numero }}
                                                     @endif
                                                 </th>
-                                                <td >
-                                                    $ {{ number_format($importe->monto ,2) }}
+                                                <td>
+                                                    $ {{ number_format($importe->monto, 2) }}
                                                 </td>
-                                                <td >
+                                                <td>
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('d') }}
                                                     de
                                                     {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->monthName }}
@@ -112,33 +113,35 @@
                                                 </td>
                                                 <td>
                                                     @if ($importe->monto == 0)
-                                                    <p>      
-                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('d') }}
-                                                        de
-                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->monthName }}
-                                                        del
-                                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('Y') }}</p>
-                                                @endif
-                                                @if($importe->numero == 0)
-                                                <p>         
-                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('d') }}
-                                                    de
-                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->monthName }}
-                                                    del
-                                                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}</p>
-                                            @endif
+                                                        <p>
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('d') }}
+                                                            de
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->monthName }}
+                                                            del
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->fecha_liquidacion)->format('Y') }}
+                                                        </p>
+                                                    @endif
+                                                    @if ($importe->numero == 0)
+                                                        <p>
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('d') }}
+                                                            de
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->monthName }}
+                                                            del
+                                                            {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $venta->fecha)->format('Y') }}
+                                                        </p>
+                                                    @endif
                                                 </td>
                                                 <td
                                                     class="text-fuente @if ($importe->monto == 0 || $importe->numero == 0) bg-[#013809]  @elseif($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0) bg-[#5F1414] @else bg-white @endif">
                                                     @if ($importe->monto == 0)
                                                         <p>PAGADO</p>
                                                     @endif
-                                                    @if($importe->numero == 0)
+                                                    @if ($importe->numero == 0)
                                                         <p>PAGADO</p>
                                                     @endif
-                                              
-                                                    @if($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0 && $importe->numero != 0)
-                                                    <p>EXPIRADO</p>
+
+                                                    @if ($importe->vencimiento < Carbon\Carbon::now()->format('Y-m-d') && $importe->monto != 0 && $importe->numero != 0)
+                                                        <p>EXPIRADO</p>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -171,7 +174,8 @@
                 <div class="">
                     <p class="text-fuente-secundario text-[25px] ">TICKETS</p>
                     <!-- Tabla de datos -->
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px] max-h-[800px] ">
+                    <div
+                        class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px] max-h-[800px] ">
 
                         <table>
                             <thead>
@@ -207,7 +211,9 @@
                                             {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->fecha)->format('Y') }}
                                         </td>
                                         <td>
-                                            <button class="btn-primary w-full h-[35px]" wire:click="descargar_ticket({{ $ticket->id }})">GENERAR TICKET</button>
+                                            <button class="btn-primary w-full h-[35px]"
+                                                wire:click="descargar_ticket({{ $ticket->id }})">GENERAR
+                                                TICKET</button>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -241,7 +247,7 @@
                     <p class="">Zona</p>
                     <input wire:model = "zonaMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="Zona">
-                    <p class="">Lote</p>
+                    <p class="">Clave Catastral</p>
                     <input wire:model = "loteMostrar" type="text" class="input-pdv mb-[20px] w-full" disabled
                         placeholder="lote">
                     <p class="">Metodo de pago</p>
@@ -298,37 +304,125 @@
                 </div>
 
             </div>
-            <div class="bottom-0 w-full px-[40px] py-[20px]">
-                <button class="btn-primary w-full mt-[20px]" wire:click="regenerar_contrato"> Regenerar
-                    Contrato</button>
+            <div class="bottom-0 w-full px-[40px] py-[20px] flex flex-wrap gap-4">
+
+                <div wire:click = "regenerar_contrato"
+                    class="flex btn-primary-red gap-x-2 items-center justify-center  mb-[10px] cursor-pointer w-[200px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                    <p class=" text-[17px]">PDF Contrato </p>
+                </div>
+
+                <div wire:click = "generar_pagares"
+                    class="flex btn-primary-red gap-x-2 items-center justify-center  mb-[10px] cursor-pointer w-[200px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                    <p class=" text-[17px]">PDF Pagares</p>
+                </div>
+
+                <div wire:click = "generar_anticipo"
+                class="flex btn-primary-red gap-x-2 items-center justify-center  mb-[10px] cursor-pointer w-[200px]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                <p class=" text-[17px]">PDF Anticipo</p>
+            </div>
+
             </div>
 
         </div>
 
     </div>
 
-    <div class="mt-[20px] w-full rounded-md bg-gray-100 h-full mb-[80px] px-[40px] py-[40px]">
+    <div class="mt-[20px] w-full rounded-md bg-gray-100 mb-[80px] px-[40px] py-[40px]">
         <form wire:submit.prevent="guardar_contrato">
             @csrf
             <p class="text-fuente-secundario text-[25px]">Subir Contrato</p>
-            <input type="file" wire:model="contrato" class="text-fuente-secundario mt-[20px] text-[20px]">
+            <input type="file" wire:model="contrato" class="text-fuente-secundario mt-[20px] text-[20px] ">
             <br>
             <button class="btn-primary mt-[20px]" type="submit">Subir</button>
         </form>
-            <div class="mt-[20px] h-[1200px]" id="iframe_container">
-                @if ($venta->contrato)
+        <div class="mt-[20px] @if ($venta->contrato) h-[1200px] @endif" id="iframe_container">
+            @if ($venta->contrato)
                 <iframe data-baseurl="/ver_contrato" src="{{ route('ver_contrato', ['venta_id' => $venta->id]) }}"
                     id="iframe" width="100%" height="100%" frameborder="0"></iframe>
-                @endif
+            @endif
+        </div>
+    </div>
+
+    <!--ESCRITURACION-->
+    <div class="col-span-1 mb-[100px]">
+        <div
+            class=" w-full h-full py-4 bg-gray-100 shadow-lg rounded-md overflow-x-hidden border-2  md:mt-[0px] mt-[30px]  relative">
+            <div class="mx-[10px] md:mx-[50px] justify-center items-center text-[18px]">
+                <p class="text-fuente-secundario text-[25px] mb-[20px]">ESCRITURACION</p>
+
+                <div class="w-full text-fuente-secundario">
+
+                    <p class="">Fecha</p>
+                    <input wire:model = "fecha_escrituracion" type="date"
+                        class="input-pdv mb-[20px] w-full"@if (!$editar_escrituracion) disabled @endif
+                        placeholder="Fecha">
+
+                    <p class="">Numero de escrituracion</p>
+                    <input wire:model = "numero_escrituracion" type="text" class="input-pdv mb-[20px] w-full"
+                        @if (!$editar_escrituracion) disabled @endif placeholder="Numero de escrituracion">
+
+                    <p class="">Notaria</p>
+                    <input wire:model = "notaria" type="text" class="input-pdv mb-[20px] w-full"
+                        @if (!$editar_escrituracion) disabled @endif placeholder="Notaria">
+
+                </div>
             </div>
+            <div class="bottom-0 w-full px-[40px] py-[20px]">
+                <button class="btn-primary w-full mt-[20px] @if ($editar_escrituracion) bg-green-700 @endif"
+                    wire:click="toggle_editar_escrituracion">
+                    @if ($editar_escrituracion)
+                        Aceptar
+                    @else
+                        Editar
+                    @endif
+                </button>
+            </div>
+            <div class="px-[40px] py-[20px]">
+
+                <form wire:submit.prevent="guardar_escritura">
+                    @csrf
+                    <p class="text-fuente-secundario text-[25px]">Subir Escrituracion</p>
+                    <input type="file" wire:model="escritura_pdf"
+                        class="text-fuente-secundario mt-[20px] text-[20px] ">
+                    <br>
+                    <button class="btn-primary mt-[20px]" type="submit">Subir</button>
+                </form>
+                <div class="mt-[20px] @if ($venta->escritura_pdf) h-[1200px] @endif"
+                    id="iframe_container_escritura">
+                    @if ($venta->escritura_pdf)
+                        <iframe data-baseurl="/ver_escritura"
+                            src="{{ route('ver_escritura', ['venta_id' => $venta->id]) }}" id="iframe_escritura"
+                            width="100%" height="100%" frameborder="0"></iframe>
+                    @endif
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
 </div>
 <!--FIN-->
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script>
+   
     window.addEventListener('advertencia_ticket', event => {
         Swal.fire({
             title: "¿Abonar?",
@@ -344,6 +438,8 @@
         });
     });
 
+
+
     window.addEventListener('ticket_creado', event => {
         Swal.fire({
             position: 'center-middle',
@@ -354,6 +450,9 @@
         })
     });
 
+
+
+
     window.addEventListener('contrato_subido', event => {
         Swal.fire({
             position: 'center-middle',
@@ -361,7 +460,7 @@
             title: 'Contrato Almacenado',
             showConfirmButton: false,
             timer: 1500,
-        })
+        });
 
         const venta_id = event.detail[0].venta_id;
 
@@ -384,4 +483,66 @@
             }
         }
     });
+
+    window.addEventListener('escritura_subida', event => {
+        Swal.fire({
+            position: 'center-middle',
+            icon: 'success',
+            title: 'Escritura Almacenada',
+            showConfirmButton: false,
+            timer: 1500,
+        });
+
+        const venta_id = event.detail[0].venta_id;
+
+        var iframe = document.getElementById('iframe_escritura');
+        if (iframe) {
+            var baseUrl = iframe.dataset.baseurl;
+            iframe.src = `${baseUrl}/${venta_id}`;
+        } else {
+            iframe = document.createElement('iframe_escritura');
+            iframe.id = 'iframe';
+            iframe.width = '100%';
+            iframe.height = '50%';
+            iframe.frameBorder = '0';
+            iframe.src = `/ver_escritura/${venta_id}`;
+
+            var container = document.getElementById('iframe_container_escritura');
+            if (container) {
+                container.appendChild(iframe);
+                @this.dispatch('render');
+            }
+        }
+    });
+
+
+    window.addEventListener('escritura_success', event => {
+        Swal.fire({
+            position: 'center-middle',
+            icon: 'success',
+            title: 'Cambios Aplicados',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+    });
+
+    window.addEventListener('generar_ticket_abono', event => {
+        $.ajax({
+            url: `/ventas/nueva/generar_contrato/45`,
+            method: 'GET',
+            xhrFields: {
+                responseType: 'blob' // Especifica que la respuesta es un blob (archivo binario)
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: 'application/pdf' });
+                saveAs(blob, 'nombre_del_archivo.pdf');
+            },
+            error: function(xhr, status, error) {
+                // Esta función se ejecutará si la petición falla
+                console.error(xhr, status, error);
+            }
+        })
+    })
+
 </script>
+

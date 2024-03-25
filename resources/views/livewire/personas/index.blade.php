@@ -33,7 +33,7 @@
             <tr class="hover:bg-gray-200 ease-out duration-100 cursor-pointer ">
                 <td class="td" wire:click="edit({{$persona->id}})">
                     <div class="flex items-center gap-x-7">
-                        <div class="min-w-[50px]">
+                        <div class="min-w-[50px] hidden">
                             <img src="{{ $persona->foto }}" alt="" class="w-[70px] rounded-md">    
                         </div>
                         <div>

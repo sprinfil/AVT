@@ -27,6 +27,7 @@ class ArchivosController extends Controller
         //convertir la ruta en vez de public a storage
         $url_archivo = Storage::url($archivo);
 
+
         //crear los archivos
         $archivo = new Archivo();
         $archivo->url =  $url_archivo;

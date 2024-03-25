@@ -62,6 +62,7 @@ class NuevaVenta extends Component
     public $fecha_primer_abono_mostrar;
     public $fecha_primer_abono;
     public $no_contrato;
+    public $fecha_contrato;
 
 
 
@@ -149,6 +150,7 @@ class NuevaVenta extends Component
     public function mount(){
         $this->fecha_primer_abono_mostrar = Carbon::now()->addMonths(1)->format('Y-m-d');
         $this->fecha_primer_abono = Carbon::now()->addMonths(1);
+        $this->fecha_contrato = Carbon::now()->format('Y-m-d');
     }
 
     public function actualizarFiltroComprador(){
@@ -297,7 +299,7 @@ class NuevaVenta extends Component
         $venta->pago_con = $this->pago_con_efectivo != null ? $this->pago_con_efectivo : null;
         $venta->cambio = $this->cambio_efectivo != null ? $this->cambio_efectivo : null;
         $venta->no_contrato = $this->no_contrato;
-        $venta->fecha = Carbon::now()->format('Y-m-d h:i:s');
+        $venta->fecha = $this->fecha_contrato;
         if($this->referencia_credito != null){
             $venta->referencia = $this->referencia_credito;
         }
@@ -308,7 +310,7 @@ class NuevaVenta extends Component
         if($this->metodo_pago == "CONTADO"){
             $venta->proximo_cobro = null;
             $lote = Lote::find($this->loteSeleccionado->id);
-            $lote->estado = "VENDIDO";
+            $lote->estado = "PAGADO";
             $lote->save();
         }else{
             $venta->proximo_cobro = $this->fecha_primer_abono;

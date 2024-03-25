@@ -94,7 +94,7 @@
                                             {{ $lote->estado }}
                                         </div>
                                     @endif
-                                    @if($lote->estado == "VENDIDO")
+                                    @if($lote->estado == "PAGADO")
                                     <div class="px-2 py-2 bg-blue-700">
                                         {{ $lote->estado }}
                                     </div>
