@@ -200,6 +200,7 @@ class NuevaVenta extends Component
             $this->zonaMostrar = $this->zonaSeleccionada->nombre;
             $this->vendedorSeleccionado = $this->zonaSeleccionada->dueno;
             $this->vendedorMostrar = $this->zonaSeleccionada->dueno->nombreCompleto();
+            $this->no_contrato = $this->zonaSeleccionada->numero;
         }
     }
 

@@ -21,7 +21,7 @@
                             Numero
                         </th>
                         <th scope="col">
-                            Dueño
+                            Propietario
                         </th>
                         <th scope="col">
                             Lotes
@@ -100,7 +100,7 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <label for="dueno_id" class="block text-gray-700 text-sm font-bold mb-2">Dueño</label>
+                                            <label for="dueno_id" class="block text-gray-700 text-sm font-bold mb-2">Propietario</label>
                                             <input type="text" class="input-pdv mb-[15px]" placeholder="Buscar..." wire:model="filtroNombre" wire:input="actualizarFiltroNombre">
                                             <select wire:model="dueno_id" id="dueno_id" name="dueno_id" class="input-pdv">
                                                 @if ($this->editando == true)
@@ -114,6 +114,11 @@
                                         </div>
 
                                         @if (!$this->editando)
+                                            <div class="mb-4">
+                                                <label for="numero_manzanas" class="block text-gray-700 text-sm font-bold mb-2">Número de Manzanas</label>
+                                                <input wire:model="numero_manzanas" type="number" name="numero_manzanas" id="numero_manzanas" placeholder="Número de Manzanas en la Zona" class="input-pdv">
+                                                @error('numero_manzanas') <span class="text-red-500">{{ $message }}</span> @enderror
+                                            </div>
                                             <div class="mb-4">
                                                 <label for="numero_lotes" class="block text-gray-700 text-sm font-bold mb-2">Número de Lotes</label>
                                                 <input wire:model="numero_lotes" type="number" name="numero_lotes" id="numero_lotes" placeholder="Número de Lotes en la Zona" class="input-pdv">

@@ -27,6 +27,7 @@ class Index extends Component
 
     public $nombre_dueno_zona;
     public $zona_eliminar;
+    public $numero_manzanas;
 
     protected $rules = [
         'nombre' => 'required|min:5',
@@ -34,6 +35,7 @@ class Index extends Component
         'dueno_id' => 'required|not_in:0',
         'numero_lotes' => 'required|min:1',
         'antecedentes' => 'nullable',
+        'numero_manzanas' => 'numeric',
     ];
 
     public function render()
@@ -75,11 +77,26 @@ class Index extends Component
             'antecedentes' => $this->antecedentes,
         ]);
 
+        $contador_numero_lote = 1;
+        $contador_numero_manzana = 1;
+        $lotes_por_manzana = $this->numero_lotes / $this->numero_manzanas; 
+        //dd($lotes_por_manzana);
+
         for ($i = 0; $i < $this->numero_lotes; $i++) {
+
+            if($contador_numero_lote > $lotes_por_manzana){
+                if($contador_numero_manzana < $this->numero_manzanas){
+                    $contador_numero_lote = 1;
+                    $contador_numero_manzana = $contador_numero_manzana + 1;
+                }
+            }
+
             Lote::create([
-                'lote' => $i + 1, // Asegúrate de que 'numero' es el campo correcto en la tabla 'lotes'.
-                'zona' => $zona->id, // Utilizar directamente el id de la zona creada.
+                'lote' => $contador_numero_lote, 
+                'zona' => $zona->id, 
+                'manzana' => $contador_numero_manzana,
             ]);
+            $contador_numero_lote = $contador_numero_lote + 1;
         }
 
         $this->aceptar();
