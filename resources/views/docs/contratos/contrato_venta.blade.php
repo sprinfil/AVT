@@ -100,14 +100,16 @@
     img{
         position: fixed;
         z-index: -10;
-        opacity: 0.3;
+        opacity: 0.2;
+        width: 600px;
+    }
+    .salto-pagina{
+        page-break-after: always;
     }
 </style>
 <body>
     <div class="contenedor-principal">
       
-      
-
         <div class="titulo-principal">
             <h1>CONTRATO DE PROMESA DE VENTA CON RESERVA DE DOMINIO</h1>
         </div>
@@ -233,18 +235,17 @@
         <div class="parrafo">
             <span class="negrita">TERCERA. - </span>El comprador se compromete a pagar el anterior precio como sigue: <br>
             A).- Importe de los productos materia de este contrato ${{ number_format($venta->costo_lote, 2) }}
-            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras($venta->costo_lote) }} 00/100 M.N.)
+            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->costo_lote) }})
             <br>
             B).- Como anticipo la cantidad de ${{ number_format($venta->enganche, 2) }}
-            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras($venta->enganche) }} 00/100 M.N.)
+            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->enganche) }})
             <br>
             C).- Saldo a pagar de ${{ number_format($venta->costo_lote - $venta->enganche, 2) }}
-            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras($venta->costo_lote - $venta->enganche) }}
-            00/100 M.N.) <br>
+            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->costo_lote - $venta->enganche) }}) <br>
             D).- Pagadero en {{ $venta->meses_pagar }}
             ({{ trim(App\Http\Controllers\HerramientasController::convertirNumeroAPalabras2($venta->meses_pagar)) }})
             documentos de ${{ number_format($venta->monto_mes, 2) }}
-            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras($venta->monto_mes) }} 00/100 M.N.)
+            ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->monto_mes) }})
             c/u <br>
             E).- Los documentos tendrán su importe y vencimiento como sigue: <br>
             </p>
@@ -254,7 +255,7 @@
         <div class="titulo-principal">
             <h1>IMPORTE EN MONEDA NACIONAL</h1>
         </div>
-    
+
         @for($x = 0 ; $x < $numero_de_tablas_principales ; $x++)
         <div class="contenedor-importes">
             <table>
@@ -291,6 +292,12 @@
             </table>
         </div>
         @endfor
+
+        @if(count($importes) < 24)
+            <div class="salto-pagina">
+
+            </div>
+        @endif
         @endif
         <br>
     

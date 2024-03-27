@@ -20,7 +20,7 @@
                     <input wire:model.lazy="{{ $field }}" id="{{ $field }}" type="text"
                         placeholder="{{ ucfirst($field) }}"
                         class="input-pdv w-full"
-                        @if ($field == 'lote') required readonly disabled @endif>                      
+                        @if ($field == 'lote') required readonly disabled @endif @if(!$toggle_editar) readonly @endif>                       
                         @error($field)
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror
@@ -58,7 +58,7 @@
                         </label>
                         <input wire:model.lazy="{{ $field }}" type="text"
                             placeholder="{{ $label }}"
-                            class="input-pdv w-full">
+                            class="input-pdv w-full"  @if(!$toggle_editar) readonly @endif>
                         @error($field)
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
@@ -69,12 +69,21 @@
 
         <p class="text-fuente-secundario ml-[4px] mb-[10px]">Opciones</p>
         <div class="flex gap-2 mt-6">
-            <button type="submit" class="btn-primary py-2 px-4 rounded">
-                Guardar
-            </button>
+
+            @if($toggle_editar)
+                <button type="submit" class="btn-primary py-2 px-4 rounded">
+                    Guardar
+                </button>
+            @else
+                <div wire:click="toggleEditar" class="btn-primary py-2 px-4 rounded flex items-center justify-center hover:cursor-pointer">
+                    Editar
+                </div>
+            @endif
+
             <button class="btn-primary-red" wire:click="cancelar">Cancelar</button>
         </div>
     </form>
+
 </div>
 
 @section('js')

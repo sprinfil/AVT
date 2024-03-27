@@ -65,11 +65,12 @@ class ReportesController extends Controller
 
         $id_tabla_vista = 0;
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista'));
-        //return $pdf->stream();
+       
 
         $nombreArchivo = 'CONTRATO_NO.' . $venta->no_contrato . '.pdf';
    
-        return $pdf->download($nombreArchivo);
+        //return $pdf->download($nombreArchivo);
+         return $pdf->stream();
         
         /* 
         LOGICA DE LA TABLA
@@ -91,12 +92,13 @@ class ReportesController extends Controller
         //return $pdf->download($nombreArchivo);
         return $pdf->stream();
     }
-    public function generar_anticipo(){
-        $pdf = Pdf::loadView('docs.contratos.anticipo');
+    public function generar_anticipo(Request $request){
+        $venta = Venta::find($request->venta_id);
+        $pdf = Pdf::loadView('docs.contratos.anticipo',compact('venta'));
 
-        //$nombreArchivo = 'PAGARES.' . $this->venta->no_contrato . '.pdf';
-        //return $pdf->download($nombreArchivo);
-        return $pdf->stream();
+        $nombreArchivo = 'ANTICIPO-' . $venta->no_contrato . '.pdf';
+        return $pdf->download($nombreArchivo);
+        //return $pdf->stream();
     }
 
     public function guardar_contrato(Request $request){

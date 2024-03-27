@@ -20,6 +20,8 @@ class Show extends Component
     public $colindancia_noreste_id = '', $colindancia_noroeste_id = '', $colindancia_sureste_id = '', $colindancia_suroeste_id = '',
     $colindancia_norte_id = '', $colindancia_sur_id = '', $colindancia_este_id = '', $colindancia_oeste_id = '';
 
+    public $toggle_editar = false;
+
     public function mount()
     {
         $this->loadLote();
@@ -88,8 +90,8 @@ class Show extends Component
             'colindancia_este_id' => $this->colindancia_este_id !== '' ? $this->colindancia_este_id : null,
             'colindancia_oeste_id' => $this->colindancia_oeste_id !== '' ? $this->colindancia_oeste_id : null,
         ]);
-
-        return redirect()->route('zonas.show' , ['id' => $this->Instance->zona]);
+        $this->toggleEditar();
+        return redirect()->route('lotes.show' , ['id' => $this->Instance->id]);
     }
 
     protected $rules = [
@@ -120,5 +122,13 @@ class Show extends Component
 
     public function cancelar(){
         return redirect()->route('zonas.show', ['id' => $this->Instance->zona]);
+    }
+
+    public function toggleEditar(){
+        if($this->toggle_editar){
+            $this->toggle_editar = false;
+        }else{
+            $this->toggle_editar = true;
+        }
     }
 }

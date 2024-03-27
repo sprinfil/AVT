@@ -16,3 +16,4 @@
 <script src="{{asset('js/jquery.mask.js')}}"></script>
 <script src="{{asset('js/loader.js')}}"></script>
 <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('js/fileSaver.min.js')}}"></script>

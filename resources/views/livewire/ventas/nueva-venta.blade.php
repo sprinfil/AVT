@@ -338,5 +338,27 @@
                 }
             });
         });
+
+        window.addEventListener('generar_contrato', event => {
+            var venta_id = event.detail.venta_id;
+            console.log(venta_id)
+        $.ajax({
+            url: `/ventas/nueva/generar_contrato/${venta_id}`,
+            method: 'GET',
+            xhrFields: {
+                responseType: 'blob' // Especifica que la respuesta es un blob (archivo binario)
+            },
+            success: function(response) {
+                var blob = new Blob([response], { type: 'application/pdf' });
+                saveAs(blob, 'nombre_del_archivo.pdf');
+            },
+            error: function(xhr, status, error) {
+                // Esta función se ejecutará si la petición falla
+                console.error(xhr, status, error);
+            }
+        })
+    })
     </script>
+
+    
 @endsection

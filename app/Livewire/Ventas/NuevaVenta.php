@@ -301,6 +301,7 @@ class NuevaVenta extends Component
         $venta->cambio = $this->cambio_efectivo != null ? $this->cambio_efectivo : null;
         $venta->no_contrato = $this->no_contrato;
         $venta->fecha = $this->fecha_contrato;
+
         if($this->referencia_credito != null){
             $venta->referencia = $this->referencia_credito;
         }
@@ -315,12 +316,13 @@ class NuevaVenta extends Component
             $lote->save();
         }else{
             $venta->proximo_cobro = $this->fecha_primer_abono;
+            $venta->dia_mensualidad = $this->fecha_primer_abono->day;
             $lote = Lote::find($this->loteSeleccionado->id);
             $lote->estado = "EN PROCESO DE VENTA";
             $lote->save();
         }
         $venta->save();   
-
+        //$this->dispatch('generar_contrato', venta_id:$venta->id);
         //CREAR LOS IMPORTES
 
         //ANTICIPO
@@ -343,6 +345,7 @@ class NuevaVenta extends Component
             $importe->venta = $venta->id;
             $importe->save();
         }
+
 
 
         return redirect(route('index_detalle_venta',['venta_id'=>$venta->id]));
