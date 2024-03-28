@@ -6,11 +6,14 @@ use App\Models\Lote;
 use App\Models\Zona;
 use App\Models\Persona;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On; 
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
+    use WithFileUploads;
     public $personas;
     public $dueno_id = 0;
     public $zona;
@@ -28,6 +31,10 @@ class Index extends Component
     public $nombre_dueno_zona;
     public $zona_eliminar;
     public $numero_manzanas;
+
+    public $imagen_contrato;
+    public $imagen_general;
+    public $color;
 
     protected $rules = [
         'nombre' => 'required|min:5',
@@ -70,11 +77,23 @@ class Index extends Component
     {
         $this->validate();
 
+         //guardar imagenes
+         if($this->imagen_contrato){
+            $this->imagen_contrato->storeAs('public/imagenes_zonas', $this->nombre . "_contrato.png");
+         }
+         if( $this->imagen_general){
+            $this->imagen_general->storeAs('public/imagenes_zonas', $this->nombre . "_general.png");
+         }
+
+
         $zona = Zona::create([
             'nombre' => $this->nombre,
             'numero' => $this->numero,
             'dueno_id' => $this->dueno_id,
             'antecedentes' => $this->antecedentes,
+            "imagen_contrato"=> $this->nombre . "_contrato.png",
+            "imagen_general" => $this->nombre . "_general.png",
+            "color" => $this->color,
         ]);
 
         $contador_numero_lote = 1;
@@ -113,12 +132,24 @@ class Index extends Component
         $this->numero = $this->zona->numero;
         $this->nombre_dueno_zona = $this->zona->dueno->nombreCompleto();
         $this->antecedentes = $this->zona->antecedentes;
+        $this->color = $this->zona->color;
 
         $this->abrirModal();
     }
     public function editar($id)
     {
+        //guardar imagenes
+        if($this->imagen_contrato){
+            $this->imagen_contrato->storeAs('public/imagenes_zonas', $this->nombre . "_contrato.png");
+        }
+        if( $this->imagen_general){
+            $this->imagen_general->storeAs('public/imagenes_zonas', $this->nombre . "_general.png");
+        }
+
         $zona = Zona::find($id);
+        $zona->imagen_contrato = $this->nombre . "_contrato.png";
+        $zona->imagen_general = $this->nombre . "_general.png";
+        $zona->color =  $this->color;
         $zona->nombre = $this->nombre;
         $zona->numero = $this->numero;
         $zona->antecedentes = $this->antecedentes;
@@ -128,6 +159,8 @@ class Index extends Component
             $zona->dueno_id = $this->dueno_id;
 
         $zona->save();
+
+
 
         $this->editando();
         $this->cerrarModal();

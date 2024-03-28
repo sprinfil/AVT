@@ -104,7 +104,7 @@
                                             <input type="text" class="input-pdv mb-[15px]" placeholder="Buscar..." wire:model="filtroNombre" wire:input="actualizarFiltroNombre">
                                             <select wire:model="dueno_id" id="dueno_id" name="dueno_id" class="input-pdv">
                                                 @if ($this->editando == true)
-                                                    <option value="" selected >{{ $nombre_dueno_zona }} -- Actual Dueño</option>
+                                                    <option value="" selected >{{ $nombre_dueno_zona }} -- Actual Propietario</option>
                                                 @endif
                                                 @foreach ($personas as $persona)
                                                     <option value="{{ $persona->id }}">{{ $persona->nombre }} {{ $persona->apellido_1 }} {{ $persona->apellido_2 }}</option>
@@ -124,8 +124,25 @@
                                                 <input wire:model="numero_lotes" type="number" name="numero_lotes" id="numero_lotes" placeholder="Número de Lotes en la Zona" class="input-pdv">
                                                 @error('numero_lotes') <span class="text-red-500">{{ $message }}</span> @enderror
                                             </div>
+
                                         @endif
-                                        
+                                        <div class="mb-4">
+                                            <label for="imagen_general" class="block text-gray-700 text-sm font-bold mb-2">Imagen general</label>
+                                            <input wire:model="imagen_general" type="file" name="imagen_general" id="imagen_general" class="input-pdv">
+                                            @error('imagen_general') <span class="text-red-500">{{ $message }}</span> @enderror
+                                            <p>imagen para los reportes</p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="imagen_contrato" class="block text-gray-700 text-sm font-bold mb-2">Imagen para contratos</label>
+                                            <input wire:model="imagen_contrato" type="file" name="imagen_contrato" id="imagen_contrato" class="input-pdv">
+                                            @error('imagen_contrato') <span class="text-red-500">{{ $message }}</span> @enderror
+                                            <p>imagen para los contratos</p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="color" class="block text-gray-700 text-sm font-bold mb-2">color</label>
+                                            <input wire:model="color" type="color" name="color" id="color" class="">
+                                            @error('color') <span class="text-red-500">{{ $message }}</span> @enderror
+                                        </div>
                                         <div class="mb-4">
                                             <label for="precio" class="block text-gray-700 text-sm font-bold mb-2">Antecedentes</label>
                                             <textarea name="antecedentes" id="" cols="30" rows="10" class="input-pdv" wire:model="antecedentes"></textarea>

@@ -51,7 +51,7 @@
     <div class="margenes">
         <div class="contenedor-principal">
 
-            <img src="{{ public_path() }}/imagenes_contratos/girasoles.png" alt="" class="inline-block">
+            <img src="{{ $url_imagen }}" alt="" class="inline-block">
             <p class="inline-block negrita" style="margin: 130px 0px 0px 160px;">Bueno por ${{ number_format($venta->enganche,2) }}</p>
             <p class="parrafo">
                 RECIBÍ DEL <span class="negrita"> C. {{ strtoupper($venta->Comprador->nombreCompleto()) }}</span>, LA CANTIDAD DE ${{ number_format($venta->enganche,2) }} ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->enganche) }}),<br/>
@@ -130,7 +130,7 @@
 
     </div>
             
-    <div style="margin-top: 40px; width:100%; height: 30px; background-color:#FFC000;">
+    <div style="margin-top: 40px; width:100%; height: 30px; background-color:{{ $venta->zona->color }};">
 
     </div>
 </body>

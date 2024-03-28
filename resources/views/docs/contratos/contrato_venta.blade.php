@@ -5,8 +5,9 @@
     }
 
     body{
+        background-image:  url('{{ $url_imagen }}');
         /*background-image:  url('{{ public_path() }}/storage/imagenes/girasoles.png');*/
-        background-image:  url('{{ public_path() }}/imagenes_contratos/girasoles.png');
+        /*background-image:  url('{{ public_path() }}/imagenes_contratos/girasoles.png');*/
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;

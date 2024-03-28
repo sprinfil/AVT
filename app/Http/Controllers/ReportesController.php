@@ -64,7 +64,10 @@ class ReportesController extends Controller
         $gestor_tablas = $this->obtenerArreglo($numero_tablas);
 
         $id_tabla_vista = 0;
-        $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista'));
+
+        $url_imagen = public_path().'/storage/imagenes_zonas/'.$venta->Zona->imagen_contrato;
+
+        $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista','url_imagen'));
        
 
         $nombreArchivo = 'CONTRATO_NO.' . $venta->no_contrato . '.pdf';
@@ -94,11 +97,14 @@ class ReportesController extends Controller
     }
     public function generar_anticipo(Request $request){
         $venta = Venta::find($request->venta_id);
-        $pdf = Pdf::loadView('docs.contratos.anticipo',compact('venta'));
+        $url_imagen = public_path().'/storage/imagenes_zonas/'.$venta->Zona->imagen_general;
+        $pdf = Pdf::loadView('docs.contratos.anticipo',compact('venta','url_imagen'));
+
+   
 
         $nombreArchivo = 'ANTICIPO-' . $venta->no_contrato . '.pdf';
-        return $pdf->download($nombreArchivo);
-        //return $pdf->stream();
+        //return $pdf->download($nombreArchivo);
+        return $pdf->stream();
     }
 
     public function guardar_contrato(Request $request){

@@ -18,7 +18,10 @@ class Zona extends Model
         'nombre',
         'numero',
         'dueno_id',
-        'antecedentes'
+        'antecedentes',
+        "imagen_contrato",
+        "imagen_general",
+        "color",
     ];
 
     public function dueno(){
