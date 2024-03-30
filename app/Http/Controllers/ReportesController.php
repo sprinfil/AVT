@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\PagoDueno;
 use Carbon\Carbon;
 use DateTime;
 use Dompdf\Dompdf;
@@ -180,6 +181,15 @@ class ReportesController extends Controller
         Storage::disk('public')->put($pdfPath, $pdf->output());
 
         return $pdf->download($nombre_recibo_pago);
+    }
+
+    public function generar_pago_dueno(Request $request){
+        $pago = PagoDueno::find($request->pago_id);
+
+        $pdf = Pdf::loadView('docs.pagos.ingresos_periodo',compact('pago'));
+        $nombre_pdf = 'ingreso_periodo';
+        return $pdf->stream();
+        //return $pdf->download($nombre_pdf);
     }
 
     function obtenerArreglo($numero) {

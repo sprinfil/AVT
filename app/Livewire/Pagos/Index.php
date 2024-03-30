@@ -3,6 +3,7 @@
 namespace App\Livewire\Pagos;
 
 use App\Models\ImporteDueno;
+use App\Models\PagoDueno;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,7 @@ class Index extends Component
     
     public function render()
     {
-        $query = ImporteDueno::query();
+        $query = PagoDueno::query();
 
         $pagos = $query->orderBy('id', 'DESC')->paginate(10);
 

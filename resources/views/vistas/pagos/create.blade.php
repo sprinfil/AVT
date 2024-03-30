@@ -13,7 +13,7 @@
     </div>
 
     <!--Cabecera-->
-    <div class=" w-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
+    <div class=" py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde mx-[10px] md:mx-[40px] mt-[30px]">
         <div class="mx-[10px] md:mx-[50px]  justify-between">
             <p class="text-fuente text-[40px] mb-[20px]">Nuevo Pago</p>
         </div>

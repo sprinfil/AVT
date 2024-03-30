@@ -3,6 +3,7 @@
 namespace App\Livewire\Pagos;
 
 use App\Models\ImporteDueno;
+use App\Models\PagoDueno;
 use App\Models\Ticket;
 use App\Models\Venta;
 use App\Models\Zona;
@@ -85,39 +86,42 @@ class NuevoPagoForm extends Component
             $this->dispatch('error_periodo');
             return;
         } else {
-            $ventaIds = Venta::where('zona_id', $this->zona_seleccionada->id)
-                            ->orderBy('id', 'DESC')
-                            ->pluck('id');
+            $desde = Carbon::createFromFormat('Y-m-d', $this->desde)->startOfDay();
+            $hasta = Carbon::createFromFormat('Y-m-d', $this->hasta)->endOfDay();
 
-            $pagos_a_duenos = ImporteDueno::all()->pluck('ticket_id');
-            
-            $tickets = Ticket::whereIn('venta_id', $ventaIds)->whereNotIn('id', $pagos_a_duenos)->get();
+            $validacion = PagoDueno::where('periodo_final','>=',$desde)->where('zona_id', $this->zona_seleccionada->id)->get();
+            if(count($validacion) == 0){
+                $ventaIds = Venta::where('zona_id', $this->zona_seleccionada->id)
+                ->orderBy('id', 'DESC')
+                ->pluck('id');
+                $tickets = Ticket::whereIn('venta_id', $ventaIds)
+                ->where('fecha','>=',$desde)->where('fecha','<=',$hasta)
+                ->get();
 
-            if (count($tickets) > 0){
-                foreach($tickets as $ticket){
-                    $pago = ImporteDueno::where('venta', $ticket->venta_id)->orderBy('id', 'DESC')->first();
-    
-                    $importe_pago_a_dueno = new ImporteDueno();
-                    
-                    if ($pago){
-                        $importe_pago_a_dueno->numero = $pago->numero + 1;
-                    } else {
-                        $importe_pago_a_dueno->numero = 1;                
+
+                if (count($tickets) > 0){
+                    $monto = 0;
+                    foreach($tickets as $ticket){
+                        $monto += $ticket->cantidad_abonar;
                     }
-                    
-                    $importe_pago_a_dueno->monto = $ticket->cantidad_abonar;
-                    $importe_pago_a_dueno->fecha = Carbon::now()->toDateString();
-                    $importe_pago_a_dueno->venta = $ticket->venta_id;
-                    $importe_pago_a_dueno->metodo = $this->metodo;
-                    $importe_pago_a_dueno->periodo = $this->desde . ' - ' . $this->hasta;
-                    $importe_pago_a_dueno->ticket_id = $ticket->id;
-                                    
-                    $importe_pago_a_dueno->save();
-                }
-                
-                $this->dispatch('pago_realizado');
+
+                    $pago_dueno = new PagoDueno();
+                    $pago_dueno->periodo_inicio = $desde;
+                    $pago_dueno->periodo_final = $hasta;
+                    $pago_dueno->monto = $monto;
+                    $pago_dueno->metodo_pago = $this->metodo;
+                    $pago_dueno->zona_id = $this->zona_seleccionada->id;
+                    $pago_dueno->save();
+
+                    $this->dispatch('pago_realizado', pago_id: $pago_dueno->id);
+                    return redirect(route('generar_pago_dueno',['pago_id'=>$pago_dueno->id]));
+                    }else{
+                        $this->dispatch('no_tickets');
+                        return;
+                    }
+
             } else {
-                $this->dispatch('no_tickets');
+                $this->dispatch('error_periodo');
                 return;
             }
         }
@@ -125,6 +129,6 @@ class NuevoPagoForm extends Component
 
     #[On('realizado')]
     public function realizado(){
-        return redirect(route('pagos'));
+        //return redirect(route('pagos'));
     }
 }

@@ -102,6 +102,7 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/guardar_contrato/{venta_id}','guardar_contrato')->name('guardar_contrato');
         Route::get('/generar_ticket/{ticket_id}','generar_ticket')->name('generar_ticket');
         Route::get('/generar_recibo_pago/{pago_id}','generar_recibo_pago')->name('generar_recibo_pago');
+        Route::get('/generar_pago_dueno/{pago_id}','generar_pago_dueno')->name('generar_pago_dueno');
     });
 
       //VENTAS

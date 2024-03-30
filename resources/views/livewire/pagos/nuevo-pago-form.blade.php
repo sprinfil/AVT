@@ -1,5 +1,5 @@
 <div>
-    <div class="p-5 w-[90%] m-auto mt-5 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde mb-12">
+    <div class="p-5 mx-[10px] md:mx-[40px] m-auto mt-5 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde mb-12">
         <p class="text-white text-xl">Buscar Zona</p>
         <form wire:submit.prevent="submit" class="mt-5">
 
@@ -19,8 +19,8 @@
                 </select>
             </div>
 
-            <div class="sm:block md:flex md:justify-between py-5 px-10">
-                <div class="mb-4 text-white">
+            <div class="sm:block md:flex md:justify-between py-5  hidden">
+                <div class="mb-4 text-white hidden">
                     <p class="text-xl">Información de la Zona</p>
                     <div class="p-2">
                         <p class="font-bold">ID: <span class=" font-normal">{{ $zona_seleccionada->id ?? 'Sin Seleccionar' }}</span></p>
@@ -127,5 +127,29 @@
                 }
             });
         });
+
+        /*
+                window.addEventListener('pago_realizado', event => {
+            const pago_id = event.detail;
+            
+                $.ajax({
+                url: `/generar_pago_dueno/${pago_id}`,
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // Especifica que la respuesta es un blob (archivo binario)
+                },
+                success: function(response) {
+                    var blob = new Blob([response], { type: 'application/pdf' });
+                    saveAs(blob, 'nombre_del_archivo.pdf');
+                },
+                error: function(xhr, status, error) {
+                    // Esta función se ejecutará si la petición falla
+                    console.error(xhr, status, error);
+                }
+            })
+
+        });
+        */
+
     </script>
 @endsection
