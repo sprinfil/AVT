@@ -19,7 +19,7 @@
                 </select>
             </div>
 
-            <div class="sm:block md:flex md:justify-between py-5  hidden">
+            <div class="block   py-5  ">
                 <div class="mb-4 text-white hidden">
                     <p class="text-xl">Información de la Zona</p>
                     <div class="p-2">
@@ -33,7 +33,7 @@
                     <div class="mb-4 text-white">
                         <p class="text-xl">Información del Pago</p>
 
-                        <div class="p-2">                    
+                        <div class="p-2 w-full">                    
                             <label for="zona_seleccionado" class="text-white">Metodo de Pago:</label>
                             <br>
                             <select name="metodo" id="metodo" wire:model='metodo' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -160,7 +160,7 @@
                 },
                 success: function(response) {
                     var blob = new Blob([response], { type: 'application/pdf' });
-                    saveAs(blob, nombre_archivo_2 );
+                    saveAs(blob, nombre_archivo_2);
                 },
                 error: function(xhr, status, error) {
                     // Esta función se ejecutará si la petición falla
