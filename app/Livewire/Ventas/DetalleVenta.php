@@ -41,6 +41,7 @@ class DetalleVenta extends Component
     public $editar_escrituracion = false;
     public $contrato_generado = false;
     public $escritura_pdf;
+    public $numeros_pagados = array();
 
     #[On('render')] 
     public function render()
@@ -102,12 +103,22 @@ class DetalleVenta extends Component
         $ticket->fecha = Carbon::now();
         $ticket->venta_id = $this->venta->id;
         $ticket->persona_id = $this->venta->Comprador->id;
-        $ticket->save();
         $this->abonar();
+        if(count($this->numeros_pagados) == 1){
+            $ticket->numeros_pagados = reset($this->numeros_pagados);
+        }
+        if(count($this->numeros_pagados) == 2){
+            $ticket->numeros_pagados = reset($this->numeros_pagados) . "," . end($this->numeros_pagados);
+        }
+        if(count($this->numeros_pagados) > 2){
+            $ticket->numeros_pagados = reset($this->numeros_pagados) . " A LA " . end($this->numeros_pagados);
+        }
+
         $this->dispatch('ticket_creado');
         $this->refrescar_pago();
         $this->forma_de_pago = null;
-
+        $this->numeros_pagados = null;
+        $ticket->save();
         //return redirect(route('generar_ticket',['ticket_id' => $ticket->id]));
 
     }
@@ -127,6 +138,7 @@ class DetalleVenta extends Component
         ->where('numero','!=',0)
         ->get();
         $id_importe = 0;
+        $importes_pagados = array();
 
         
         while($total_abonos > 0){
@@ -137,10 +149,12 @@ class DetalleVenta extends Component
                     $importes[$id_importe]->monto = 0;
                     $importes[$id_importe]->fecha_liquidacion = Carbon::now()->format('Y-m-d h:i:s');
                     $importes[$id_importe]->save();
+                    $this->numeros_pagados[] = $importes[$id_importe]->numero;
                 }else{
                     $importes[$id_importe]->monto = $importes[$id_importe]->monto - $total_abonos;
                     $total_abonos = 0;
                     $importes[$id_importe]->save();
+                    $this->numeros_pagados[] = $importes[$id_importe]->numero;
                 }
                 $id_importe = $id_importe + 1;
             }else{

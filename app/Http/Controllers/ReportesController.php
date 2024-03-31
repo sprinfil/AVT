@@ -185,9 +185,40 @@ class ReportesController extends Controller
 
     public function generar_pago_dueno(Request $request){
         $pago = PagoDueno::find($request->pago_id);
+        $url_imagen = public_path().'/storage/imagenes_zonas/'.$pago->zona->imagen_contrato;
 
-        $pdf = Pdf::loadView('docs.pagos.ingresos_periodo',compact('pago'));
+        $ventaIds = Venta::where('zona_id', $pago->zona_id)
+        ->orderBy('id', 'DESC')
+        ->pluck('id');
+
+        $pagos = Ticket::whereIn('venta_id', $ventaIds)
+        ->where('fecha','>=',$pago->periodo_inicio)->where('fecha','<=',$pago->periodo_final)
+        ->get();
+
+        
+
+        $pdf = Pdf::loadView('docs.pagos.ingresos_periodo',compact('pago','url_imagen','pagos'));
         $nombre_pdf = 'ingreso_periodo';
+        return $pdf->stream();
+        //return $pdf->download($nombre_pdf);
+    }
+
+    public function generar_tickets_pagos_duenos(Request $request){
+
+        $pago = PagoDueno::find($request->pago_id);
+        $url_imagen = public_path().'/storage/imagenes_zonas/'.$pago->zona->imagen_contrato;
+
+        $ventaIds = Venta::where('zona_id', $pago->zona_id)
+        ->orderBy('id', 'DESC')
+        ->pluck('id');
+
+        $pagos = Ticket::whereIn('venta_id', $ventaIds)
+        ->where('fecha','>=',$pago->periodo_inicio)->where('fecha','<=',$pago->periodo_final)
+        ->get();
+
+
+        $pdf = Pdf::loadView('docs.pagos.tickets_pagos_duenos',compact('pagos'));
+
         return $pdf->stream();
         //return $pdf->download($nombre_pdf);
     }

@@ -89,6 +89,9 @@ class NuevoPagoForm extends Component
             $desde = Carbon::createFromFormat('Y-m-d', $this->desde)->startOfDay();
             $hasta = Carbon::createFromFormat('Y-m-d', $this->hasta)->endOfDay();
 
+            $desde_carbon = Carbon::createFromFormat('Y-m-d', $this->desde);
+            $hasta_carbon = Carbon::createFromFormat('Y-m-d', $this->hasta);
+
             $validacion = PagoDueno::where('periodo_final','>=',$desde)->where('zona_id', $this->zona_seleccionada->id)->get();
             if(count($validacion) == 0){
                 $ventaIds = Venta::where('zona_id', $this->zona_seleccionada->id)
@@ -113,8 +116,16 @@ class NuevoPagoForm extends Component
                     $pago_dueno->zona_id = $this->zona_seleccionada->id;
                     $pago_dueno->save();
 
-                    $this->dispatch('pago_realizado', pago_id: $pago_dueno->id);
-                    return redirect(route('generar_pago_dueno',['pago_id'=>$pago_dueno->id]));
+                    $nombre_archivo = $pago_dueno->zona->nombre . "_INGRESOS_" . $desde_carbon->format('d-m-Y') . "_" . $hasta_carbon->format('d-m-Y');
+                    $nombre_archivo_2 = $pago_dueno->zona->nombre . "_TICKETS_" . $desde_carbon->format('d-m-Y') . "_" . $hasta_carbon->format('d-m-Y');
+
+                    $this->dispatch('pago_realizado', data: 
+                    [
+                        'pago_id' => $pago_dueno->id,
+                        'nombre_archivo' => $nombre_archivo,
+                        'nombre_archivo_2' => $nombre_archivo_2,
+                ]);
+                    //return redirect(route('generar_pago_dueno',['pago_id'=>$pago_dueno->id]));
                     }else{
                         $this->dispatch('no_tickets');
                         return;

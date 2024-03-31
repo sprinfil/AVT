@@ -128,10 +128,14 @@
             });
         });
 
-        /*
+
                 window.addEventListener('pago_realizado', event => {
-            const pago_id = event.detail;
-            
+                const pago_id = event.detail['data']['pago_id'];
+                const nombre_archivo = event.detail['data']['nombre_archivo'];
+                const nombre_archivo_2 = event.detail['data']['nombre_archivo_2'];
+                
+                console.log(event.detail);
+
                 $.ajax({
                 url: `/generar_pago_dueno/${pago_id}`,
                 method: 'GET',
@@ -140,7 +144,23 @@
                 },
                 success: function(response) {
                     var blob = new Blob([response], { type: 'application/pdf' });
-                    saveAs(blob, 'nombre_del_archivo.pdf');
+                    saveAs(blob, nombre_archivo);
+                },
+                error: function(xhr, status, error) {
+                    // Esta función se ejecutará si la petición falla
+                    console.error(xhr, status, error);
+                }
+            })
+
+            $.ajax({
+                url: `/generar_tickets_pagos_duenos/${pago_id}`,
+                method: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // Especifica que la respuesta es un blob (archivo binario)
+                },
+                success: function(response) {
+                    var blob = new Blob([response], { type: 'application/pdf' });
+                    saveAs(blob, nombre_archivo_2 );
                 },
                 error: function(xhr, status, error) {
                     // Esta función se ejecutará si la petición falla
@@ -149,7 +169,7 @@
             })
 
         });
-        */
+    
 
     </script>
 @endsection

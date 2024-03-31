@@ -17,15 +17,13 @@
         @if ($pagos)
             <!--Input de busqueda-->
             <div class="relative mt-[40px]">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input type="text" class="input-pdv pl-10" placeholder="No. Contrato" wire:model="filtroPagos"
-                    wire:input="actualizarFiltroPagos">
+                <p>Zona:</p>
+                <select name="zona" id="zona" class="input-pdv" wire:input = "updateZonaInput" wire:model="selectedZona">
+                    <option value="Cualquiera">Cualquiera</option>
+                    @foreach($zonas as $zona)
+                        <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                    @endforeach
+                </select>
             </div>
         @endif
     
@@ -57,25 +55,16 @@
                                     {{$pago->zona->nombre}}
                                 </td>
                                 <td wire:click="detalle_pagos({{ $pago->id }})">
-                                 {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_inicio)->format('d-m-Y') }} - 
-                                 {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_final)->format('d-m-Y') }}
+                                 {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_inicio)->format('d/m/Y') }} - 
+                                 {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_final)->format('d/m/Y') }}
                                 </td>
                                 <td wire:click="detalle_pagos({{ $pago->id }})">
                                    $ {{ number_format($pago->monto ,2) }}
                                 </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex justify-center">
-                                    <button class="bg-red-600 rounded-lg p-4 mx-2 flex gap-4" wire:click=''>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"></path>
-                                        </svg>
-                                        <p class="pr-[20px]">Generar listado de pagos</p>
-                                    </button>
-                                    <button class="bg-red-600 rounded-lg p-4 mx-2 flex gap-4" wire:click=''>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"></path>
-                                        </svg>
-                                        <p class="pr-[20px]">Generar Tickets</p>
-                                    </button>
+                                   <button class="btn-primary w-full">
+                                    <p>ver</p>
+                                   </button>
                                 </td>
                             </tr>
                         @endforeach                        

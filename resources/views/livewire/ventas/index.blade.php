@@ -183,7 +183,7 @@
             $('.mascara-dinero').mask('000,000,000,000,000', {
                 reverse: true
             });
-            $('.mascara-catastral').mask('0000-0000-0000-0000-0000', {
+            $('.mascara-catastral').mask('000-000-000-000-000', {
             });
         });
     </script>
