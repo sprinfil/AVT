@@ -77,6 +77,8 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/personas/subir-archivos/{persona_id}','index')->name('personas_archivos');
         Route::post('/personas/subir-archivos/store/{persona_id}','store')->name('personas_archivos_store');
         Route::post('/personas/subir-archivos/store_image/{persona_id}','store_image')->name('personas_archivos_store_image');
+        
+        Route::post('/pagos/subir-archivos/store_archivo_pago/{pago_id}','store_archivo_pago')->name('pagos_archivos_store');
     });
 
     //CONFIGURACION
@@ -118,5 +120,6 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(PagosController::class)->group(function () {
         Route::get('/pagos', 'index')->name('pagos');
         Route::get('/pagos/nuevo','create')->name('nuevo_pago'); 
+        Route::get('/pagos/detalle/{pago_id}','detalle')->name('detalle_pago'); 
     });
 });

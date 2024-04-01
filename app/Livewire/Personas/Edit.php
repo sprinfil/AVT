@@ -212,7 +212,7 @@ class Edit extends Component
         $archivo = Archivo::find( $this->archivo_eliminar_id);
         $archivo->delete();
         $this->archivos = Archivo::where('persona',$this->persona->id)->get();
-        return redirect(route('personas_edit',['persona_id' => $this->persona->id]));
+        $this->actualizarDocumentos();
     }
 
     public function eliminar_alert($url,$archivo_id){
@@ -236,7 +236,8 @@ class Edit extends Component
 
     #[On('actualizarDocumentos')] 
     public function actualizarDocumentos(){
-            redirect(route('personas_edit',['persona_id' => $this->persona->id]));
+        $this->archivos = Archivo::where('persona',$this->persona->id)
+        ->where('nombre','!=','foto')->get();
     }
 
     public function editar_archivo($archivo_id){
@@ -245,7 +246,8 @@ class Edit extends Component
 
     #[On('ActualizarArchivos')] 
     public function actualizarArchivos(){
-        redirect(route('personas_edit',['persona_id' => $this->persona->id]));
+        $this->archivos = Archivo::where('persona',$this->persona->id)
+        ->where('nombre','!=','foto')->get();
     }
 
     public function bajaPersona(){

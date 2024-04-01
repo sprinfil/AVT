@@ -16,15 +16,26 @@
     
         @if ($pagos)
             <!--Input de busqueda-->
-            <div class="relative mt-[40px]">
-                <p>Zona:</p>
-                <select name="zona" id="zona" class="input-pdv" wire:input = "updateZonaInput" wire:model="selectedZona">
-                    <option value="Cualquiera">Cualquiera</option>
-                    @foreach($zonas as $zona)
-                        <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
-                    @endforeach
-                </select>
+            <div class="flex gap-2 flex-wrap">
+                <div class="relative mt-[40px]">
+                    <p>Zona:</p>
+                    <select name="zona" id="zona" class="input-pdv" wire:input = "updateZonaInput" wire:model="selectedZona">
+                        <option value="Cualquiera">Cualquiera</option>
+                        @foreach($zonas as $zona)
+                            <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="relative mt-[40px] max-w-[340px]">
+                    <p>Periodo</p>
+                    <div class=" flex gap-1">
+                        <input type="date" class="input-pdv" wire:model="fecha_inicial" wire:input="updateFechaInicialInput">
+                        <p class="pt-[10px]">-</p>
+                        <input type="date" class="input-pdv" wire:model="fecha_final" wire:input="updateFechaFinalInput">
+                    </div>
+                </div>
             </div>
+
         @endif
     
        <!-- Tabla de datos -->
@@ -50,19 +61,19 @@
                 <tbody>
                     @if(count($pagos) > 0)
                         @foreach($pagos as $pago)
-                            <tr class="hover:bg-gray-200 ease-out duration-100 cursor-pointer">
-                                <td wire:click="detalle_pagos({{ $pago->id }})">
+                            <tr class="">
+                                <td>
                                     {{$pago->zona->nombre}}
                                 </td>
-                                <td wire:click="detalle_pagos({{ $pago->id }})">
+                                <td>
                                  {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_inicio)->format('d/m/Y') }} - 
                                  {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_final)->format('d/m/Y') }}
                                 </td>
-                                <td wire:click="detalle_pagos({{ $pago->id }})">
+                                <td>
                                    $ {{ number_format($pago->monto ,2) }}
                                 </td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex justify-center">
-                                   <button class="btn-primary w-full">
+                                   <button class="btn-primary w-full" wire:click = "detalle_pago({{ $pago->id }})">
                                     <p>ver</p>
                                    </button>
                                 </td>

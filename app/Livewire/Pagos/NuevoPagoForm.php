@@ -29,12 +29,12 @@ class NuevoPagoForm extends Component
         $query = Zona::query();
     
         if ($this->nombre_zona != null && $this->nombre_zona != '') {
-            $query->where('nombre', 'LIKE', '%' . $this->nombre_zona . '%');
+            $query->where('nombre', 'LIKE', '%' . $this->nombre_zona . '%')->whereNull('baja');
             $this->zonas = $query->get();
         } else {
             if ($this->zona_seleccionada == null){
                 $this->zona = 'selecciona';
-                $this->zonas = $query->get();
+                $this->zonas = $query->whereNull('baja')->get();
             }
         }
     
@@ -119,13 +119,16 @@ class NuevoPagoForm extends Component
                     $nombre_archivo = $pago_dueno->zona->nombre . "_INGRESOS_" . $desde_carbon->format('d-m-Y') . "_" . $hasta_carbon->format('d-m-Y');
                     $nombre_archivo_2 = $pago_dueno->zona->nombre . "_TICKETS_" . $desde_carbon->format('d-m-Y') . "_" . $hasta_carbon->format('d-m-Y');
 
-                    $this->dispatch('pago_realizado', data: 
+                    /*
+                                        $this->dispatch('pago_realizado', data: 
                     [
                         'pago_id' => $pago_dueno->id,
                         'nombre_archivo' => $nombre_archivo,
                         'nombre_archivo_2' => $nombre_archivo_2,
                 ]);
-                    //return redirect(route('generar_pago_dueno',['pago_id'=>$pago_dueno->id]));
+                    */
+
+                    return redirect(route('detalle_pago',['pago_id'=>$pago_dueno->id]));
                     }else{
                         $this->dispatch('no_tickets');
                         return;

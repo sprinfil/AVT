@@ -50,4 +50,23 @@ class ArchivosController extends Controller
         $persona->foto = $url_archivo;
         $persona->save();
     }
+
+    public function store_archivo_pago(Request $request){
+        // Obtener el nombre original del archivo
+        $nombreOriginal = $request->file('file')->getClientOriginalName();
+
+        // Guardar el archivo con el nombre específico y obtener la ruta
+        $archivo = $request->file('file')->storeAs('public/pagos/archivos/'.$request->pago_id, $nombreOriginal);
+
+        //convertir la ruta en vez de public a storage
+        $url_archivo = Storage::url($archivo);
+
+
+        //crear los archivos
+        $archivo = new Archivo();
+        $archivo->url =  $url_archivo;
+        $archivo->nombre = $nombreOriginal;
+        $archivo->pago_id = $request->pago_id;
+        $archivo->save();
+    }
 }

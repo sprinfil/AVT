@@ -1,16 +1,12 @@
 <div>
-    <div class="p-5 mx-[10px] md:mx-[40px] m-auto mt-5 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde mb-12">
-        <p class="text-white text-xl">Buscar Zona</p>
+    <div class="p-5 mx-[10px] md:mx-[40px] m-auto mt-5 bg-gray-100  shadow-lg rounded-md overflow-x-hidden border-2  mb-12">
+        <p class="text-fuente-secundario text-xl">Buscar Zona</p>
         <form wire:submit.prevent="submit" class="mt-5">
 
-            <div class="my-5">
-                <label for="nombre_zona" class="text-white">Nombre de Zona:</label>
-                <br>
+            <div class="">
                 <input type="text" wire:model='nombre_zona' wire:input='actualizar_filtro' placeholder="Nombre de Zona" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <div class="my-5">
-                <label for="zona_seleccionado" class="text-white">Zona:</label>
-                <br>
+            <div class="">
                 <select name="zona" id="zona" wire:model='zona' wire:change='actualizar_zona' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <option value="selecciona" disabled selected>--Selecciona una Zona--</option>
                     @foreach ($zonas as $zona)
@@ -20,7 +16,7 @@
             </div>
 
             <div class="block   py-5  ">
-                <div class="mb-4 text-white hidden">
+                <div class="mb-4 text-fuente-secundario hidden">
                     <p class="text-xl">Información de la Zona</p>
                     <div class="p-2">
                         <p class="font-bold">ID: <span class=" font-normal">{{ $zona_seleccionada->id ?? 'Sin Seleccionar' }}</span></p>
@@ -30,11 +26,11 @@
                     </div>
                 </div>
                 @if($zona_seleccionada)
-                    <div class="mb-4 text-white">
+                    <div class="mb-4 text-fuente-secundario">
                         <p class="text-xl">Información del Pago</p>
 
                         <div class="p-2 w-full">                    
-                            <label for="zona_seleccionado" class="text-white">Metodo de Pago:</label>
+                            <label for="zona_seleccionado" class="text-fuente-secundario">Metodo de Pago:</label>
                             <br>
                             <select name="metodo" id="metodo" wire:model='metodo' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 <option value='selecciona' disabled selected>--Selecciona un Metodo de Pago--</option>
@@ -45,15 +41,15 @@
                             </select>
                         </div>
                     </div>                
-                    <div class="mb-4 text-white">
+                    <div class="mb-4 text-fuente-secundario">
                         <p class="text-xl">Periodo</p>
 
                         <div class="p-2">                    
-                            <label for="zona_seleccionado" class="text-white">Desde:</label>
+                            <label for="zona_seleccionado" class="text-fuente-secundario">Desde:</label>
                             <br>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" name="desde" id="desde" wire:model='desde'>
                             <br>
-                            <label for="zona_seleccionado" class="text-white">Hasta:</label>
+                            <label for="zona_seleccionado" class="text-fuente-secundario">Hasta:</label>
                             <br>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" name="hasta" id="hasta" wire:model='hasta'>
                         </div>

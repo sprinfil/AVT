@@ -14,4 +14,9 @@ class PagosController extends Controller
     public function create(){
         return view('vistas.pagos.create');
     }
+
+    public function detalle(Request $request){
+        $pago_id = $request->pago_id;
+        return view('vistas.pagos.detalle-pago',compact('pago_id'));
+    }
 }

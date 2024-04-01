@@ -5,7 +5,7 @@
 @vite('resources/css/dropzone.css')
 @vite('resources/css/loader.css')
 @vite('resources/css/fondo.css')
-
+@vite('resources/css/personas/personas.css')
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
