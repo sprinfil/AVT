@@ -66,7 +66,12 @@ class ReportesController extends Controller
 
         $id_tabla_vista = 0;
 
-        $url_imagen = public_path().'/storage/imagenes_zonas/'.$venta->Zona->imagen_contrato;
+        if($venta->Zona->imagen_contrato){
+            $url_imagen = public_path().'/storage/imagenes_zonas/'.$venta->Zona->imagen_contrato;
+        }else{
+            $url_imagen = null;
+        }
+     
 
         $pdf = Pdf::loadView('docs.contratos.contrato_venta',compact('venta','importes','numero_tablas','arreglo_importes','numero_de_tablas_principales','gestor_tablas','id_tabla_vista','url_imagen'));
        

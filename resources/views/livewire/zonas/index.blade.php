@@ -27,6 +27,9 @@
                             Lotes
                         </th>
                         <th scope="col" >
+                            Imagen
+                        </th>
+                        <th scope="col" >
                            
                         </th>
                     </tr>
@@ -45,6 +48,9 @@
                         </td>
                         <td >
                             {{ $zona->lotes->whereNull('baja')->count() }}
+                        </td>
+                        <td >
+                            <img src="{{'/storage/imagenes_zonas/'.$zona->imagen_general}}" alt="" class="w-[75px]">
                         </td>
                         <td >
                             <div class="w-full justify-end flex items-center">

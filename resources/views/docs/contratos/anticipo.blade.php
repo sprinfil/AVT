@@ -50,9 +50,10 @@
 <body>
     <div class="margenes">
         <div class="contenedor-principal">
-
-            <img src="{{ $url_imagen }}" alt="" class="inline-block">
-            <p class="inline-block negrita" style="margin: 130px 0px 0px 160px;">Bueno por ${{ number_format($venta->enganche,2) }}</p>
+            @if($venta->Zona->imagen_general)
+                <img src="{{ $url_imagen }}" alt="" class="inline-block">
+            @endif
+            <p class="inline-block negrita" style=" @if($venta->Zona->imagen_general)margin: 130px 0px 0px 160px;   @else margin: 130px 0px 0px 490px; @endif">Bueno por ${{ number_format($venta->enganche,2) }}</p>
             <p class="parrafo">
                 RECIBÍ DEL <span class="negrita"> C. {{ strtoupper($venta->Comprador->nombreCompleto()) }}</span>, LA CANTIDAD DE ${{ number_format($venta->enganche,2) }} ({{ App\Http\Controllers\HerramientasController::convertirNumeroAPalabras3($venta->enganche) }}),<br/>
                 POR CONCEPTO: <span class="negrita">ANTICIPO DE LA COMPRAVENTA </span> DEL LOTE IDENTIFICADO CON EL NÚMERO <span class="negrita">{{ $venta->Lote->lote ?? 'SIN NUMERO DE LOTE' }}</span>, DE LA MANZANA NÚMERO <span class="negrita">{{ $venta->Lote->manzana ?? 'SIN MANZANA' }}</span>, CON CLAVE CATASTRAL <span class="negrita">{{ $venta->Lote->catastral ?? 'SIN CLAVE CATASTRAL' }}</span>, CON EXTENSIÓN SUPERFICIAL DE <span class="negrita">{{ number_format($venta->Lote->superfice,2)  ?? 'SIN SUPERFICIE' }} M2</span>  ,UBICADO EN CALLE SIN NOMBRE, DENTRO DEL FRACCIONAMIENTO "<span class="">{{ strtoupper($venta->Zona->nombre ) ?? 'SIN ZONA' }}</span>", EN EL MUNICIPIO DE LA PAZ, ESTADO DE BAJA CALIFORNIA SUR. 
