@@ -88,7 +88,7 @@ class Create extends Component
             'estado_civil' => 'nullable',
             'curp' => 'nullable|min:18|max:18',
             'rfc' => 'nullable|min:13|max:13',
-            'ine' => 'nullable|min:10000000000000|max:99999999999999|numeric',
+            'ine' => 'nullable|min:1000000000000|max:9999999999999|numeric',
             'ocupacion' => 'nullable|min:1|max:255',
 
             //direccion
