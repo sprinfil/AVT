@@ -130,6 +130,37 @@
                         </div>
                     </a>
 
+                    <!--///////REPORTES//////-->
+                    <div class=" my-1 p-3 rounded-md flex cursor-pointer active:bg-active bg-principal ease-out duration-500 h-[65px]"
+                        onclick="toggleSubMenu('Reportes')">
+                        <!--Icono-->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-9 h-9 text-fuente-botones">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                        </svg>
+
+
+                        <!--Texto-->
+                        <li
+                            class="text-center font-400 ml-[30px] texto  text-[20px] h-[30px] mt-[5px] text-fuente-botones">
+                            <span>Reportes</span>
+                        </li>
+                    </div>
+                    <!--///////LIsta//////-->
+                    <div class="submenu my-3 ease-out duration-500 ocultar" id="Reportes">
+                        <ul class="">
+                            <a href="{{ route('reportes.pagos') }}">
+                                <div
+                                    class="hover:bg-principal active:bg-active hover:text-fuente-botones ease-out duration-500 rounded-sm py-2">
+                                    <li class="texto  ml-[10px]"><span>Reporte de Pagos</span></li>
+                                </div>
+                            </a>
+                        </ul>
+                    </div>
+
 
                     @admin
                         <!--///////Usuarios//////-->

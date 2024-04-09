@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\PagoDueno;
-use Carbon\Carbon;
 use DateTime;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\Zona;
 use App\Models\Venta;
 use App\Models\Ticket;
 use App\Models\Importe;
-use App\Models\ImporteDueno;
 use App\Models\Persona;
+use App\Models\PagoDueno;
+use App\Models\ImporteDueno;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
@@ -241,5 +242,26 @@ class ReportesController extends Controller
         }
         
         return $arreglo;
+    }
+
+    //REPORTES
+    public function pagos() {
+        return view('vistas.reportes.pagos');
+    }
+
+    public function generar_reporte_pagos(Request $request){
+        $zonas = null;
+        $zona = null;
+        $url_imagen = null;
+
+        if ($request->zona == 'GENERAL'){
+            $zonas = Zona::all();
+        } else {
+            $zona = Zona::find(intval($request->zona));
+            $url_imagen = public_path().'/storage/imagenes_zonas/'.$zona->imagen_general;
+        }
+
+        $pdf = Pdf::loadView('docs.reportes.pagos.reporte',compact('zonas', 'zona', 'url_imagen'));
+        return $pdf->stream();
     }
 }

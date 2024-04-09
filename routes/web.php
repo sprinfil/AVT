@@ -106,6 +106,12 @@ Route::middleware(['auth'])->group(function (){
         Route::get('/generar_recibo_pago/{pago_id}','generar_recibo_pago')->name('generar_recibo_pago');
         Route::get('/generar_pago_dueno/{pago_id}','generar_pago_dueno')->name('generar_pago_dueno');
         Route::get('/generar_tickets_pagos_duenos/{pago_id}','generar_tickets_pagos_duenos')->name('generar_tickets_pagos_duenos');
+
+        //Menu de REPORTES
+        Route::prefix('reportes')->group(function () {
+            Route::get('/pagos', 'pagos')->name('reportes.pagos');
+            Route::get('/generar_reporte_pagos','generar_reporte_pagos')->name('generar_reporte_pagos');
+        });
     });
 
       //VENTAS
