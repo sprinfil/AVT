@@ -7,7 +7,7 @@
     </div>
 
     <!--CONTENEDOR PRINCIPAL-->
-    <div class="grid grid-cols-1 md:grid-cols-2 w-full my-7 gap-x-7 gap-y-7">
+    <div class="grid grid-cols-1 xl:grid-cols-2 w-full my-7 gap-x-7 gap-y-7">
         <!--RESUMEN-->
         <div class="col-span-1 mb-[40px]">
             <div
@@ -78,11 +78,9 @@
                                 <p class="text-fuente">{{ $venta->referencia }}</p>
                             @endif
                         @endif
-                        <button class="btn-primary w-full mt-[20px]" wire:click="generar_contrato"> Generar
-                            Contrato</button>
-                            <a href="{{ route('ventas') }}">
-                                <button class="btn-primary-red w-full mt-[20px]">Volver a ventas</button>
-                            </a>
+                        <a href="{{ route('index_detalle_venta',['venta_id'=>$venta->id]) }}">
+                            <button class="btn-primary w-full mt-[20px]">Ver Compra Venta</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -92,50 +90,73 @@
             <!--IMPORTES-->
             @if (count($importes) > 0)
                 <div class="">
-                    <p class="text-fuente text-[25px] ">IMPORTES Y VENCIMINETOS</p>
+                    <p class="text-fuente-secundario text-[25px] ">IMPORTES Y VENCIMINETOS</p>
                     <!-- Tabla de datos -->
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
 
-                        <table class="w-full text-sm text-left text-gray-400">
-                            <thead class="text-xs text-fuente uppercase bg-gray-700 ">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         Numero
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         Monto
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-fuente text-[13px]">
+                                    <th>
                                         Vencimineto
+                                    </th>
+                                    <th>
+
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($importes as $importe)
-                                    <tr
-                                        class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 transition-all">
-                                        <th scope="row"
-                                            class="cursor-pointer px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente">
-                                            {{ $importe->numero }}
-                                        </th>
-                                        <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                                            $ {{ number_format( $importe->monto ,2)}}
-                                        </td>
-                                        <td class="px-6 py-4 dark:text-fuente cursor-pointer">
-                                            {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $importe->vencimiento)->format('d') }} de 
-                                            {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $importe->vencimiento)->monthName }} del
-                                            {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $importe->vencimiento)->format('Y') }}
-                                        </td>
-                                    </tr>
+                                    @if ($importe->numero != 0)
+                                        <tr>
+                                            <th scope="row">
+                                                {{ $importe->numero }}
+                                            </th>
+                                            <td>
+                                                $ {{ number_format($importe->monto, 2) }}
+                                            </td>
+                                            <td>
+                                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('d') }}
+                                                de
+                                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->monthName }}
+                                                del
+                                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $importe->vencimiento)->format('Y') }}
+                                            </td>
+                                            <td>
+                                                <div class="flex gap-3">
+                                                    <div class="hover:cursor-pointer p-2 bg-gray-100 hover:bg-gray-200 ease-in duration-100 rounded-md" wire:click="modificar_monto_alert({{$importe->id}})">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                          </svg>
+                                                          
+                                                    </div>
+                                                    <div wire:click="reiniciar_monto({{$importe->id}})" class="hover:cursor-pointer p-2 bg-gray-100 hover:bg-gray-200 ease-in duration-100 rounded-md">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                                          </svg>
+                                                          
+                                                    </div>
+                                                </div>
+                                           
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="px-[10px] py-[10px] bg-gray-700">
+                        <div class="links">
                             {{ $importes->links() }}
                         </div>
                         <div>
-                            @if($total_pagar > 0)
-                            <p class="text-fuente text-[20px] mt-[20px]">Monto Restante: $ {{number_format( $total_pagar ,2)}}</p>
+                            @if ($total_pagar > 0)
+                                <p class="text-fuente-secundario text-[20px] mt-[20px]">Monto Restante: $
+                                    {{ number_format($total_pagar, 2) }}</p>
                             @endif
                         </div>
                     </div>
@@ -145,11 +166,32 @@
                     <p class="text-fuente text-[25px]">SIN IMPORTES.</p>
             @endif
         </div>
-
     </div>
 
 
     <!--FIN-->
 </div>
 
+<script>
+    window.addEventListener('modificar_monto_alert', event => {
+        Swal.fire({
+            title: `Nuevo Monto (${event.detail.data['fecha']}):`,
+            input: 'number',
+            inputPlaceholder: `$ ${event.detail.data['monto']}`,
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            showLoaderOnConfirm: true,
+            preConfirm: (monto) => {
+                console.log('Nombre ingresado:', monto);
+                @this.dispatch('validar_importe',[monto]);
+            },
 
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+             
+            }
+        })
+    })
+</script>

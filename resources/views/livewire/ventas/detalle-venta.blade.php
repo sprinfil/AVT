@@ -1,9 +1,14 @@
-<div class="mx-2 md:mx-[60px] mt-[20px]">
+<div class="mx-2 md:mx-[60px] mt-[20px]  mb-[300px]">
     <div>
         <!--Cabecera-->
         <div class=" w-full h-full py-4 bg-terciario shadow-lg rounded-md overflow-x-hidden border-2 border-color-borde">
-            <div class="mx-[10px] md:mx-[50px]  justify-between">
-                <p class="text-fuente text-[40px] mb-[20px]">Contrato No. {{ $venta->no_contrato }}</p>
+            <div class="mx-[10px] md:mx-[50px]  justify-between flex">
+                <div class="flex items-center">
+                    <p class="text-fuente text-[40px] mb-[20px]">Contrato No. {{ $venta->no_contrato }}</p>
+                </div>
+                <div class="w-[200px]">
+                    <img src="{{$url_imagen}}" alt="" class="rounded-md">
+                </div>
             </div>
         </div>
 
@@ -67,6 +72,13 @@
 
                             </div>
                             <!-- Tabla de datos -->
+                            @if(count($tickets ) == 0)
+                            <div class=" mt-[20px]">
+                                <a href="{{route('index_resumen_venta',['venta_id'=>$venta->id])}}" class="btn-primary mt-[20px] py-3">Editar importes</a>
+                            </div>
+                            @endif
+         
+                            
                             <div
                                 class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[30px] no-scrollbar mb-[80px]">
 

@@ -42,6 +42,7 @@ class DetalleVenta extends Component
     public $contrato_generado = false;
     public $escritura_pdf;
     public $numeros_pagados = array();
+    public $url_imagen;
 
     #[On('render')] 
     public function render()
@@ -66,6 +67,8 @@ class DetalleVenta extends Component
         $this->notaria = $this->venta->notaria;
         $this->fecha_escrituracion = $this->fecha_escrituracion != NULL ? Carbon::createFromFormat('Y-m-d H:i:s', $this->venta->fecha_escrituracion)->format('Y-m-d') : null ;
         $this->numero_escrituracion = $this->venta->numero_escritura;
+        //$this->url_imagen = public_path().'/storage/imagenes_zonas/'.$this->venta->Zona->imagen_general;
+        $this->url_imagen = asset('storage/imagenes_zonas/' . $this->venta->Zona->imagen_general);
     }
 
     public function cambio_forma_de_pago(){

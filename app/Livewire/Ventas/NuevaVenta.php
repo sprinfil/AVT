@@ -348,6 +348,7 @@ class NuevaVenta extends Component
 
 
 
-        return redirect(route('index_detalle_venta',['venta_id'=>$venta->id]));
+        //return redirect(route('index_detalle_venta',['venta_id'=>$venta->id]));
+        return redirect(route('index_resumen_venta',['venta_id'=>$venta->id]));
     }
 }
