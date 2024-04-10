@@ -27,7 +27,7 @@
     </div>
     <div class=" px-7 py-7 md:gap-y-0 gap-y-10 md:gap-x-10 grid grid-cols-1 md:grid-cols-3">
             <!--FOTO-->
-            <div>
+            <div class="hidden">
                 <p class="text-fuente text-[16px] ml-[12px] mb-[20px]">Agregar Fotografia:</p>
                 <div class="border-2 border-sky-500 border-dashed rounded-[30px]">
                     <form action="{{route('personas_archivos_store_image',['persona_id'=>$persona_id])}}"
@@ -39,7 +39,7 @@
             </div>
 
         <!--ARCHIVOS-->
-        <div class="col-span-2">
+        <div class="col-span-3">
             <p class="text-fuente text-[16px] ml-[12px] mb-[20px]">Agregar Documentos:</p>
             <div class="border-2 border-sky-500 border-dashed rounded-[30px] w-full">
                 <form action="{{route('personas_archivos_store',['persona_id'=>$persona_id])}}"
