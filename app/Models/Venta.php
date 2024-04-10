@@ -49,4 +49,7 @@ class Venta extends Model
         ->where('monto','>',0)->first();
     }
 
+    public function Importes(){
+        return $this->hasMany(Importe::class, 'venta', 'id');
+    }
 }
