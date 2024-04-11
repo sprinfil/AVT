@@ -9,6 +9,8 @@ class Ticket extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $dates = ['fecha'];
+
 
     public function venta(){
         return $this->hasOne(Venta::class,'id','venta_id');

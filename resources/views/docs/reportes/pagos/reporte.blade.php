@@ -71,6 +71,11 @@
     }
 </style>
 <body>
+    @php
+        use Carbon\Carbon;
+
+        $fechaHoy = now()->startOfDay();
+    @endphp
     @if($zona != null)
         <table style="width:100%; border-collapse: collapse; border:none;">
             <tr>
@@ -105,9 +110,22 @@
                     @php
                         $venta = $contrato;
                         $lote = $venta ? $venta->Lote : null;
-                        $pagosRealizados = $venta ? $venta->Importes->where('monto', 0)->count() : 0;
-                        $importePendiente = $venta ? $venta->Importes->where('monto', '>', 0)->sum('monto') : 0;
-                        $importeTotalPagado = $lote ? floatval($lote->precio) - $importePendiente : 0;
+                        $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
+                        $pagosHechos = $venta->Tickets->count(); // Total de pagos realizados hasta ahora
+                        
+                        // Filtrar los tickets de hoy
+                        $ticketsDeHoy = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
+                            $fechaTicket = Carbon::parse($ticket->fecha);
+                            return $fechaTicket->startOfDay()->equalTo($fechaHoy);
+                        });
+                        $pagosRealizadosHoy = $ticketsDeHoy->count(); // Pagos realizados hoy
+            
+                        // Calcular el rango de pagos de hoy
+                        $primerPagoHoy = $pagosHechos - $pagosRealizadosHoy + 1;
+                        $ultimoPagoHoy = $pagosHechos;
+                        $rangoPagosHoy = $pagosRealizadosHoy > 1 ? "{$primerPagoHoy} al {$ultimoPagoHoy}" : "{$ultimoPagoHoy}";
+            
+                        $totalAbonadoHoy = $ticketsDeHoy->sum('cantidad_abonar'); // Suma de importes de hoy
                     @endphp
                     @if($venta && $lote)
                         <tr>
@@ -117,8 +135,8 @@
                             <td>{{ $lote->catastral }}</td>
                             <td>{{ $lote->lote }}</td>
                             <td>{{ $lote->manzana }}</td>
-                            <td>{{ $pagosRealizados }} | {{ count($venta->Importes) }}</td>
-                            <td>${{ number_format($importeTotalPagado, 2, '.', ',') }}</td>
+                            <td>{{ $rangoPagosHoy }} | {{ $totalPagos }}</td>
+                            <td>${{ number_format($totalAbonadoHoy, 2, '.', ',') }}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -127,11 +145,12 @@
                 <tr>
                     <td colspan="7" style="text-align: right; border-top: 1px solid #000;"><b>Total:</b></td>
                     <td style="text-align: right; border-top: 1px solid #000;">
-                        <b>${{ number_format($zona->contratos->sum(function($contrato) {
-                            $importePendiente = $contrato->Importes->where('monto', '>', 0)->sum('monto');
-                            $importeTotalPagado = floatval($contrato->Lote->precio ?? 0) - $importePendiente;
-                            return $importeTotalPagado;
-                        }), 2, '.', ',') }}</b>
+                        <b>${{ number_format($zona->contratos->flatMap(function($contrato) use ($fechaHoy) {
+                            return $contrato->Tickets->filter(function ($ticket) use ($fechaHoy) {
+                                $fechaTicket = Carbon::parse($ticket->fecha); // Asegúrate de parsear fecha a Carbon
+                                return $fechaTicket->startOfDay()->equalTo($fechaHoy);
+                            })->pluck('cantidad_abonar');
+                        })->sum(), 2, '.', ',') }}</b>
                     </td>
                 </tr>
             </tfoot>
@@ -192,38 +211,50 @@
                 </thead>  
                 @foreach($zona->contratos as $contrato)
                     <tbody>
-                            @php
-                                $venta = $contrato;
-                                $lote = $venta ? $venta->Lote : null;
-                                $pagosRealizados = $venta ? $venta->Importes->where('monto', 0)->count() : 0;
-                                $importePendiente = $venta ? $venta->Importes->where('monto', '>', 0)->sum('monto') : 0;
-                                $importeTotalPagado = $lote ? floatval($lote->precio) - $importePendiente : 0;
-                            @endphp
-                            @if($venta && $lote)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $venta->no_contrato }}</td>
-                                    <td>{{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</td>
-                                    <td>{{ $lote->catastral }}</td>
-                                    <td>{{ $pagosRealizados }} | {{ count($venta->Importes) }}</td>
-                                    <td>${{ number_format($importeTotalPagado, 2, '.', ',') }}</td>
-                                </tr>
-                            @endif
+                        @php
+                            $venta = $contrato;
+                            $lote = $venta ? $venta->Lote : null;
+                            $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
+                            $pagosHechos = $venta->Tickets->count(); // Total de pagos realizados hasta ahora
+                            
+                            // Filtrar los tickets de hoy
+                            $ticketsDeHoy = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
+                                $fechaTicket = Carbon::parse($ticket->fecha);
+                                return $fechaTicket->startOfDay()->equalTo($fechaHoy);
+                            });
+                            $pagosRealizadosHoy = $ticketsDeHoy->count(); // Pagos realizados hoy
+                
+                            // Calcular el rango de pagos de hoy
+                            $primerPagoHoy = $pagosHechos - $pagosRealizadosHoy + 1;
+                            $ultimoPagoHoy = $pagosHechos;
+                            $rangoPagosHoy = $pagosRealizadosHoy > 1 ? "{$primerPagoHoy} al {$ultimoPagoHoy}" : "{$ultimoPagoHoy}";
+                
+                            $totalAbonadoHoy = $ticketsDeHoy->sum('cantidad_abonar'); // Suma de importes de hoy
+                        @endphp
+                        @if($venta && $lote)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $venta->no_contrato }}</td>
+                                <td>{{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</td>
+                                <td>{{ $lote->catastral }}</td>
+                                <td>{{ $rangoPagosHoy }} | {{ $totalPagos }}</td>
+                                <td>${{ number_format($totalAbonadoHoy, 2, '.', ',') }}</td>
+                            </tr>
+                        @endif
                     </tbody>
-                    @php
-                        $subtotal = $zona->contratos->sum(function ($contrato) {
-                            $importePendiente = $contrato->Importes->where('monto', '>', 0)->sum('monto');
-                            $importeTotalPagado = $contrato->Lote ? ($contrato->Lote->precio - $importePendiente) : 0;
-                            return $importeTotalPagado;
-                        });
-                        $totalGeneral += $subtotal; // Acumula los subtotales en el total general
-                    @endphp
                     <tfoot>
+                        @php
+                            $subtotal = $zona->contratos->flatMap(function($contrato) use ($fechaHoy) {
+                                return $contrato->Tickets->filter(function ($ticket) use ($fechaHoy) {
+                                    $fechaTicket = Carbon::parse($ticket->fecha);
+                                    return $fechaTicket->startOfDay()->equalTo($fechaHoy);
+                                })->pluck('cantidad_abonar');
+                            })->sum();
+                            $totalGeneral += $subtotal;
+                        @endphp
                         <tr>
                             <td colspan="5" style="text-align: right; border-top: 1px solid #000;"><b>Subtotal:</b></td>
-                            <td style="text-align: right; border-top: 1px solid #000;">
-                                <b>${{ number_format($subtotal, 2, '.', ',') }}</b>
-                            </td>
+                            <td style="text-align: right; border-top: 1px solid #000;"><b>${{ number_format($subtotal, 2, '.', ',') }}</b></td>
                         </tr>
                     </tfoot>
                 @endforeach

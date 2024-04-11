@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Ticket;
 use App\Models\Importe;
+use App\Models\Persona;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Persona;
 
 class Venta extends Model
 {
@@ -51,5 +52,8 @@ class Venta extends Model
 
     public function Importes(){
         return $this->hasMany(Importe::class, 'venta', 'id');
+    }
+    public function Tickets(){
+        return $this->hasMany(Ticket::class);
     }
 }
