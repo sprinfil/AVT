@@ -50,10 +50,46 @@
             </tr> 
         </thead>    
         <tbody>
+            {{$consecutivo = 0}}
+            @foreach($anticipos as $anticipo)
+                <tr>
+                    <td style="text-align: center;">
+                        {{ $consecutivo = $consecutivo + 1 }}
+                    </td>
+                    <td style="text-align: center;">
+                        {{ $anticipo->Venta->no_contrato }}
+                    </td>
+                    <td>
+                        {{ $anticipo->Venta->Comprador->nombreCompleto() }}
+                    </td>
+                    <td style="text-align: center;">
+                        {{ $anticipo->Venta->Lote->catastral }}
+                    </td>
+                    <td style="text-align: right;">
+                        ANTICIPO
+                    </td>
+                    <td style="text-align: left;">
+                        0
+                    </td>
+                    <td style="text-align: left; align-items:center;">
+                        <table style="border: none;">
+                            <tr><td style="border: none;">$</td><td style="border: none; text-align:right;">{{ number_format( $anticipo->monto ,2)}}</td></tr>
+                        </table>
+                    </td>
+                    <td style="text-align: center;">
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $anticipo->fecha_liquidacion)->format('d')}} /
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $anticipo->fecha_liquidacion)->format('m') }} /
+                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $anticipo->fecha_liquidacion)->format('Y') }}
+                    </td>
+                    <td colspan="2">
+    
+                    </td>
+                </tr>
+            @endforeach
             @foreach($pagos as $pago)
                 <tr>
                     <td style="text-align: center;">
-                        {{ $pago->id }}
+                        {{ $consecutivo = $consecutivo + 1 }}
                     </td>
                     <td style="text-align: center;">
                         {{ $pago->venta->no_contrato }}

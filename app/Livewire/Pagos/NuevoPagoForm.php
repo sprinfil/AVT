@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Pagos;
 
-use App\Models\ImporteDueno;
-use App\Models\PagoDueno;
-use App\Models\Ticket;
-use App\Models\Venta;
-use App\Models\Zona;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Carbon\Carbon;
 use COM;
+use Carbon\Carbon;
+use App\Models\Zona;
+use App\Models\Venta;
+use App\Models\Ticket;
+use App\Models\Importe;
+use Livewire\Component;
+use App\Models\PagoDueno;
+use Livewire\Attributes\On;
+use App\Models\ImporteDueno;
 
 class NuevoPagoForm extends Component
 {
@@ -100,9 +101,12 @@ class NuevoPagoForm extends Component
                 $tickets = Ticket::whereIn('venta_id', $ventaIds)
                 ->where('fecha','>=',$desde)->where('fecha','<=',$hasta)
                 ->get();
+                $anticipos = Importe::whereIn('venta', $ventaIds)->where('numero',0)
+                ->where('fecha_liquidacion','>=',$desde)->where('fecha_liquidacion','<=',$hasta)
+                ->get();
 
 
-                if (count($tickets) > 0){
+                if (count($tickets) > 0 || count($anticipos) > 0){
                     $monto = 0;
                     foreach($tickets as $ticket){
                         $monto += $ticket->cantidad_abonar;

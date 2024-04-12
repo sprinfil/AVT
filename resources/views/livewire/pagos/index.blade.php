@@ -62,8 +62,12 @@
                     @if(count($pagos) > 0)
                         @foreach($pagos as $pago)
                             <tr class="">
-                                <td>
+                                <td >
+                                    @if($pago->zona->imagen_general)
+                                    <img src="{{asset('storage/imagenes_zonas/' . $pago->zona->imagen_general)}}" alt="" class="w-[140px]">
+                                    @else
                                     {{$pago->zona->nombre}}
+                                    @endif
                                 </td>
                                 <td>
                                  {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->periodo_inicio)->format('d/m/Y') }} - 
@@ -72,10 +76,15 @@
                                 <td>
                                    $ {{ number_format($pago->monto ,2) }}
                                 </td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex justify-center">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-fuente flex justify-center gap-3">
                                    <button class="btn-primary w-full" wire:click = "detalle_pago({{ $pago->id }})">
                                     <p>ver</p>
                                    </button>
+                                   @if(auth()->user()->tipo == "ADMIN")
+                                   <button class="btn-primary-red w-full" wire:click = "alerta_eliminar_pago({{ $pago->id }})">
+                                    <p>Eliminar</p>
+                                   </button>
+                                   @endif
                                 </td>
                             </tr>
                         @endforeach                        
@@ -95,4 +104,20 @@
         @endif
     </div>
 </div>    
-
+<script>
+    window.addEventListener('alerta_eliminar_pago', event => {
+        console.log('eliminar pago');
+        Swal.fire({
+                title: "¿Eliminar Pago?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.dispatch('eliminar_pago')
+                }
+            });
+    })
+</script>

@@ -72,6 +72,9 @@
                     <th>
                         Zona
                     </th>
+                    <th>
+
+                    </th>
                     <th >
                         Contrato
                     </th>
@@ -101,10 +104,10 @@
             </thead>
             <tbody>
                 @foreach($ventas as $venta)
-                <tr >
-                    <td>
+                <tr>
+                    <td colspan="2">
                         @if($venta->Zona->imagen_general)
-                        <img src="{{asset('storage/imagenes_zonas/' . $venta->Zona->imagen_general)}}" alt="" class="w-[100px]">
+                        <img src="{{asset('storage/imagenes_zonas/' . $venta->Zona->imagen_general)}}" alt="" class="w-[140px]">
                         @else
                         {{$venta->Zona->nombre}}
                         @endif

@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\PagoDueno;
 use App\Models\ImporteDueno;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Index extends Component
 {
@@ -16,6 +17,7 @@ class Index extends Component
     public $selectedZona = "Cualquiera";
     public $fecha_inicial;
     public $fecha_final;
+    public $pago_eliminar_id;
     
     public function render()
     {
@@ -58,5 +60,16 @@ class Index extends Component
 
     public function updateFechaFinalInput(){
 
+    }
+    public function alerta_eliminar_pago($id){
+        $this->pago_eliminar_id = $id;
+        $this->dispatch('alerta_eliminar_pago');
+    }
+
+    #[On('eliminar_pago')] 
+    public function eliminar_pago(){
+        $pago = PagoDueno::find($this->pago_eliminar_id);
+        $pago->delete();
+        $this->pago_eliminar_id = null;
     }
 }

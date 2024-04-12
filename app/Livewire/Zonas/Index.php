@@ -32,8 +32,8 @@ class Index extends Component
     public $zona_eliminar;
     public $numero_manzanas;
 
-    public $imagen_contrato;
-    public $imagen_general;
+    public $imagen_contrato= null;
+    public $imagen_general =null;
     public $color;
 
     protected $rules = [
@@ -91,8 +91,8 @@ class Index extends Component
             'numero' => $this->numero,
             'dueno_id' => $this->dueno_id,
             'antecedentes' => $this->antecedentes,
-            "imagen_contrato"=> $this->nombre . "_contrato.png",
-            "imagen_general" => $this->nombre . "_general.png",
+            "imagen_contrato"=> $this->imagen_contrato != null ? $this->nombre . "_contrato.png" : null,
+            "imagen_general" => $this->imagen_general != null ? $this->nombre . "_general.png" : null,
             "color" => $this->color,
         ]);
 

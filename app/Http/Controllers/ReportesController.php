@@ -201,9 +201,12 @@ class ReportesController extends Controller
         ->where('fecha','>=',$pago->periodo_inicio)->where('fecha','<=',$pago->periodo_final)
         ->get();
 
+        $anticipos = Importe::whereIn('venta', $ventaIds)->where('numero',0)
+        ->where('fecha_liquidacion','>=',$pago->periodo_inicio)->where('fecha_liquidacion','<=',$pago->periodo_final)
+        ->get();
         
 
-        $pdf = Pdf::loadView('docs.pagos.ingresos_periodo',compact('pago','url_imagen','pagos'));
+        $pdf = Pdf::loadView('docs.pagos.ingresos_periodo',compact('pago','url_imagen','pagos','anticipos'));
         $nombre_pdf = 'ingreso_periodo';
         return $pdf->stream();
         //return $pdf->download($nombre_pdf);

@@ -155,7 +155,7 @@
                             <a href="{{ route('reportes.pagos') }}">
                                 <div
                                     class="hover:bg-principal active:bg-active hover:text-fuente-botones ease-out duration-500 rounded-sm py-2">
-                                    <li class="texto  ml-[10px]"><span>Reporte de Pagos</span></li>
+                                    <li class="texto  ml-[10px]"><span>Ingresos del dia</span></li>
                                 </div>
                             </a>
                         </ul>

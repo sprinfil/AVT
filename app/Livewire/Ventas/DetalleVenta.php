@@ -108,13 +108,31 @@ class DetalleVenta extends Component
         $ticket->persona_id = $this->venta->Comprador->id;
         $this->abonar();
         if(count($this->numeros_pagados) == 1){
-            $ticket->numeros_pagados = reset($this->numeros_pagados);
+            if(reset($this->numeros_pagados)->monto > 0){
+                $ticket->numeros_pagados = "ABONO " . reset($this->numeros_pagados)->numero;
+            }else{
+                if(reset($this->numeros_pagados)->no_abonos > 1){
+                    $ticket->numeros_pagados = "COMPL " . reset($this->numeros_pagados)->numero;
+                }else{
+                    $ticket->numeros_pagados = reset($this->numeros_pagados)->numero;
+                }
+            }
         }
         if(count($this->numeros_pagados) == 2){
-            $ticket->numeros_pagados = reset($this->numeros_pagados) . "," . end($this->numeros_pagados);
+            if(end($this->numeros_pagados)->monto > 0){
+                $ticket->numeros_pagados = reset($this->numeros_pagados)->numero . ", ABONO " . end($this->numeros_pagados)->numero;
+            }else{
+                $ticket->numeros_pagados = reset($this->numeros_pagados)->numero . "," . end($this->numeros_pagados)->numero;
+            }
         }
         if(count($this->numeros_pagados) > 2){
-            $ticket->numeros_pagados = reset($this->numeros_pagados) . " A LA " . end($this->numeros_pagados);
+            if(end($this->numeros_pagados)->monto > 0){
+                $ticket->numeros_pagados = reset($this->numeros_pagados)->numero .
+                " A LA ". $this->numeros_pagados[count($this->numeros_pagados) - 2] .
+                 ", ABONO " . end($this->numeros_pagados)->numero;
+            }else{
+                $ticket->numeros_pagados = reset($this->numeros_pagados)->numero . " A LA " . end($this->numeros_pagados)->numero;
+            }
         }
 
         $this->dispatch('ticket_creado');
@@ -150,14 +168,16 @@ class DetalleVenta extends Component
                 if($total_abonos >= $importes[$id_importe]->monto){
                     $total_abonos = $total_abonos - $importes[$id_importe]->monto;
                     $importes[$id_importe]->monto = 0;
+                    $importes[$id_importe]->no_abonos  = $importes[$id_importe]->no_abonos + 1;
                     $importes[$id_importe]->fecha_liquidacion = Carbon::now()->format('Y-m-d h:i:s');
                     $importes[$id_importe]->save();
-                    $this->numeros_pagados[] = $importes[$id_importe]->numero;
+                    $this->numeros_pagados[] = $importes[$id_importe];
                 }else{
                     $importes[$id_importe]->monto = $importes[$id_importe]->monto - $total_abonos;
+                    $importes[$id_importe]->no_abonos  = $importes[$id_importe]->no_abonos + 1;
                     $total_abonos = 0;
                     $importes[$id_importe]->save();
-                    $this->numeros_pagados[] = $importes[$id_importe]->numero;
+                    $this->numeros_pagados[] = $importes[$id_importe];
                 }
                 $id_importe = $id_importe + 1;
             }else{
