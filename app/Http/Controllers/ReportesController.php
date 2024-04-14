@@ -258,7 +258,7 @@ class ReportesController extends Controller
         $url_imagen = null;
 
         if ($request->zona == 'GENERAL'){
-            $zonas = Zona::all();
+            $zonas = Zona::whereNull('baja');
         } else {
             $zona = Zona::find(intval($request->zona));
             $url_imagen = public_path().'/storage/imagenes_zonas/'.$zona->imagen_general;
