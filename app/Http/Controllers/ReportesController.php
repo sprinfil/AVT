@@ -255,16 +255,17 @@ class ReportesController extends Controller
     public function generar_reporte_pagos(Request $request){
         $zonas = null;
         $zona = null;
+        $fecha = $request->has('fecha') ? Carbon::parse($request->fecha) : now()->startOfDay();
         $url_imagen = null;
 
         if ($request->zona == 'GENERAL'){
-            $zonas = Zona::whereNull('baja');
+            $zonas = Zona::where('baja', null)->orWhere('baja', '')->get();
         } else {
             $zona = Zona::find(intval($request->zona));
             $url_imagen = public_path().'/storage/imagenes_zonas/'.$zona->imagen_general;
         }
 
-        $pdf = Pdf::loadView('docs.reportes.pagos.reporte',compact('zonas', 'zona', 'url_imagen'));
+        $pdf = Pdf::loadView('docs.reportes.pagos.reporte',compact('zonas', 'zona', 'url_imagen', 'fecha'));
         return $pdf->stream();
     }
 }

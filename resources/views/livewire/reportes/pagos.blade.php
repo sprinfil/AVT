@@ -14,6 +14,9 @@
                         <option value="{{ $zona->id }}"> ID: {{ $zona->id }} - Zona: {{ $zona->nombre }}</option>
                     @endforeach
                 </select>
+                <br>
+                <br>
+                <label for="fecha">Fecha:</label><input type="date" id="fecha" wire:model='fecha' class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             
             <div class="block py-5">
@@ -65,15 +68,18 @@
                     var selectZona = document.getElementById('zona');
                     var zonaSeleccionada = selectZona ? selectZona.value : null;     
                     
+                    var inputFecha = document.getElementById('fecha');
+                    var fecha = inputFecha.value;
+                    
                     if (zonaSeleccionada == 'GENERAL'){
-                        var nombreArchivo = "reporte_pagos_" + zonaSeleccionada + '_' + new Date().toISOString() + ".pdf"; // Genera o establece el nombre del archivo
+                        var nombreArchivo = "reporte_pagos_" + zonaSeleccionada + '_' + fecha + ".pdf"; // Genera o establece el nombre del archivo
                     } else {
-                        var nombreArchivo = "reporte_pagos_Zona_" + zonaSeleccionada + '_' + new Date().toISOString() + ".pdf"; // Genera o establece el nombre del archivo
+                        var nombreArchivo = "reporte_pagos_Zona_" + zonaSeleccionada + '_' + fecha + ".pdf"; // Genera o establece el nombre del archivo
                     }
                     
 
                     $.ajax({
-                        url: `/reportes/generar_reporte_pagos?zona=${zonaSeleccionada}`, // Añade el parámetro de zona a la URL
+                        url: `/reportes/generar_reporte_pagos?zona=${zonaSeleccionada}&fecha=${fecha}`, // Añade el parámetro de zona a la URL
                         method: 'GET',  
                         xhrFields: {
                             responseType: 'blob' // Especifica que la respuesta es un blob (archivo binario)

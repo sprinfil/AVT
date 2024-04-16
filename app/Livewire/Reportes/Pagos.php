@@ -8,9 +8,15 @@ use Livewire\Component;
 class Pagos extends Component
 {
     public $zonas;
+    public $fecha;
     public $nombre_zona;
     public $zona = 'selecciona';
     public $zona_seleccionada;
+
+    public function mount()
+    {
+        $this->fecha = now()->format('Y-m-d'); // Set default value for fecha to today's date
+    }
 
     public function render()
     {
