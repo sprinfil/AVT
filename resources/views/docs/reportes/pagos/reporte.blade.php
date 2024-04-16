@@ -92,6 +92,8 @@
         <br>
         <br>
 
+        @php $total = 0; @endphp
+
         <table>
             <thead>
                 <tr>
@@ -111,6 +113,11 @@
                         $venta = $contrato;
                         $lote = $venta ? $venta->Lote : null;
                         $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
+
+                        // Revisa si hay un anticipo para esta venta en la fecha seleccionada.
+                        $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
+                            return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
+                        });
                         
                         $ticketsDelDia = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
                             return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
@@ -122,9 +129,19 @@
             
                         $ultimoPagoRealizado = $ticketsDelDia->sortByDesc('fecha')->first();
                         $numeroUltimoPago = $ultimoPagoRealizado ? $ultimoPagoRealizado->numeros_pagados : null; // Puede ser null si no hay pagos.
-            
-                        $textoUltimoPago = $numeroUltimoPago ?? 'Anticipo';
+                        
+                        $totalAbonadoHoy = 0;
+                        
+                        if ($anticipo) {
+                            $textoUltimoPago = 'Anticipo';
+                            $totalAbonadoHoy = $anticipo->monto; // Asume que 'monto' es el campo para el importe del anticipo.
+                        } else {
+                            $textoUltimoPago = $numeroUltimoPago ?? 'Sin pagos';
+                            $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar');
+                        }
+
                         $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar'); // Suma de importes de ese día.
+                        $total += $totalAbonadoHoy;
                     @endphp
                     @if($venta && $lote)
                         <tr>
@@ -143,14 +160,7 @@
             <tfoot>
                 <tr>
                     <td colspan="7" style="text-align: right; border-top: 1px solid #000;"><b>Total:</b></td>
-                    <td style="text-align: right; border-top: 1px solid #000;">
-                        <b>${{ number_format($zona->contratos->flatMap(function($contrato) use ($fechaHoy) {
-                            return $contrato->Tickets->filter(function ($ticket) use ($fechaHoy) {
-                                $fechaTicket = Carbon::parse($ticket->fecha); // Asegúrate de parsear fecha a Carbon
-                                return $fechaTicket->startOfDay()->equalTo($fechaHoy);
-                            })->pluck('cantidad_abonar');
-                        })->sum(), 2, '.', ',') }}</b>
-                    </td>
+                    <td style="text-align: right; border-top: 1px solid #000;"><b>${{ number_format($total, 2, '.', ',') }}</b></td>
                 </tr>
             </tfoot>
         </table>
@@ -168,7 +178,7 @@
             </tr>
             <tr>
                 <td style="border: 1px solid #000; padding: 10px 5px;">Fecha:</td>
-                <td style="border: 1px solid #000; padding: 10px 5px;" colspan="3">{{ now()->format('d, M Y') }}</td>
+                <td style="border: 1px solid #000; padding: 10px 5px;" colspan="3">{{ $fechaHoy->format('d, M Y') }}</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #000; padding: 10px 5px;">Fecha de entrega:</td>
@@ -215,6 +225,11 @@
                                 $venta = $contrato;
                                 $lote = $venta ? $venta->Lote : null;
                                 $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
+
+                                // Revisa si hay un anticipo para esta venta en la fecha seleccionada.
+                                $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
+                                    return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
+                                });
                                 
                                 $ticketsDelDia = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
                                     return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
@@ -227,8 +242,14 @@
                                 $ultimoPagoRealizado = $ticketsDelDia->sortByDesc('fecha')->first();
                                 $numeroUltimoPago = $ultimoPagoRealizado ? $ultimoPagoRealizado->numeros_pagados : null; // Puede ser null si no hay pagos.
                     
-                                $textoUltimoPago = $numeroUltimoPago ?? 'Anticipo';
-                                $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar'); // Suma de importes de ese día.
+                                if ($anticipo) {
+                                    $textoUltimoPago = 'Anticipo';
+                                    $totalAbonadoHoy = $anticipo->monto; // Asume que 'monto' es el campo para el importe del anticipo.
+                                } else {
+                                    $textoUltimoPago = $numeroUltimoPago ?? 'Sin pagos';
+                                    $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar');
+                                }
+
                                 $subtotalZona += $totalAbonadoHoy;
                             @endphp
                             @if($venta && $lote)
