@@ -92,8 +92,6 @@
         <br>
         <br>
 
-        @php $total = 0; @endphp
-
         <table>
             <thead>
                 <tr>
@@ -108,6 +106,8 @@
                 </tr>
             </thead>    
             <tbody>
+                @php $total = 0; @endphp
+
                 @foreach($zona->contratos as $contrato)
                     @php
                         $venta = $contrato;
@@ -123,7 +123,7 @@
                             return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
                         });
             
-                        if ($ticketsDelDia->isEmpty()) {
+                        if ($ticketsDelDia->isEmpty() && !$anticipo) {
                             continue; // Si no hay tickets para la fecha seleccionada, no incluir esta venta.
                         }
             
@@ -140,7 +140,6 @@
                             $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar');
                         }
 
-                        $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar'); // Suma de importes de ese día.
                         $total += $totalAbonadoHoy;
                     @endphp
                     @if($venta && $lote)
@@ -235,7 +234,7 @@
                                     return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
                                 });
                     
-                                if ($ticketsDelDia->isEmpty()) {
+                                if ($ticketsDelDia->isEmpty() && !$anticipo) {
                                     continue; // Si no hay tickets para la fecha seleccionada, no incluir esta venta.
                                 }
                     
