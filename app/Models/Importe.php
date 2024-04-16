@@ -10,6 +10,7 @@ class Importe extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $dates = ['vencimiento'];
 
     public function Venta(){
         return $this->hasOne(Venta::class,'id','venta');
