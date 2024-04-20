@@ -40,9 +40,9 @@ class Index extends Component
         'nombre' => 'required|min:5',
         'numero' => 'required|numeric|min:1',
         'dueno_id' => 'required|not_in:0',
-        'numero_lotes' => 'required|min:1',
+        'numero_lotes' => '',
         'antecedentes' => 'nullable',
-        'numero_manzanas' => 'numeric',
+        'numero_manzanas' => '',
     ];
 
     public function render()
@@ -96,19 +96,23 @@ class Index extends Component
             "color" => $this->color,
         ]);
 
-        $contador_numero_lote = 1;
-        $contador_numero_manzana = 1;
-        $lotes_por_manzana = $this->numero_lotes / $this->numero_manzanas; 
-        //dd($lotes_por_manzana);
 
-        for ($i = 0; $i < $this->numero_lotes; $i++) {
-
-            if($contador_numero_lote > $lotes_por_manzana){
-                if($contador_numero_manzana < $this->numero_manzanas){
-                    $contador_numero_lote = 1;
-                    $contador_numero_manzana = $contador_numero_manzana + 1;
+        if($this->numero_lotes && $this->numero_manzanas){
+            $contador_numero_lote = 1;
+            $contador_numero_manzana = 1;
+            $lotes_por_manzana = $this->numero_lotes / $this->numero_manzanas; 
+            //dd($lotes_por_manzana);
+    
+            for ($i = 0; $i < $this->numero_lotes; $i++) {
+    
+                if($contador_numero_lote > $lotes_por_manzana){
+                    if($contador_numero_manzana < $this->numero_manzanas){
+                        $contador_numero_lote = 1;
+                        $contador_numero_manzana = $contador_numero_manzana + 1;
+                    }
                 }
-            }
+        }
+
 
             Lote::create([
                 'lote' => $contador_numero_lote, 

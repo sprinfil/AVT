@@ -28,11 +28,6 @@ class Create extends Component
                         ->orderBy('id', 'desc')
                         ->first();
 
-        if($ultimoLote){
-            $this->lote = $ultimoLote->lote + 1;
-        }else{
-            $this->lote = 1;
-        }  
 
 
         return view('livewire.lotes.create', ['zona' => $this->zona]);

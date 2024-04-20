@@ -13,7 +13,7 @@
 
     <div class="mb-6 mt-[20px]">
         <form>
-            <label for="filtro" class="text-fuente">Filtrar por:</label> <br>
+            <label for="filtro" class="text-fuente-secundario">Filtrar por:</label> <br>
             <select wire:model="filtro" name="filtro" id="filtro" class="input-pdv"
                 wire:input="actualizarNumFiltro">
                 <option value="0">Sin filtro</option>

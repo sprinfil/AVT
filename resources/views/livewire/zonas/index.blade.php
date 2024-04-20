@@ -121,13 +121,13 @@
 
                                         @if (!$this->editando)
                                             <div class="mb-4">
-                                                <label for="numero_manzanas" class="block text-gray-700 text-sm font-bold mb-2">Número de Manzanas</label>
-                                                <input wire:model="numero_manzanas" type="number" name="numero_manzanas" id="numero_manzanas" placeholder="Número de Manzanas en la Zona" class="input-pdv">
+                                                <label for="numero_manzanas" class="block text-gray-700 text-sm font-bold mb-2 hidden">Número de Manzanas</label>
+                                                <input wire:model="numero_manzanas" type="number" name="numero_manzanas" id="numero_manzanas" placeholder="Número de Manzanas en la Zona" class="input-pdv hidden">
                                                 @error('numero_manzanas') <span class="text-red-500">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="mb-4">
-                                                <label for="numero_lotes" class="block text-gray-700 text-sm font-bold mb-2">Número de Lotes</label>
-                                                <input wire:model="numero_lotes" type="number" name="numero_lotes" id="numero_lotes" placeholder="Número de Lotes en la Zona" class="input-pdv">
+                                                <label for="numero_lotes" class="block text-gray-700 text-sm font-bold mb-2 hidden">Número de Lotes</label>
+                                                <input wire:model="numero_lotes" type="number" name="numero_lotes" id="numero_lotes" placeholder="Número de Lotes en la Zona" class="input-pdv hidden">
                                                 @error('numero_lotes') <span class="text-red-500">{{ $message }}</span> @enderror
                                             </div>
 
