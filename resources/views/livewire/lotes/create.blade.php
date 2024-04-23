@@ -21,7 +21,7 @@
                     <input wire:model.lazy="{{ $field }}" id="{{ $field }}" type="text"
                         placeholder="{{ ucfirst($field) }}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                         @if ($field == 'lote') required readonly disabled @endif>
+                         >
                     @error($field)
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror

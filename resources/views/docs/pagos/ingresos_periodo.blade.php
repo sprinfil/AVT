@@ -69,7 +69,7 @@
                         ANTICIPO
                     </td>
                     <td style="text-align: left;">
-                        0
+                        {{$anticipo->Venta->meses_pagar}}
                     </td>
                     <td style="text-align: left; align-items:center;">
                         <table style="border: none;">

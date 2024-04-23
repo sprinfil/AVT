@@ -20,7 +20,7 @@
                     <input wire:model.lazy="{{ $field }}" id="{{ $field }}" type="text"
                         placeholder="{{ ucfirst($field) }}"
                         class="input-pdv w-full"
-                        @if ($field == 'lote') required readonly disabled @endif @if(!$toggle_editar) readonly @endif>                       
+                         @if(!$toggle_editar) readonly @endif>                       
                         @error($field)
                         <span class="text-red-500 text-xs">{{ $message }}</span>
                     @enderror
