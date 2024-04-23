@@ -88,72 +88,65 @@
             </tr>
         </table>
 
-        <br>
-        <br>
-        <br>
+        <br><br><br>
 
         <table>
             <thead>
                 <tr>
-                    <th><b>No.</b></th>
-                    <th><b>Cont.</b></th>
-                    <th><b>Comprador:</b></th>
-                    <th><b>C.C:</b></th>
-                    <th><b>Lote:</b></th>
-                    <th><b>Mza:</b></th>
-                    <th><b>Pagos:</b></th>
-                    <th><b>Importe:</b></th>
+                    <th>No.</th>
+                    <th>Cont.</th>
+                    <th>Comprador:</th>
+                    <th>C.C:</th>
+                    <th>Lote:</th>
+                    <th>Mza:</th>
+                    <th>Detalle Pago:</th>
+                    <th>Importe:</th>
                 </tr>
             </thead>    
             <tbody>
-                @php $total = 0; @endphp
-
+                @php $total = 0; $count = 1; @endphp
                 @foreach($zona->contratos as $contrato)
                     @php
                         $venta = $contrato;
                         $lote = $venta ? $venta->Lote : null;
-                        $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
 
-                        // Revisa si hay un anticipo para esta venta en la fecha seleccionada.
-                        $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
-                            return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
-                        });
-                        
                         $ticketsDelDia = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
                             return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
                         });
-            
-                        if ($ticketsDelDia->isEmpty() && !$anticipo) {
-                            continue; // Si no hay tickets para la fecha seleccionada, no incluir esta venta.
-                        }
-            
-                        $ultimoPagoRealizado = $ticketsDelDia->sortByDesc('fecha')->first();
-                        $numeroUltimoPago = $ultimoPagoRealizado ? $ultimoPagoRealizado->numeros_pagados : null; // Puede ser null si no hay pagos.
-                        
-                        $totalAbonadoHoy = 0;
-                        
+
+                        $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
+                            return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
+                        });
+
                         if ($anticipo) {
-                            $textoUltimoPago = 'Anticipo';
-                            $totalAbonadoHoy = $anticipo->monto; // Asume que 'monto' es el campo para el importe del anticipo.
-                        } else {
-                            $textoUltimoPago = $numeroUltimoPago ?? 'Sin pagos';
-                            $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar');
+                            // Mostrar anticipo como un ticket
+                            $total += $anticipo->monto;
+                            echo '<tr>
+                                    <td>'.$count++.'</td>
+                                    <td>'.$venta->no_contrato.'</td>
+                                    <td>'.$venta->Comprador->nombre.' '.$venta->Comprador->apellido_1.' '.$venta->Comprador->apellido_2.'</td>
+                                    <td>'.$lote->catastral.'</td>
+                                    <td>'.$lote->lote.'</td>
+                                    <td>'.$lote->manzana.'</td>
+                                    <td>Anticipo</td>
+                                    <td>$'.number_format($anticipo->monto, 2, '.', ',').'</td>
+                                </tr>';
                         }
 
-                        $total += $totalAbonadoHoy;
+                        foreach ($ticketsDelDia as $ticket) {
+                            $total += $ticket->cantidad_abonar;
+                            echo '<tr>
+                                    <td>'.$count++.'</td>
+                                    <td>'.$venta->no_contrato.'</td>
+                                    <td>'.$venta->Comprador->nombre.' '.$venta->Comprador->apellido_1.' '.$venta->Comprador->apellido_2.'</td>
+                                    <td>'.$lote->catastral.'</td>
+                                    <td>'.$lote->lote.'</td>
+                                    <td>'.$lote->manzana.'</td>
+                                    <td>'.$ticket->numeros_pagados.'</td>
+                                    <td>$'.number_format($ticket->cantidad_abonar, 2, '.', ',').'</td>
+                                </tr>';
+                        }
                     @endphp
-                    @if($venta && $lote)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $venta->no_contrato }}</td>
-                            <td>{{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</td>
-                            <td>{{ $lote->catastral }}</td>
-                            <td>{{ $lote->lote }}</td>
-                            <td>{{ $lote->manzana }}</td>
-                            <td>{{ $textoUltimoPago }} | {{ $totalPagos }}</td>
-                            <td>${{ number_format($totalAbonadoHoy, 2, '.', ',') }}</td>
-                        </tr>
-                    @endif
                 @endforeach
             </tbody>
             <tfoot>
@@ -164,28 +157,16 @@
             </tfoot>
         </table>
 
-        <br>
-        <br>
-        <br>
-        
-        <table style="width:100%; border:none;"> <!-- Ajuste para espacio entre filas -->
-            <tr>
-                <td style="width: 20%; border: 1px solid #000; padding: 10px 5px;">Vendedor:</td> <!-- Ajuste de ancho y padding -->
-                <td style="width: 30%; border: 1px solid #000; padding: 10px 5px;">{{ $zona->dueno->nombre . ' ' . $zona->dueno->apellido_1 . ' ' . $zona->dueno->apellido_2 }}</td>
-                <td style="width: 20%; border: 1px solid #000; padding: 10px 5px;">Nota:</td>
-                <td style="width: 30%; border: 1px solid #000; padding: 10px 5px;">_____________________________</td>
+        <br><br><br>
+
+        <table class="tabla-firmas">
+            <tr class="fila-firmas">
+                <td>Responsable:</td>
+                <td class="ancho-firma" style="border-bottom: 1px solid #000;">&nbsp;</td>
             </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 10px 5px;">Fecha:</td>
-                <td style="border: 1px solid #000; padding: 10px 5px;" colspan="3">{{ $fechaHoy->format('d, M Y') }}</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 10px 5px;">Fecha de entrega:</td>
-                <td style="border: 1px solid #000; padding: 10px 5px;" colspan="3">_____________________________</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #000; padding: 10px 5px;">Responsable:</td>
-                <td style="border: 1px solid #000; padding: 10px 5px;" colspan="3">_____________________________</td>
+            <tr class="fila-observaciones">
+                <td>Observaciones:</td>
+                <td class="ancho-observaciones" style="border-bottom: 1px solid #000;">&nbsp;</td>
             </tr>
         </table>
     @else
@@ -203,75 +184,71 @@
         @foreach ($zonas as $zona)
             <table class="tabla-total">
                 <tr>
-                    <th colspan="5">{{ $zona->dueno->nombreCompleto() }} - {{ $zona->nombre }}</th>
+                    <th colspan="6">{{ $zona->nombre }}</th>
                 </tr>
             </table>
             <table class="tabla-general">
                 <thead>
                     <tr>
-                        <th><b>No.</b></th>
-                        <th><b>Cont.</b></th>
-                        <th><b>Cliente:</b></th>
-                        <th><b>C.C:</b></th>
-                        <th><b>Pagos:</b></th>
-                        <th><b>Importe:</b></th>
+                        <th>No.</th>
+                        <th>Cont.</th>
+                        <th>Comprador:</th>
+                        <th>C.C:</th>
+                        <th>Detalle Pago:</th>
+                        <th>Importe:</th>
                     </tr>
                 </thead>  
                 <tbody>
-                    @php $subtotalZona = 0; @endphp
-                        @foreach($zona->contratos as $contrato)
-                            @php
-                                $venta = $contrato;
-                                $lote = $venta ? $venta->Lote : null;
-                                $totalPagos = $venta->Importes->count(); // Total de pagos a realizar
+                    @php $subtotalZona = 0; $count = 1; @endphp
+                    @foreach($zona->contratos as $contrato)
+                        @php
+                            $venta = $contrato;
+                            $lote = $venta ? $venta->Lote : null;
 
-                                // Revisa si hay un anticipo para esta venta en la fecha seleccionada.
-                                $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
-                                    return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
-                                });
-                                
-                                $ticketsDelDia = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
-                                    return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
-                                });
-                    
-                                if ($ticketsDelDia->isEmpty() && !$anticipo) {
-                                    continue; // Si no hay tickets para la fecha seleccionada, no incluir esta venta.
-                                }
-                    
-                                $ultimoPagoRealizado = $ticketsDelDia->sortByDesc('fecha')->first();
-                                $numeroUltimoPago = $ultimoPagoRealizado ? $ultimoPagoRealizado->numeros_pagados : null; // Puede ser null si no hay pagos.
-                    
-                                if ($anticipo) {
-                                    $textoUltimoPago = 'Anticipo';
-                                    $totalAbonadoHoy = $anticipo->monto; // Asume que 'monto' es el campo para el importe del anticipo.
-                                } else {
-                                    $textoUltimoPago = $numeroUltimoPago ?? 'Sin pagos';
-                                    $totalAbonadoHoy = $ticketsDelDia->sum('cantidad_abonar');
-                                }
+                            $ticketsDelDia = $venta->Tickets->filter(function ($ticket) use ($fechaHoy) {
+                                return Carbon::parse($ticket->fecha)->startOfDay()->eq($fechaHoy);
+                            });
 
-                                $subtotalZona += $totalAbonadoHoy;
-                            @endphp
-                            @if($venta && $lote)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $venta->no_contrato }}</td>
-                                    <td>{{ $venta->Comprador->nombre . ' ' . $venta->Comprador->apellido_1 . ' ' . $venta->Comprador->apellido_2 }}</td>
-                                    <td>{{ $lote->catastral }}</td>
-                                    <td>{{ $textoUltimoPago }} | {{ $totalPagos }}</td>
-                                    <td>${{ number_format($totalAbonadoHoy, 2, '.', ',') }}</td>
-                                </tr>
-                            @endif
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="5" style="text-align: right; border-top: 1px solid #000;"><b>Subtotal:</b></td>
-                            <td style="text-align: right; border-top: 1px solid #000;"><b>${{ number_format($subtotalZona, 2, '.', ',') }}</b></td>
-                            @php
-                                $totalGeneral += $subtotalZona;
-                            @endphp
-                        </tr>
-                    </tfoot>
+                            $anticipo = $venta->Importes->firstWhere(function ($importe) use ($fechaHoy) {
+                                return Carbon::parse($importe->vencimiento)->startOfDay()->eq($fechaHoy) && $importe->numero == 0;
+                            });
+
+                            if ($anticipo) {
+                                // Mostrar anticipo como un ticket
+                                $subtotalZona += $anticipo->monto;
+                                echo '<tr>
+                                        <td>'.$count++.'</td>
+                                        <td>'.$venta->no_contrato.'</td>
+                                        <td>'.$venta->Comprador->nombre.' '.$venta->Comprador->apellido_1.' '.$venta->Comprador->apellido_2.'</td>
+                                        <td>'.$lote->catastral.'</td>
+                                        <td>Anticipo</td>
+                                        <td>$'.number_format($anticipo->monto, 2, '.', ',').'</td>
+                                    </tr>';
+                            }
+
+                            foreach ($ticketsDelDia as $ticket) {
+                                $subtotalZona += $ticket->cantidad_abonar;
+                                echo '<tr>
+                                        <td>'.$count++.'</td>
+                                        <td>'.$venta->no_contrato.'</td>
+                                        <td>'.$venta->Comprador->nombre.' '.$venta->Comprador->apellido_1.' '.$venta->Comprador->apellido_2.'</td>
+                                        <td>'.$lote->catastral.'</td>
+                                        <td>'.$ticket->numeros_pagados.'</td>
+                                        <td>$'.number_format($ticket->cantidad_abonar, 2, '.', ',').'</td>
+                                    </tr>';
+                            }
+                        @endphp
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: right; border-top: 1px solid #000;"><b>Subtotal:</b></td>
+                        <td style="text-align: right; border-top: 1px solid #000;"><b>${{ number_format($subtotalZona, 2, '.', ',') }}</b></td>
+                        @php
+                            $totalGeneral += $subtotalZona;
+                        @endphp
+                    </tr>
+                </tfoot>
             </table>
         @endforeach
         <table class="tabla-total">
@@ -281,16 +258,12 @@
             </tr>
         </table>
 
-        <br>
-        <br>
-        <br>
+        <br><br><br>
 
         <table class="tabla-firmas">
             <tr class="fila-firmas">
                 <td>Responsable:</td>
-                <td class="ancho-firma" style="border-bottom: 1px solid #000;"> <!-- Para la línea de firma -->
-                    &nbsp; <!-- Espacio no rompible para mantener la altura de la fila -->
-                </td>
+                <td class="ancho-firma" style="border-bottom: 1px solid #000;">&nbsp;</td>
             </tr>
             <tr class="fila-observaciones">
                 <td>Observaciones:</td>
